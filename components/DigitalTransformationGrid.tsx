@@ -5,181 +5,250 @@ import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
 import { 
   ArrowRight, 
-  Cloud, 
+  Layers, 
   Brain, 
-  Cpu, 
+  Cloud, 
   ShieldCheck, 
-  Server, 
-  Home, 
+  Database, 
   Laptop, 
   Workflow, 
   Bot, 
-  Layers,
-  Database,
+  Home, 
+  Code2, 
+  FileSpreadsheet,
   Lock,
-  Wifi,
-  Sparkles
+  Cpu,
+  Sparkles,
+  Wifi
 } from 'lucide-react';
 
-interface ServiceCard {
+interface BentoService {
   id: string;
   title: string;
   desc: string;
-  type: 'white-illustration' | 'photo-overlay' | 'gradient-accent';
+  type: 'white-illustration' | 'dark-photo' | 'blue-graphic';
   imageOrGraphic: React.ReactNode;
-  category: string;
   link: string;
 }
 
 export default function DigitalTransformationGrid() {
-  const cards: ServiceCard[] = [
+  // 12 Cards matching the exact 3-column layout from the Damco reference image
+  const services: BentoService[] = [
+    // --- ROW 1 ---
     {
-      id: 'enterprise-application',
+      id: 'enterprise-app',
       title: 'Enterprise Application',
       desc: 'Transition to a digital enterprise with modern application development and transformation.',
-      type: 'photo-overlay',
-      category: 'Digital Core',
-      link: '#divisions',
+      type: 'dark-photo',
+      link: '/business-solutions',
       imageOrGraphic: (
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/40">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(14,165,233,0.35),transparent_70%)]" />
-          <div className="absolute top-6 right-6 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-cyan-300">
-            <Layers className="size-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-blue-950/40">
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" 
+            alt="Enterprise Application" 
+            className="w-full h-full object-cover opacity-50 group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-cyan-300">
+            <Layers className="size-6" />
           </div>
         </div>
       ),
     },
     {
       id: 'ai-ml',
-      title: 'AI & Automation',
-      desc: 'Future-proof your business with LLM workflows, smart chatbots, and intelligent decision-making.',
+      title: 'AI & ML',
+      desc: 'Future-proof your business with automation, LLM workflows, and smart decision-making.',
       type: 'white-illustration',
-      category: 'Intelligence',
-      link: '#divisions',
+      link: '/business-solutions',
       imageOrGraphic: (
-        <div className="relative h-48 w-full flex items-center justify-center bg-gradient-to-b from-amber-50/60 via-orange-50/40 to-transparent overflow-hidden">
-          <div className="relative p-6 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-violet-600 shadow-xl shadow-rose-500/20 text-white animate-pulse">
-            <Brain className="size-16" />
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-amber-50/50 via-rose-50/30 to-transparent overflow-hidden">
+          {/* 3D Wireframe Brain Illustration */}
+          <div className="relative p-5 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-indigo-600 shadow-xl shadow-rose-500/25 text-white transform group-hover:scale-110 transition-transform duration-500">
+            <Brain className="size-14" />
           </div>
-          <div className="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
+          <div className="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-15" />
         </div>
       ),
     },
     {
+      id: 'cybersecurity-soc',
+      title: 'Cybersecurity & SOC',
+      desc: 'Next-Gen firewalls, 24×7 SOC threat defense, and zero-trust perimeter security.',
+      type: 'blue-graphic',
+      link: '/business-solutions',
+      imageOrGraphic: (
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a2a66] via-[#0b1b3a] to-[#0284c7]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(14,165,233,0.35),transparent_70%)]" />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-rose-400">
+            <ShieldCheck className="size-6" />
+          </div>
+          {/* 3D Isometric Cyber Cube Graphics */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-30">
+            <div className="size-24 border-2 border-cyan-400/40 rounded-2xl transform rotate-45 group-hover:rotate-90 transition-transform duration-700" />
+          </div>
+        </div>
+      ),
+    },
+
+    // --- ROW 2 ---
+    {
       id: 'cloud',
       title: 'Cloud Solutions',
-      desc: 'Experience easy, secure, and faster migration to Azure, AWS, and private enterprise cloud.',
+      desc: 'Experience easy, secure, and faster migration to Microsoft Azure, AWS, and GCP.',
       type: 'white-illustration',
-      category: 'Infrastructure',
-      link: '#divisions',
+      link: '/business-solutions',
       imageOrGraphic: (
-        <div className="relative h-48 w-full flex items-center justify-center bg-gradient-to-b from-sky-50 via-blue-50/50 to-transparent overflow-hidden">
-          <div className="relative p-6 rounded-3xl bg-gradient-to-tr from-sky-400 via-blue-500 to-indigo-500 shadow-xl shadow-sky-500/25 text-white transform hover:scale-105 transition-transform duration-300">
-            <Cloud className="size-16" />
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-sky-50 via-blue-50/40 to-transparent overflow-hidden">
+          {/* 3D Glossy Sky Cloud Illustration */}
+          <div className="relative p-5 rounded-3xl bg-gradient-to-tr from-sky-400 via-blue-500 to-indigo-500 shadow-xl shadow-sky-500/25 text-white transform group-hover:scale-110 transition-transform duration-500">
+            <Cloud className="size-14" />
           </div>
-          {/* Subtle floating cloud accent particles */}
-          <div className="absolute top-4 left-8 size-4 rounded-full bg-sky-200/60 blur-xs" />
-          <div className="absolute bottom-6 right-10 size-6 rounded-full bg-blue-200/50 blur-xs" />
+          <div className="absolute top-4 left-8 size-3.5 rounded-full bg-sky-200/60 blur-xs" />
+          <div className="absolute bottom-6 right-8 size-5 rounded-full bg-blue-200/50 blur-xs" />
+        </div>
+      ),
+    },
+    {
+      id: 'enterprise-data',
+      title: 'Enterprise Data',
+      desc: 'Make informed and data-driven decisions with real-time analytics and BI dashboards.',
+      type: 'dark-photo',
+      link: '/business-solutions',
+      imageOrGraphic: (
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40">
+          <img 
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" 
+            alt="Enterprise Data Analytics" 
+            className="w-full h-full object-cover opacity-50 group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-amber-400">
+            <Database className="size-6" />
+          </div>
         </div>
       ),
     },
     {
       id: 'data-services',
-      title: 'Data & Storage Services',
-      desc: 'High-availability SAN/NAS storage, automated backup disaster recovery, and data conversion.',
+      title: 'Data Recovery & Storage',
+      desc: 'Cleanroom recovery, SAN/NAS storage architecture, and automated disaster backups.',
       type: 'white-illustration',
-      category: 'Data Management',
-      link: '#divisions',
+      link: '/device-care',
       imageOrGraphic: (
-        <div className="relative h-48 w-full flex items-center justify-center bg-gradient-to-b from-purple-50 via-pink-50/30 to-transparent overflow-hidden">
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-purple-50 via-indigo-50/30 to-transparent overflow-hidden">
+          {/* 3D Floating Prism & Cube */}
           <div className="flex items-center gap-3">
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg text-white transform -rotate-6">
-              <Database className="size-10" />
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg text-white transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
+              <Database className="size-9" />
             </div>
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 shadow-lg text-white transform rotate-12">
-              <Server className="size-8" />
+            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-500 shadow-lg text-white transform rotate-12 group-hover:rotate-0 transition-transform duration-300">
+              <Cpu className="size-7" />
             </div>
           </div>
         </div>
       ),
     },
-    {
-      id: 'enterprise-security',
-      title: 'Cybersecurity & SOC',
-      desc: 'Next-Generation Firewalls, 24x7 SOC threat monitoring, and zero-trust perimeter defense.',
-      type: 'photo-overlay',
-      category: 'Cyber Defense',
-      link: '#divisions',
-      imageOrGraphic: (
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-indigo-950/60">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.4),transparent_70%)]" />
-          <div className="absolute top-6 right-6 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-rose-400">
-            <ShieldCheck className="size-10" />
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 'smart-automation',
-      title: 'Smart Living & Automation',
-      desc: 'Intelligent lighting, 4K CCTV surveillance, smart locks, and connected mesh Wi-Fi ecosystems.',
-      type: 'gradient-accent',
-      category: 'Smart Environments',
-      link: '#divisions',
-      imageOrGraphic: (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a2a66] via-[#0b1b3a] to-[#0284c7]">
-          <div className="absolute top-6 right-6 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-amber-300">
-            <Home className="size-10" />
-          </div>
-          <div className="absolute bottom-20 left-8 flex items-center gap-2 text-xs font-mono text-cyan-300">
-            <Wifi className="size-4" />
-            <span>Connected Living</span>
-          </div>
-        </div>
-      ),
-    },
+
+    // --- ROW 3 ---
     {
       id: 'device-care',
-      title: 'Device Care & Logic Board Repair',
-      desc: 'Certified Apple MacBook, laptop, logic board BGA micro-soldering, and cleanroom data recovery.',
-      type: 'white-illustration',
-      category: 'Hardware Engineering',
-      link: '#divisions',
+      title: 'Device Care & Logic Board',
+      desc: 'Certified Apple MacBook repair, laptop hardware diagnostics, and chip micro-soldering.',
+      type: 'dark-photo',
+      link: '/device-care',
       imageOrGraphic: (
-        <div className="relative h-48 w-full flex items-center justify-center bg-gradient-to-b from-slate-50 via-sky-50/40 to-transparent overflow-hidden">
-          <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-800 to-slate-950 text-sky-400 shadow-xl shadow-slate-900/20 border border-slate-700 transform hover:scale-105 transition-transform duration-300">
-            <Cpu className="size-14" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40">
+          <img 
+            src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80" 
+            alt="Device Care & Repair" 
+            className="w-full h-full object-cover opacity-50 group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-sky-400">
+            <Laptop className="size-6" />
           </div>
         </div>
       ),
     },
     {
-      id: 'devops-infra',
+      id: 'devops',
       title: 'DevOps & IT Infrastructure',
-      desc: 'High-speed structured CAT6/Fiber LAN cabling, server racks, SD-WAN, and CI/CD pipelines.',
-      type: 'photo-overlay',
-      category: 'Core Infrastructure',
-      link: '#divisions',
+      desc: 'Embrace high-speed CAT6/Fiber cabling, server racks, SD-WAN, and CI/CD automation.',
+      type: 'white-illustration',
+      link: '/business-solutions',
       imageOrGraphic: (
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-blue-950/50">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_40%,rgba(14,165,233,0.3),transparent_70%)]" />
-          <div className="absolute top-6 right-6 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-cyan-400">
-            <Workflow className="size-10" />
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-indigo-50 via-blue-50/30 to-transparent overflow-hidden">
+          {/* 3D Keyboard Key with Purple DevOps Symbol */}
+          <div className="relative p-5 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-600 shadow-xl shadow-indigo-500/25 text-white transform group-hover:scale-110 transition-transform duration-500">
+            <Workflow className="size-12" />
           </div>
         </div>
       ),
     },
     {
-      id: 'process-automation',
-      title: 'Robotic Process & WhatsApp Automation',
-      desc: 'Meta WhatsApp Business API, CRM integrations, billing sync, and custom enterprise workflows.',
-      type: 'white-illustration',
-      category: 'Digital Operations',
-      link: '#divisions',
+      id: 'rpa-whatsapp',
+      title: 'Robotic & WhatsApp Automation',
+      desc: 'Meta WhatsApp Business API, CRM integrations, billing sync, and automated chatbots.',
+      type: 'blue-graphic',
+      link: '/business-solutions',
       imageOrGraphic: (
-        <div className="relative h-48 w-full flex items-center justify-center bg-gradient-to-b from-emerald-50 via-teal-50/40 to-transparent overflow-hidden">
-          <div className="p-6 rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-xl shadow-emerald-500/25 text-white transform hover:scale-105 transition-transform duration-300">
-            <Bot className="size-14" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1e3f] via-[#0b1b3a] to-[#0284c7]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(14,165,233,0.3),transparent_70%)]" />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-emerald-400">
+            <Bot className="size-6" />
+          </div>
+          {/* Futuristic Robotic Mesh Lines */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-25">
+            <div className="size-28 border border-dashed border-cyan-300 rounded-full animate-spin [animation-duration:20s]" />
+          </div>
+        </div>
+      ),
+    },
+
+    // --- ROW 4 ---
+    {
+      id: 'software-engineering',
+      title: 'Software Engineering',
+      desc: 'Engineer resilient, agile, and custom software products, portals, and cloud microservices.',
+      type: 'white-illustration',
+      link: '/business-solutions',
+      imageOrGraphic: (
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-emerald-50 via-teal-50/30 to-transparent overflow-hidden">
+          {/* 3D Isometric Modular Blocks */}
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-xl shadow-emerald-500/25 text-white transform group-hover:scale-110 transition-transform duration-500">
+            <Code2 className="size-13" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'smart-home',
+      title: 'Smart Home & Living',
+      desc: 'Intelligent lighting, 4K CCTV surveillance, smart door locks, and whole-home mesh Wi-Fi.',
+      type: 'dark-photo',
+      link: '/home-automation',
+      imageOrGraphic: (
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40">
+          <img 
+            src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80" 
+            alt="Smart Home Automation" 
+            className="w-full h-full object-cover opacity-50 group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
+          <div className="absolute top-5 right-5 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-amber-300">
+            <Home className="size-6" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'crm-erp',
+      title: 'CRM & ERP Solutions',
+      desc: 'Break down operational silos and build stronger client workflows with custom ERP suites.',
+      type: 'white-illustration',
+      link: '/business-solutions',
+      imageOrGraphic: (
+        <div className="relative h-44 w-full flex items-center justify-center bg-gradient-to-b from-rose-50 via-amber-50/30 to-transparent overflow-hidden">
+          {/* 3D Cloud Layers */}
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-rose-500 via-orange-500 to-amber-500 shadow-xl shadow-rose-500/25 text-white transform group-hover:scale-110 transition-transform duration-500">
+            <FileSpreadsheet className="size-13" />
           </div>
         </div>
       ),
@@ -192,7 +261,7 @@ export default function DigitalTransformationGrid() {
       aria-labelledby="transformation-heading"
       className="py-20 lg:py-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
     >
-      {/* Background Subtle Tech Highlights */}
+      {/* Subtle Background Glows */}
       <div 
         aria-hidden="true" 
         className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-200/30 blur-[160px] rounded-full"
@@ -200,35 +269,30 @@ export default function DigitalTransformationGrid() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
+        {/* Section Header (Matching Reference Image Header Exactly) */}
         <ScrollReveal animation="fade-up">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-sky-900 shadow-xs">
-              <Sparkles className="size-3.5 text-amber-500" />
-              <span>Full Technology Lifecycle</span>
-            </div>
-
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <h2 
               id="transformation-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0f172a]"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0f172a]"
             >
               Our Services
             </h2>
             
             {/* Signature Red Accent Bar */}
-            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-6 rounded-full" />
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-5 rounded-full" />
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
               Whether you need personal device restoration, smart living automation, or enterprise digital transformation, 
               TSK OneIT delivers end-to-end technology excellence.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* 3-Column Card Grid (Matching Damco Masonry / Bento Layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-          {cards.map((card, idx) => {
-            const isDark = card.type === 'photo-overlay' || card.type === 'gradient-accent';
+        {/* 3-Column Masonry Bento Grid (12 Cards Matching Damco Layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mb-16">
+          {services.map((card, idx) => {
+            const isDark = card.type === 'dark-photo' || card.type === 'blue-graphic';
 
             return (
               <ScrollReveal 
@@ -238,13 +302,13 @@ export default function DigitalTransformationGrid() {
               >
                 <Link
                   href={card.link}
-                  className={`group relative rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_35px_rgba(0,0,0,0.12)] cursor-pointer h-full min-h-[360px] ${
+                  className={`group relative rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.14)] cursor-pointer h-full min-h-[380px] ${
                     isDark 
-                      ? 'bg-slate-900 text-white' 
-                      : 'bg-white text-slate-900 border border-slate-100'
+                      ? 'bg-slate-950 text-white border border-slate-800/80' 
+                      : 'bg-white text-slate-900 border border-slate-200/90 hover:border-slate-300'
                   }`}
                 >
-                  {/* Visual Graphic Header */}
+                  {/* Top Visual Graphic Container */}
                   <div className="relative w-full overflow-hidden">
                     {card.imageOrGraphic}
                   </div>
@@ -281,12 +345,12 @@ export default function DigitalTransformationGrid() {
           })}
         </div>
 
-        {/* Centered "View All Services ->" Button (Matching Damco Reference) */}
+        {/* Centered "View All Services ->" Pill Button (Matching Reference) */}
         <ScrollReveal animation="fade-up" delay={200}>
           <div className="flex justify-center">
             <Link
               href="#divisions"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-lg bg-white border border-[#ef4444] text-[#ef4444] hover:bg-[#ef4444] hover:text-white font-bold text-sm shadow-sm hover:shadow-md transition-all duration-200 group"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white border-2 border-[#ef4444] text-[#ef4444] hover:bg-[#ef4444] hover:text-white font-bold text-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 group"
             >
               <span>View All Services</span>
               <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
