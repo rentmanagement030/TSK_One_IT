@@ -3,246 +3,200 @@
 import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
-import { 
-  ArrowRight, 
-  Layers, 
-  Brain, 
-  Cloud, 
-  ShieldCheck, 
-  Database, 
-  Laptop, 
-  Workflow, 
-  Bot, 
-  Home, 
-  Code2, 
-  FileSpreadsheet,
-  Cpu
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface BentoService {
   id: string;
+  category: string;
   title: string;
   desc: string;
-  type: 'white-card' | 'dark-photo';
+  theme: 'light' | 'dark';
   image: string;
-  graphicOverlay?: React.ReactNode;
   link: string;
 }
 
 export default function DigitalTransformationGrid() {
-  // Column 1 (4 Cards: Dark Photo -> White 3D -> Dark Photo -> White 3D)
+  // 12 Cards with full background images across 3 Staggered Columns
   const col1Cards: BentoService[] = [
     {
       id: 'enterprise-app',
+      category: 'Digital Core',
       title: 'Enterprise Application',
       desc: 'Transition to a digital enterprise with modern application development and transformation.',
-      type: 'dark-photo',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
       link: '/business-solutions',
     },
     {
       id: 'cloud',
+      category: 'Cloud Infrastructure',
       title: 'Cloud Solutions',
       desc: 'Experience easy, secure, and faster migration to Microsoft Azure, AWS, and private enterprise cloud.',
-      type: 'white-card',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="size-16 rounded-2xl bg-gradient-to-tr from-sky-400 via-blue-500 to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-sky-500/25">
-          <Cloud className="size-10" />
-        </div>
-      ),
       link: '/business-solutions',
     },
     {
       id: 'mobility-device',
+      category: 'Hardware Engineering',
       title: 'Device Care & Mobility',
-      desc: 'Certified Apple MacBook repair, laptop hardware diagnostics, and logic board micro-soldering.',
-      type: 'dark-photo',
+      desc: 'Certified Apple MacBook repair, laptop hardware diagnostics, and chip-level logic board micro-soldering.',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
       link: '/device-care',
     },
     {
       id: 'software-engineering',
+      category: 'Custom Engineering',
       title: 'Software Engineering',
-      desc: 'Engineer resilient, agile, and custom software products, customer portals, and microservices.',
-      type: 'white-card',
+      desc: 'Engineer resilient, agile, and custom software products, client portals, and scalable microservices.',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="size-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/25">
-          <Code2 className="size-10" />
-        </div>
-      ),
       link: '/business-solutions',
     },
   ];
 
-  // Column 2 (4 Cards: White 3D -> Dark Photo -> White 3D -> Dark Photo)
   const col2Cards: BentoService[] = [
     {
       id: 'ai-ml',
-      title: 'AI & ML',
-      desc: 'Future-proof your business with automation, LLM workflows, and smart decision-making.',
-      type: 'white-card',
+      category: 'Intelligence & LLMs',
+      title: 'AI & ML Workflows',
+      desc: 'Future-proof your business with intelligent automation, LLM agents, and smart decision-making.',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="size-16 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-rose-500/25 animate-pulse">
-          <Brain className="size-10" />
-        </div>
-      ),
       link: '/business-solutions',
     },
     {
       id: 'enterprise-data',
+      category: 'Analytics & BI',
       title: 'Enterprise Data',
-      desc: 'Make informed and data-driven decisions with real-time analytics and intelligent reporting.',
-      type: 'dark-photo',
+      desc: 'Make informed and data-driven decisions with real-time analytics and intelligent reporting dashboards.',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
       link: '/business-solutions',
     },
     {
       id: 'devops-infra',
+      category: 'Core Infrastructure',
       title: 'DevOps & IT Infrastructure',
-      desc: 'Embrace continuous app delivery, structured CAT6/Fiber LAN cabling, and SD-WAN.',
-      type: 'white-card',
+      desc: 'Embrace continuous application delivery, structured CAT6/Fiber LAN cabling, and SD-WAN networks.',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="size-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-blue-600 text-white flex items-center justify-center shadow-lg shadow-indigo-500/25">
-          <Workflow className="size-10" />
-        </div>
-      ),
       link: '/business-solutions',
     },
     {
       id: 'smart-living',
+      category: 'Connected Living',
       title: 'Smart Home & Living',
-      desc: 'Connected living with intelligent lighting, 4K CCTV surveillance, and whole-home mesh Wi-Fi.',
-      type: 'dark-photo',
+      desc: 'Intelligent lighting, 4K CCTV surveillance, biometric smart locks, and whole-home Wi-Fi mesh.',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80',
       link: '/home-automation',
     },
   ];
 
-  // Column 3 (4 Cards: Blue/Dark Graphic -> White 3D -> Blue/Dark Graphic -> White 3D)
   const col3Cards: BentoService[] = [
     {
       id: 'cybersecurity-soc',
+      category: 'Threat Defense',
       title: 'Cybersecurity & SOC',
-      desc: 'Next-Gen firewalls, 24×7 SOC threat defense, and zero-trust perimeter protection.',
-      type: 'dark-photo',
+      desc: 'Next-Gen Firewalls (Fortinet, Sophos), 24×7 SOC threat defense, and zero-trust perimeter protection.',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
       link: '/business-solutions',
     },
     {
       id: 'data-services',
+      category: 'Storage & Recovery',
       title: 'Data Recovery & Storage',
-      desc: 'Cleanroom recovery, SAN/NAS storage architecture, and automated disaster backups.',
-      type: 'white-card',
+      desc: 'Cleanroom data recovery, SAN/NAS storage architecture, and automated enterprise disaster backups.',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="flex items-center gap-2">
-          <div className="size-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center shadow-md">
-            <Database className="size-7" />
-          </div>
-          <div className="size-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 text-white flex items-center justify-center shadow-md">
-            <Cpu className="size-5.5" />
-          </div>
-        </div>
-      ),
       link: '/device-care',
     },
     {
       id: 'rpa-whatsapp',
+      category: 'Automation & Chatbots',
       title: 'Robotic & WhatsApp Automation',
-      desc: 'Meta WhatsApp Business API, CRM integrations, automated notifications, and AI chatbots.',
-      type: 'dark-photo',
+      desc: 'Official Meta WhatsApp Business Cloud API integration, CRM sync, automated notifications, and AI chatbots.',
+      theme: 'dark',
       image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
       link: '/business-solutions',
     },
     {
       id: 'crm-erp',
+      category: 'Enterprise SaaS',
       title: 'CRM & ERP Solutions',
-      desc: 'Tailored enterprise resource planning, customer pipeline workflows, and inventory sync.',
-      type: 'white-card',
+      desc: 'Tailored enterprise resource planning, customer pipeline workflows, billing automation, and inventory sync.',
+      theme: 'light',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-      graphicOverlay: (
-        <div className="size-16 rounded-2xl bg-gradient-to-tr from-rose-500 via-orange-500 to-amber-500 text-white flex items-center justify-center shadow-lg shadow-rose-500/25">
-          <FileSpreadsheet className="size-10" />
-        </div>
-      ),
       link: '/business-solutions',
     },
   ];
 
-  // Helper render for individual Bento Card
-  const renderCard = (card: BentoService, idx: number) => {
-    if (card.type === 'dark-photo') {
-      return (
-        <Link
-          key={card.id}
-          href={card.link}
-          className="group relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer min-h-[340px] sm:min-h-[370px] flex flex-col justify-end p-6 sm:p-7 border border-slate-800/40 bg-slate-950"
-        >
-          {/* Full-bleed Background Image */}
-          <img 
-            src={card.image} 
-            alt={card.title} 
-            className="absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out opacity-45"
-            loading="lazy"
-          />
+  // Helper render for individual Card with Full Background Image & Clean Text
+  const renderCard = (card: BentoService) => {
+    const isDark = card.theme === 'dark';
 
-          {/* Dark Contrast Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/30" />
-
-          {/* Text & Red Circular Arrow at Bottom-Left */}
-          <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mb-2 group-hover:text-cyan-300 transition-colors leading-tight">
-              {card.title}
-            </h3>
-
-            <p className="text-xs sm:text-sm text-slate-300 leading-snug mb-5 font-normal">
-              {card.desc}
-            </p>
-
-            <div className="size-8 rounded-full border-2 border-[#ef4444] text-[#ef4444] flex items-center justify-center group-hover:bg-[#ef4444] group-hover:text-white transition-all duration-300 shadow-xs">
-              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
-            </div>
-          </div>
-        </Link>
-      );
-    }
-
-    // White Card with 3D Render / Graphic Header
     return (
       <Link
         key={card.id}
         href={card.link}
-        className="group relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer bg-white border border-slate-200/90 hover:border-slate-300 flex flex-col justify-between p-6 sm:p-7 min-h-[340px] sm:min-h-[370px]"
+        className={`group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer flex flex-col justify-end p-7 min-h-[340px] sm:min-h-[360px] border ${
+          isDark 
+            ? 'bg-slate-950 text-white border-slate-800/60' 
+            : 'bg-white text-slate-900 border-slate-200/90 hover:border-slate-300'
+        }`}
       >
-        {/* Top 3D Illustration / Photo Visual Container */}
-        <div className="w-full h-44 sm:h-48 rounded-2xl overflow-hidden mb-4 flex items-center justify-center relative bg-gradient-to-b from-slate-50 to-slate-100/60 border border-slate-100">
-          <img 
-            src={card.image} 
-            alt={card.title} 
-            className="absolute inset-0 w-full h-full object-cover opacity-15 group-hover:scale-105 transition-transform duration-700 ease-out"
-            loading="lazy"
-          />
-          <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
-            {card.graphicOverlay}
-          </div>
-        </div>
+        {/* Full-Bleed Background Image (25% opacity, zooms smoothly on hover without disturbing text) */}
+        <img 
+          src={card.image} 
+          alt={card.title} 
+          className={`absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-108 transition-all duration-700 ease-out pointer-events-none ${
+            isDark 
+              ? 'opacity-25 group-hover:opacity-40 mix-blend-luminosity' 
+              : 'opacity-18 group-hover:opacity-30'
+          }`}
+          loading="lazy"
+        />
 
-        {/* Text & Red Circular Arrow at Bottom-Left */}
-        <div className="relative z-10">
-          <h3 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 mb-2 group-hover:text-[#ef4444] transition-colors leading-tight">
+        {/* Contrast Gradient Mask to Ensure 100% Readable Text */}
+        <div 
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+            isDark 
+              ? 'bg-gradient-to-t from-slate-950 via-slate-950/85 to-slate-950/40' 
+              : 'bg-gradient-to-t from-white via-white/95 to-white/60'
+          }`} 
+        />
+
+        {/* Content Container (Z-10, Elevated Above Background) */}
+        <div className="relative z-10 flex flex-col justify-end">
+          {/* Category Tag */}
+          <span className="text-[11px] font-mono font-bold tracking-widest text-[#0284c7] uppercase mb-1">
+            {card.category}
+          </span>
+
+          {/* Title */}
+          <h3 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 transition-colors leading-tight ${
+            isDark 
+              ? 'text-white group-hover:text-cyan-300' 
+              : 'text-slate-900 group-hover:text-[#ef4444]'
+          }`}>
             {card.title}
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-600 leading-snug mb-5 font-normal">
+          {/* Description */}
+          <p className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal ${
+            isDark ? 'text-slate-300' : 'text-slate-600'
+          }`}>
             {card.desc}
           </p>
 
-          <div className="size-8 rounded-full border-2 border-[#ef4444] text-[#ef4444] flex items-center justify-center group-hover:bg-[#ef4444] group-hover:text-white transition-all duration-300 shadow-xs">
-            <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+          {/* Signature Red Circular Action Button */}
+          <div>
+            <div className="size-8 rounded-full border-2 border-[#ef4444] text-[#ef4444] flex items-center justify-center group-hover:bg-[#ef4444] group-hover:text-white transition-all duration-300 shadow-xs">
+              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+            </div>
           </div>
         </div>
       </Link>
@@ -263,7 +217,7 @@ export default function DigitalTransformationGrid() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header (Matching Damco Reference Image Exactly) */}
+        {/* Section Header */}
         <ScrollReveal animation="fade-up">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <h2 
@@ -283,14 +237,14 @@ export default function DigitalTransformationGrid() {
           </div>
         </ScrollReveal>
 
-        {/* 3-Column Masonry Alignment (Staggered Column Stack matching Reference) */}
+        {/* 3-Column Staggered Masonry Stack */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mb-16 items-start">
           
           {/* COLUMN 1 */}
           <div className="flex flex-col gap-6 sm:gap-7">
             {col1Cards.map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100}>
-                {renderCard(card, idx)}
+                {renderCard(card)}
               </ScrollReveal>
             ))}
           </div>
@@ -299,7 +253,7 @@ export default function DigitalTransformationGrid() {
           <div className="flex flex-col gap-6 sm:gap-7">
             {col2Cards.map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100 + 50}>
-                {renderCard(card, idx)}
+                {renderCard(card)}
               </ScrollReveal>
             ))}
           </div>
@@ -308,14 +262,14 @@ export default function DigitalTransformationGrid() {
           <div className="flex flex-col gap-6 sm:gap-7">
             {col3Cards.map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100 + 100}>
-                {renderCard(card, idx)}
+                {renderCard(card)}
               </ScrollReveal>
             ))}
           </div>
 
         </div>
 
-        {/* Centered "View All Services ->" Pill Button (Matching Reference) */}
+        {/* Centered "View All Services ->" Pill Button */}
         <ScrollReveal animation="fade-up" delay={200}>
           <div className="flex justify-center">
             <Link
