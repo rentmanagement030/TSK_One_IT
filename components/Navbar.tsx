@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { 
   PhoneCall, 
@@ -56,6 +56,50 @@ export default function Navbar() {
   const [fontSizeIndex, setFontSizeIndex] = useState(1); // 0 = A-, 1 = A, 2 = A+
   const [highContrast, setHighContrast] = useState(false);
 
+  // Smart Visibility State: Hide on scroll down, show on scroll up or mouse hover near top
+  const [isVisible, setIsVisible] = useState(true);
+  const [isNearTop, setIsNearTop] = useState(false);
+  const lastScrollY = useRef(0);
+
+  // Scroll listener for dynamic hide/show
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show at the very top of page
+      if (currentScrollY <= 15) {
+        setIsVisible(true);
+      } 
+      // Scrolling down -> Hide navbar
+      else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        setIsVisible(false);
+      } 
+      // Scrolling up -> Reveal navbar
+      else if (currentScrollY < lastScrollY.current) {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    // Mouse movement listener to reveal navbar when cursor comes near top
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY <= 65) {
+        setIsNearTop(true);
+      } else if (e.clientY > 110) {
+        setIsNearTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   // Toggle drawer body scroll lock & ESC key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -89,152 +133,168 @@ export default function Navbar() {
     if (level === 2) htmlEl.style.fontSize = '18px';
   };
 
+  const showNavbar = isVisible || isNearTop || isDrawerOpen;
+
   return (
     <>
-      {/* 1. TOP UTILITY & ACCESSIBILITY BAR (Full Screen Width) */}
-      <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block w-full">
-        <div className="w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between h-10">
-          
-          {/* Left: Contact Info */}
-          <div className="flex items-center gap-6">
-            <a 
-              href="tel:+919150843991" 
-              className="flex items-center gap-1.5 hover:text-amber-400 transition-colors"
-            >
-              <PhoneCall className="size-3.5 text-amber-400" />
-              <span>+91 91508 43991</span>
-            </a>
+      {/* Invisible Hover Sensor Zone at the very top of screen to detect mouse arrival */}
+      <div 
+        className="fixed top-0 left-0 right-0 h-5 z-40 pointer-events-auto"
+        onMouseEnter={() => setIsNearTop(true)}
+      />
 
-            <a 
-              href="mailto:info@tskoneit.com" 
-              className="flex items-center gap-1.5 hover:text-amber-400 transition-colors"
-            >
-              <Mail className="size-3.5 text-amber-400" />
-              <span>info@tskoneit.com</span>
-            </a>
-
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <MapPin className="size-3.5 text-amber-400" />
-              <span>Anna Salai, Chennai, India</span>
-            </div>
-          </div>
-
-          {/* Right: Accessibility Controls */}
-          <div className="flex items-center gap-2">
-            <a
-              href="#main-content"
-              className="px-2.5 py-1 rounded bg-white/10 text-slate-200 text-[11px] font-semibold border border-white/15 hover:bg-amber-400 hover:text-slate-900 transition-colors inline-flex items-center gap-1"
-            >
-              <Sparkles className="size-3 text-amber-400" />
-              <span>Skip to Content</span>
-            </a>
-
-            {/* Font Sizer */}
-            <div className="flex items-center rounded bg-white/10 border border-white/15 overflow-hidden text-[11px] font-bold">
-              <button 
-                onClick={() => adjustFontSize(0)} 
-                className={`px-2 py-0.5 hover:bg-white/20 transition-colors ${fontSizeIndex === 0 ? 'bg-sky-500 text-white' : ''}`}
-                title="Decrease font size"
+      {/* Main Floating / Dynamic Header Wrapper with Smooth Slide In/Out Animation */}
+      <div 
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-in-out ${
+          showNavbar ? 'translate-y-0' : '-translate-y-full'
+        }`}
+        onMouseEnter={() => setIsNearTop(true)}
+      >
+        {/* 1. TOP UTILITY & ACCESSIBILITY BAR (Full Screen Width) */}
+        <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block w-full">
+          <div className="w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between h-10">
+            
+            {/* Left: Contact Info */}
+            <div className="flex items-center gap-6">
+              <a 
+                href="tel:+919150843991" 
+                className="flex items-center gap-1.5 hover:text-amber-400 transition-colors"
               >
-                A-
-              </button>
-              <button 
-                onClick={() => adjustFontSize(1)} 
-                className={`px-2 py-0.5 border-x border-white/15 hover:bg-white/20 transition-colors ${fontSizeIndex === 1 ? 'bg-sky-500 text-white' : ''}`}
-                title="Default font size"
+                <PhoneCall className="size-3.5 text-amber-400" />
+                <span>+91 91508 43991</span>
+              </a>
+
+              <a 
+                href="mailto:info@tskoneit.com" 
+                className="flex items-center gap-1.5 hover:text-amber-400 transition-colors"
               >
-                A
-              </button>
-              <button 
-                onClick={() => adjustFontSize(2)} 
-                className={`px-2 py-0.5 hover:bg-white/20 transition-colors ${fontSizeIndex === 2 ? 'bg-sky-500 text-white' : ''}`}
-                title="Increase font size"
-              >
-                A+
-              </button>
+                <Mail className="size-3.5 text-amber-400" />
+                <span>info@tskoneit.com</span>
+              </a>
+
+              <div className="flex items-center gap-1.5 text-slate-400">
+                <MapPin className="size-3.5 text-amber-400" />
+                <span>Anna Salai, Chennai, India</span>
+              </div>
             </div>
 
-            {/* Contrast Toggle */}
-            <button
-              onClick={() => setHighContrast(!highContrast)}
-              className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-colors"
-              title="Toggle High Contrast"
-              aria-label="Toggle High Contrast"
-            >
-              <Contrast className="size-3.5" />
-            </button>
+            {/* Right: Accessibility Controls */}
+            <div className="flex items-center gap-2">
+              <a
+                href="#main-content"
+                className="px-2.5 py-1 rounded bg-white/10 text-slate-200 text-[11px] font-semibold border border-white/15 hover:bg-amber-400 hover:text-slate-900 transition-colors inline-flex items-center gap-1"
+              >
+                <Sparkles className="size-3 text-amber-400" />
+                <span>Skip to Content</span>
+              </a>
 
-            {/* Accessibility Icon */}
-            <button
-              className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-colors"
-              title="Accessibility Tools"
-              aria-label="Accessibility Tools"
-            >
-              <User className="size-3.5" />
-            </button>
+              {/* Font Sizer */}
+              <div className="flex items-center rounded bg-white/10 border border-white/15 overflow-hidden text-[11px] font-bold">
+                <button 
+                  onClick={() => adjustFontSize(0)} 
+                  className={`px-2 py-0.5 hover:bg-white/20 transition-colors ${fontSizeIndex === 0 ? 'bg-sky-500 text-white' : ''}`}
+                  title="Decrease font size"
+                >
+                  A-
+                </button>
+                <button 
+                  onClick={() => adjustFontSize(1)} 
+                  className={`px-2 py-0.5 border-x border-white/15 hover:bg-white/20 transition-colors ${fontSizeIndex === 1 ? 'bg-sky-500 text-white' : ''}`}
+                  title="Default font size"
+                >
+                  A
+                </button>
+                <button 
+                  onClick={() => adjustFontSize(2)} 
+                  className={`px-2 py-0.5 hover:bg-white/20 transition-colors ${fontSizeIndex === 2 ? 'bg-sky-500 text-white' : ''}`}
+                  title="Increase font size"
+                >
+                  A+
+                </button>
+              </div>
+
+              {/* Contrast Toggle */}
+              <button
+                onClick={() => setHighContrast(!highContrast)}
+                className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-colors"
+                title="Toggle High Contrast"
+                aria-label="Toggle High Contrast"
+              >
+                <Contrast className="size-3.5" />
+              </button>
+
+              {/* Accessibility Icon */}
+              <button
+                className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-colors"
+                title="Accessibility Tools"
+                aria-label="Accessibility Tools"
+              >
+                <User className="size-3.5" />
+              </button>
+            </div>
+
           </div>
-
         </div>
+
+        {/* 2. MAIN NAVBAR WITH FULL SCREEN WIDTH FLUSH LOGO & ONLY 2 BUTTONS */}
+        <header className="w-full bg-white shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-slate-100 transition-all">
+          <div className="w-full flex items-center justify-between h-16 sm:h-20 pr-4 sm:pr-8 lg:pr-12">
+            
+            {/* Left: Angled Blue Brand Block FLUSH to the Left Edge of Screen */}
+            <div className="flex items-center h-full">
+              <Link
+                href="#top"
+                className="group relative flex items-center h-full bg-[#1e40af] text-white pl-6 sm:pl-10 lg:pl-14 pr-12 sm:pr-20 [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] transition-colors hover:bg-[#1d4ed8]"
+              >
+                <div className="flex items-center gap-3 sm:gap-4">
+                  {/* Delta Tech Logo Icon */}
+                  <div className="relative size-8 sm:size-10 flex items-center justify-center">
+                    <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
+                      <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
+                      <polygon points="16,8 26,26 6,26" fill="currentColor" />
+                    </svg>
+                  </div>
+
+                  {/* Brand Typography */}
+                  <div className="flex flex-col">
+                    <span className="text-xl sm:text-2xl font-black tracking-wider uppercase leading-tight font-sans text-white">
+                      TSK ONE<span className="text-cyan-300">IT</span>
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-200/80 uppercase -mt-0.5">
+                      INSPIRED BY YOU
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Right: ONLY "Get A Quote" Button & Sandwich Menu Trigger Button */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Yellow/Gold "Get A Quote" Button */}
+              <Link
+                href="#contact"
+                className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+              >
+                Get A Quote
+              </Link>
+
+              {/* Round Blue Sandwich / Hamburger Button */}
+              <button
+                type="button"
+                onClick={() => setIsDrawerOpen(true)}
+                aria-label="Open navigation menu"
+                aria-expanded={isDrawerOpen}
+                className="size-11 sm:size-12 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-lg hover:scale-105 cursor-pointer"
+              >
+                <Menu className="size-5 sm:size-6" />
+              </button>
+            </div>
+
+          </div>
+        </header>
       </div>
 
-      {/* 2. MAIN NAVBAR WITH FULL SCREEN WIDTH FLUSH LOGO & ONLY 2 BUTTONS (Get A Quote & Sandwich) */}
-      <header className="sticky top-0 z-50 w-full bg-white shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-slate-100 transition-all">
-        <div className="w-full flex items-center justify-between h-16 sm:h-20 pr-4 sm:pr-8 lg:pr-12">
-          
-          {/* Left: Angled Blue Brand Block FLUSH to the Left Edge of Screen */}
-          <div className="flex items-center h-full">
-            <Link
-              href="#top"
-              className="group relative flex items-center h-full bg-[#1e40af] text-white pl-6 sm:pl-10 lg:pl-14 pr-12 sm:pr-20 [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] transition-colors hover:bg-[#1d4ed8]"
-            >
-              <div className="flex items-center gap-3 sm:gap-4">
-                {/* Delta Tech Logo Icon */}
-                <div className="relative size-8 sm:size-10 flex items-center justify-center">
-                  <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
-                    <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <polygon points="16,8 26,26 6,26" fill="currentColor" />
-                  </svg>
-                </div>
-
-                {/* Brand Typography */}
-                <div className="flex flex-col">
-                  <span className="text-xl sm:text-2xl font-black tracking-wider uppercase leading-tight font-sans text-white">
-                    TSK ONE<span className="text-cyan-300">IT</span>
-                  </span>
-                  <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-200/80 uppercase -mt-0.5">
-                    INSPIRED BY YOU
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* Right: ONLY "Get A Quote" Button & Sandwich Menu Trigger Button */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Yellow/Gold "Get A Quote" Button */}
-            <Link
-              href="#contact"
-              className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all whitespace-nowrap"
-            >
-              Get A Quote
-            </Link>
-
-            {/* Round Blue Sandwich / Hamburger Button */}
-            <button
-              type="button"
-              onClick={() => setIsDrawerOpen(true)}
-              aria-label="Open navigation menu"
-              aria-expanded={isDrawerOpen}
-              className="size-11 sm:size-12 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-lg hover:scale-105 cursor-pointer"
-            >
-              <Menu className="size-5 sm:size-6" />
-            </button>
-          </div>
-
-        </div>
-      </header>
-
-      {/* 3. FULL-SCREEN SPLIT DRAWER MENU (Contains all page navigation buttons & accordions) */}
+      {/* 3. FULL-SCREEN SPLIT DRAWER MENU */}
       {isDrawerOpen && (
         <div 
           className="fixed inset-0 z-[100] h-dvh w-screen bg-black/75 backdrop-blur-md transition-all duration-300"
