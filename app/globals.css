@@ -1,0 +1,412 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #f4f9fd;
+  --color-brand-surface: #ffffff;
+  --color-brand-surface-subtle: #f0f7fc;
+  --color-brand-ink: #0b1b3a;
+  --color-brand-ink-muted: #475569;
+  --color-brand-sky: #0ea5e9;
+  --color-brand-cyan: #06b6d4;
+  --color-brand-blue: #1d4ed8;
+  --color-brand-purple: #7c3aed;
+  --color-brand-amber: #f59e0b;
+  
+  --font-sans: 'Inter', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  :root {
+    --bg-light: #f4f9fd;
+    --color-cyan-glow: rgba(6, 182, 212, 0.12);
+    --color-sky-glow: rgba(14, 165, 233, 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  body {
+    background-color: #f4f9fd;
+    color: #0b1b3a;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+
+
+/* Frosted Glass Utilities for Light Theme */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(224, 242, 254, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(6, 182, 212, 0.08);
+}
+
+.glass-panel-card {
+  background: #ffffff;
+  border: 1px solid rgba(224, 242, 254, 0.85);
+  box-shadow: 0 10px 30px -8px rgba(14, 165, 233, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.glass-nav-light {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(224, 242, 254, 0.9);
+}
+
+/* Decorative Section Heading Underline Accent (from tskautomations.com) */
+.title-accent-line {
+  width: 4rem;
+  height: 0.25rem;
+  background: linear-gradient(to right, #0ea5e9, #06b6d4);
+  border-radius: 9999px;
+  margin: 0.625rem auto 0;
+}
+
+/* CodeFronts CSS Flexbox Responsive Product Cards Pattern (fl-06) */
+.fl-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+.fl-card-item {
+  flex: 1 1 280px;
+  max-width: 400px;
+  min-width: 270px;
+  background: #ffffff;
+  border: 1px solid rgba(224, 242, 254, 0.9);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.fl-card-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 20px 40px -12px rgba(14, 165, 233, 0.18), 0 0 0 1px rgba(14, 165, 233, 0.15);
+}
+
+/* Infinite Marquee Scroller */
+.marquee-container {
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2rem;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .marquee-track,
+.marquee-container:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Magnetic Hover Interaction Variables */
+.magnetic-btn {
+  transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0px);
+  transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+/* Focus Rings for WCAG AA */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 3px;
+}
+
+/* CodeFronts tfc-01 3D Flip Card Rules */
+.tfc-perspective {
+  perspective: 1200px;
+}
+
+.tfc-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.tfc-backface-hidden {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Trip-style Interactive Snap Carousel */
+.service-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.service-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1rem 0.5rem 2rem;
+}
+
+.service-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.service-card-snap {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  flex: 0 0 320px;
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .service-card-snap {
+    flex: 0 0 360px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-card-snap {
+    flex: 0 0 380px;
+  }
+}
+
+.service-card-snap:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.25);
+}
+
+.service-card-meta {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.4s ease;
+}
+
+.service-card-snap:hover .service-card-meta,
+.service-card-snap:focus-within .service-card-meta {
+  transform: translateY(0);
+}
+
+/* Creative Keyframe Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-0.5deg);
+  }
+}
+
+@keyframes pulse-glow-soft {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes radar-beacon {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes border-glow-cycle {
+  0%, 100% {
+    border-color: rgba(14, 165, 233, 0.4);
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
+  }
+  50% {
+    border-color: rgba(6, 182, 212, 0.7);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
+  }
+}
+
+/* CodeFronts Glassmorphism Sidebar Drifting Blob Keyframes (tsm-10) */
+@keyframes tsm10-drift-a {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(30px, 40px) scale(1.15);
+  }
+}
+
+@keyframes tsm10-drift-b {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-25px, -30px) scale(0.9);
+  }
+}
+
+@keyframes tsm10-drift-c {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(15px, 25px) scale(1.1);
+  }
+}
+
+.animate-tsm10-drift-a {
+  animation: tsm10-drift-a 12s ease-in-out infinite alternate;
+}
+
+.animate-tsm10-drift-b {
+  animation: tsm10-drift-b 14s ease-in-out infinite alternate;
+}
+
+.animate-tsm10-drift-c {
+  animation: tsm10-drift-c 10s ease-in-out infinite alternate;
+}
+
+/* Animation Utility Classes */
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-reverse 7s ease-in-out infinite 1s;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow-soft 4s ease-in-out infinite;
+}
+
+.radar-ring {
+  position: relative;
+}
+
+.radar-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background-color: currentColor;
+  opacity: 0.6;
+  animation: radar-beacon 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.shimmer-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 3.5s infinite;
+}
+
+.interactive-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 20px 45px -12px rgba(14, 165, 233, 0.18);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .marquee-track {
+    animation: none;
+    transform: none;
+    overflow-x: auto;
+  }
+  
+  .magnetic-btn {
+    transform: none !important;
+  }
+
+  .animate-float,
+  .animate-float-delayed,
+  .animate-pulse-glow,
+  .shimmer-badge::after,
+  .radar-ring::before {
+    animation: none !important;
+  }
+}
