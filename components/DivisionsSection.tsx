@@ -319,7 +319,7 @@ export default function DivisionsSection() {
           </div>
         </ScrollReveal>
 
-        {/* 3 Interactive Cards (Normal: Top Image + White Bottom; Hover: Full-Height Image + Frosted Text Overlay) */}
+        {/* 3 Interactive Cards (Normal: Top Image + White Base; Hover: Image Zooms to Full 100% Card with Frosted Overlay) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {divisionsData.map((division, idx) => {
             const Icon = division.icon;
@@ -329,34 +329,37 @@ export default function DivisionsSection() {
                   onClick={() => setSelectedDivision(division)}
                   className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-sky-300 shadow-md hover:shadow-2xl transition-all duration-500 ease-out flex flex-col overflow-hidden cursor-pointer h-[460px] sm:h-[480px] transform hover:-translate-y-2"
                 >
-                  {/* EXPANDABLE IMAGE LAYER (62% normal, smoothly expands to 100% full card height on hover) */}
-                  <div className="absolute inset-x-0 top-0 h-[62%] group-hover:h-full transition-all duration-500 ease-out overflow-hidden z-0 bg-slate-900">
+                  {/* FULL-CARD IMAGE LAYER (Always 100% height, zooms on hover) */}
+                  <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-slate-950">
                     <img 
                       src={division.image} 
                       alt={division.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
                       loading="lazy"
                     />
-                    {/* Ambient Dark Tech Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/30 group-hover:opacity-60 transition-opacity duration-500" />
+                    {/* Dark gradient for contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/20 group-hover:opacity-60 transition-opacity duration-500" />
                   </div>
 
-                  {/* TOP FLOATING BADGES */}
-                  <div className="relative z-10 p-5 flex items-center justify-between pointer-events-none">
+                  {/* NORMAL STATE SOLID WHITE COVER (Only covers the bottom 38% in normal state, fades away on hover) */}
+                  <div className="absolute inset-x-0 bottom-0 h-[38%] bg-white group-hover:opacity-0 transition-opacity duration-500 z-10" />
+
+                  {/* TOP FLOATING BADGES (Z-20) */}
+                  <div className="relative z-20 p-5 flex items-center justify-between pointer-events-none">
                     {/* Top-Left: Division Icon */}
-                    <div className="size-11 rounded-2xl bg-white/90 group-hover:bg-[#1e40af] backdrop-blur-md text-[#1e40af] group-hover:text-white flex items-center justify-center border border-white/50 shadow-md group-hover:scale-105 transition-all duration-300">
+                    <div className="size-11 rounded-2xl bg-white/95 group-hover:bg-[#1e40af] backdrop-blur-md text-[#1e40af] group-hover:text-white flex items-center justify-center border border-white/60 shadow-md group-hover:scale-105 transition-all duration-300">
                       <Icon className="size-5.5" />
                     </div>
 
-                    {/* Top-Right: Pill Badge (reveals time/metric on hover like in reference) */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 group-hover:bg-slate-950/80 backdrop-blur-md border border-slate-200/60 group-hover:border-white/20 text-slate-800 group-hover:text-white text-xs font-bold shadow-sm transition-all duration-300">
+                    {/* Top-Right: Pill Badge */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 group-hover:bg-slate-950/85 backdrop-blur-md border border-slate-200/60 group-hover:border-white/20 text-slate-800 group-hover:text-white text-xs font-bold shadow-sm transition-all duration-300">
                       <Clock className="size-3.5 text-sky-600 group-hover:text-sky-400" />
                       <span>24×7 SLA</span>
                     </div>
                   </div>
 
-                  {/* BOTTOM TEXT CONTAINER (White in normal state, smoothly transitions to frosted gradient in hover state) */}
-                  <div className="relative z-10 mt-auto inset-x-0 p-6 flex flex-col justify-end transition-all duration-500 bg-white group-hover:bg-gradient-to-t group-hover:from-white group-hover:via-white/92 group-hover:to-transparent group-hover:pt-16">
+                  {/* BOTTOM TEXT CONTAINER (Z-20, Frosted Glass Gradient on Hover) */}
+                  <div className="relative z-20 mt-auto inset-x-0 p-6 flex flex-col justify-end transition-all duration-500 bg-transparent group-hover:bg-gradient-to-t group-hover:from-white group-hover:via-white/90 group-hover:to-transparent group-hover:pt-16">
                     <div>
                       {/* Mini Category / Division Label */}
                       <span className="text-[11px] font-mono font-bold tracking-widest text-[#0284c7] uppercase">
