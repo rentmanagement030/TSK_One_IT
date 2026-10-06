@@ -91,9 +91,9 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 1. TOP UTILITY & ACCESSIBILITY BAR */}
-      <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
+      {/* 1. TOP UTILITY & ACCESSIBILITY BAR (Full Screen Width) */}
+      <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block w-full">
+        <div className="w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between h-10">
           
           {/* Left: Contact Info */}
           <div className="flex items-center gap-6">
@@ -177,168 +177,64 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 2. MAIN NAVBAR WITH ANGLED BLUE SLANT & USER CONTENT */}
+      {/* 2. MAIN NAVBAR WITH FULL SCREEN WIDTH FLUSH LOGO & ONLY 2 BUTTONS (Get A Quote & Sandwich) */}
       <header className="sticky top-0 z-50 w-full bg-white shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-slate-100 transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            
-            {/* Left: Angled Blue Brand Block */}
-            <div className="flex items-center h-full">
-              <Link
-                href="#top"
-                className="group relative flex items-center h-full bg-[#1e40af] text-white px-5 sm:px-8 [clip-path:polygon(0_0,100%_0,88%_100%,0_100%)] pr-10 sm:pr-14 transition-colors hover:bg-[#1d4ed8]"
-              >
-                <div className="flex items-center gap-3">
-                  {/* Delta Tech Logo Icon */}
-                  <div className="relative size-8 sm:size-9 flex items-center justify-center">
-                    <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
-                      <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
-                      <polygon points="16,8 26,26 6,26" fill="currentColor" />
-                    </svg>
-                  </div>
-
-                  {/* Brand Typography */}
-                  <div className="flex flex-col">
-                    <span className="text-lg sm:text-xl font-black tracking-wider uppercase leading-tight font-sans text-white">
-                      TSK ONE<span className="text-cyan-300">IT</span>
-                    </span>
-                    <span className="text-[9px] font-mono tracking-widest text-cyan-200/80 uppercase -mt-0.5">
-                      INSPIRED BY YOU
-                    </span>
-                  </div>
+        <div className="w-full flex items-center justify-between h-16 sm:h-20 pr-4 sm:pr-8 lg:pr-12">
+          
+          {/* Left: Angled Blue Brand Block FLUSH to the Left Edge of Screen */}
+          <div className="flex items-center h-full">
+            <Link
+              href="#top"
+              className="group relative flex items-center h-full bg-[#1e40af] text-white pl-6 sm:pl-10 lg:pl-14 pr-12 sm:pr-20 [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] transition-colors hover:bg-[#1d4ed8]"
+            >
+              <div className="flex items-center gap-3 sm:gap-4">
+                {/* Delta Tech Logo Icon */}
+                <div className="relative size-8 sm:size-10 flex items-center justify-center">
+                  <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
+                    <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
+                    <polygon points="16,8 26,26 6,26" fill="currentColor" />
+                  </svg>
                 </div>
-              </Link>
-            </div>
 
-            {/* Desktop Navigation Links (Configured Exactly to the Brief) */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-              {/* Home */}
-              <Link
-                href="#top"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                Home
-              </Link>
-
-              {/* Device Care Dropdown */}
-              <div className="group relative">
-                <button
-                  type="button"
-                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-                >
-                  <span>Device Care</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
-                </button>
-
-                <div className="invisible absolute top-full left-0 z-40 w-72 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
-                    {deviceCareList.map((item) => (
-                      <Link
-                        key={item}
-                        href="#divisions"
-                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
+                {/* Brand Typography */}
+                <div className="flex flex-col">
+                  <span className="text-xl sm:text-2xl font-black tracking-wider uppercase leading-tight font-sans text-white">
+                    TSK ONE<span className="text-cyan-300">IT</span>
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-200/80 uppercase -mt-0.5">
+                    INSPIRED BY YOU
+                  </span>
                 </div>
               </div>
-
-              {/* Home Automation Dropdown */}
-              <div className="group relative">
-                <button
-                  type="button"
-                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-                >
-                  <span>Home Automation</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
-                </button>
-
-                <div className="invisible absolute top-full left-0 z-40 w-72 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
-                    {homeAutomationList.map((item) => (
-                      <Link
-                        key={item}
-                        href="#divisions"
-                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-800 rounded-lg transition-colors"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Business Solutions Dropdown */}
-              <div className="group relative">
-                <button
-                  type="button"
-                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-                >
-                  <span>Business Solutions</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
-                </button>
-
-                <div className="invisible absolute top-full left-0 z-40 w-80 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
-                    {businessSolutionsList.map((item) => (
-                      <Link
-                        key={item}
-                        href="#divisions"
-                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition-colors"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* About Us */}
-              <Link
-                href="#why-us"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                About Us
-              </Link>
-
-              {/* Contact Us */}
-              <Link
-                href="#contact"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                Contact Us
-              </Link>
-            </nav>
-
-            {/* Right: Gold CTA & Round Blue Hamburger Button */}
-            <div className="flex items-center gap-3">
-              {/* Yellow/Gold "Get A Quote" Button */}
-              <Link
-                href="#contact"
-                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all whitespace-nowrap"
-              >
-                Get A Quote
-              </Link>
-
-              {/* Round Blue Hamburger Trigger Button */}
-              <button
-                type="button"
-                onClick={() => setIsDrawerOpen(true)}
-                aria-label="Open full-screen navigation menu"
-                aria-expanded={isDrawerOpen}
-                className="size-10 sm:size-11 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-md hover:scale-105 cursor-pointer"
-              >
-                <Menu className="size-5" />
-              </button>
-            </div>
-
+            </Link>
           </div>
+
+          {/* Right: ONLY "Get A Quote" Button & Sandwich Menu Trigger Button */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Yellow/Gold "Get A Quote" Button */}
+            <Link
+              href="#contact"
+              className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+            >
+              Get A Quote
+            </Link>
+
+            {/* Round Blue Sandwich / Hamburger Button */}
+            <button
+              type="button"
+              onClick={() => setIsDrawerOpen(true)}
+              aria-label="Open navigation menu"
+              aria-expanded={isDrawerOpen}
+              className="size-11 sm:size-12 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-lg hover:scale-105 cursor-pointer"
+            >
+              <Menu className="size-5 sm:size-6" />
+            </button>
+          </div>
+
         </div>
       </header>
 
-      {/* 3. FULL-SCREEN SPLIT DRAWER MENU (Matching Avuetech Sub-item Layout) */}
+      {/* 3. FULL-SCREEN SPLIT DRAWER MENU (Contains all page navigation buttons & accordions) */}
       {isDrawerOpen && (
         <div 
           className="fixed inset-0 z-[100] h-dvh w-screen bg-black/75 backdrop-blur-md transition-all duration-300"
@@ -349,7 +245,7 @@ export default function Navbar() {
             onClick={(e) => e.stopPropagation()}
           >
             
-            {/* Left Panel: Royal Blue Menu List (68% Width on Desktop) */}
+            {/* Left Panel: Royal Blue Navigation List (68% Width on Desktop) */}
             <div className="relative w-full lg:w-[68%] h-full bg-gradient-to-br from-[#1e40af] via-[#1e3a8a] to-[#0f2761] text-white p-6 sm:p-12 lg:p-16 flex flex-col justify-between overflow-y-auto">
               
               {/* Top Left Logo in Drawer */}
@@ -371,7 +267,7 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Mobile-only Close button on left panel */}
+                {/* Mobile Close button on left panel */}
                 <button
                   onClick={() => setIsDrawerOpen(false)}
                   className="lg:hidden p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
@@ -381,7 +277,7 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Big Vertical Navigation Items Structured Exactly to User's Specification */}
+              {/* Big Vertical Navigation Items */}
               <nav className="space-y-4 my-auto py-4">
                 
                 {/* 1. Home */}
