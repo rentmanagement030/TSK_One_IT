@@ -4,87 +4,36 @@ import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
 import { 
-  Calendar, 
-  Award, 
+  Briefcase, 
+  Building2, 
   Layers, 
-  Clock, 
-  Building, 
-  Receipt, 
-  Zap, 
-  Handshake, 
-  HeartHandshake,
+  Heart, 
   ArrowRight, 
-  CheckCircle2, 
-  ShieldCheck,
-  Sparkles
+  CheckCircle2 
 } from 'lucide-react';
 
 export default function WhoWeAre() {
-  // 4 Top Floating Bar Stats matching the exact core pillars
+  // 4 Numerical Metric Proof Points (Matches the reference pill bar: Projects, Setups, Services, Clients)
   const stats = [
     {
-      icon: Calendar,
-      value: '20+ Years',
-      label: 'Industry Experience',
+      icon: Briefcase,
+      value: '10,000+',
+      label: 'Devices Restored & Solved',
     },
     {
-      icon: Award,
-      value: 'Certified',
-      label: 'Technology Experts & Engineers',
+      icon: Building2,
+      value: '500+',
+      label: 'Enterprise Setups & Deployments',
     },
     {
       icon: Layers,
-      value: 'End-to-End',
-      label: 'Technology Solutions',
+      value: '26+',
+      label: 'Specialized Tech Services',
     },
     {
-      icon: Clock,
-      value: '24×7',
-      label: 'Support & Fast Response',
-    },
-  ];
-
-  // Exact 8 Core Pillars requested by the user
-  const corePillars = [
-    {
-      title: '20+ Years of Industry Experience',
-      desc: 'Two decades of proven tech leadership and trusted client partnerships.',
-      icon: Calendar,
-    },
-    {
-      title: 'Enterprise-Grade Expertise',
-      desc: 'Global-standard architectures, Tier-3 infrastructure & zero-trust security.',
-      icon: Building,
-    },
-    {
-      title: 'Certified Engineers & Experts',
-      desc: 'Accredited specialists across Apple, Microsoft Azure, Cisco & chip repair.',
-      icon: Award,
-    },
-    {
-      title: 'End-to-End Solutions',
-      desc: 'Hardware repair, home automation, and enterprise cloud under one roof.',
-      icon: Layers,
-    },
-    {
-      title: 'Transparent Pricing',
-      desc: 'Upfront scoping, genuine OEM spare parts warranty, and zero hidden costs.',
-      icon: Receipt,
-    },
-    {
-      title: 'Fast Response & 24×7 Support',
-      desc: 'Round-the-clock technical coverage, rapid dispatch, and active NOC/SOC.',
-      icon: Zap,
-    },
-    {
-      title: 'One Technology Partner',
-      desc: 'A single point of accountability for all your digital and hardware needs.',
-      icon: Handshake,
-    },
-    {
-      title: 'Customer-First Approach',
-      desc: 'Dedicated service commitments focused entirely on your long-term success.',
-      icon: HeartHandshake,
+      icon: Heart,
+      value: '100%',
+      label: 'Customer-First Commitment',
     },
   ];
 
@@ -94,7 +43,7 @@ export default function WhoWeAre() {
       aria-labelledby="who-we-are-heading"
       className="bg-[#ffffff] text-[#0b1b3a] relative overflow-hidden"
     >
-      {/* 1. TOP ABOUT BANNER (Dark Corporate Overlay Style) */}
+      {/* 1. TOP ABOUT BANNER (Dark Corporate Tech Overlay) */}
       <div className="relative bg-[#0b1b3a] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background Image Overlay with Tech Office Tone */}
         <div 
@@ -126,14 +75,14 @@ export default function WhoWeAre() {
             <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-4 rounded-full" />
 
             <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
-              Backed by <strong className="text-white font-semibold">20+ Years of Industry Experience</strong>, <strong className="text-white font-semibold">Certified Technology Experts</strong>, and a <strong className="text-white font-semibold">Customer-First Approach</strong>, TSK OneIT delivers complete <strong className="text-white font-semibold">End-to-End Technology Solutions</strong> with dependable <strong className="text-white font-semibold">24×7 Support</strong>.
+              For more than 20 years, for thousands of users and enterprises, we provide top-tier technology solutions by combining deep engineering expertise, chip-level mastery, and customer-first service.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
       {/* 2. FLOATING STATS PILL BAR (Overlapping Banner & White Body) */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-10 sm:-mt-12 mb-16 lg:mb-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-10 sm:-mt-12 mb-16 lg:mb-24">
         <ScrollReveal animation="fade-up" delay={150}>
           <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#0369a1] text-white p-4 sm:p-6 shadow-xl shadow-sky-900/15 border border-sky-300/30">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-white/20">
@@ -148,7 +97,7 @@ export default function WhoWeAre() {
                       <Icon className="size-5 sm:size-6 text-white" />
                     </div>
                     <div className="flex flex-col text-left">
-                      <span className="text-lg sm:text-xl lg:text-2xl font-black tracking-tight text-white leading-none">
+                      <span className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-white leading-none">
                         {stat.value}
                       </span>
                       <span className="text-[11px] sm:text-xs font-medium text-sky-100 mt-1 leading-tight">
@@ -163,7 +112,7 @@ export default function WhoWeAre() {
         </ScrollReveal>
       </div>
 
-      {/* 3. WHO WE ARE 2-COLUMN SECTION */}
+      {/* 3. WHO WE ARE 2-COLUMN SECTION (Image Composite on Left, Narrative on Right) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
@@ -172,27 +121,27 @@ export default function WhoWeAre() {
             <ScrollReveal animation="slide-right">
               <div className="relative max-w-md mx-auto lg:max-w-none">
                 
-                {/* Image 1: Top Main Photo Card (Engineering Team Collaboration) */}
+                {/* Image 1: Main Top Card (Tech Team Collaboration) */}
                 <div className="w-[84%] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100 aspect-[4/3] relative z-10">
                   <img
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                    alt="TSK OneIT Certified Engineering Team"
+                    alt="TSK OneIT Engineering Team Collaborating"
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
 
-                {/* Image 2: Bottom-Right Overlapping Photo Card (Hardware & Tech Specialist) */}
+                {/* Image 2: Overlapping Bottom-Right Card (Tech Specialist in Lab) */}
                 <div className="w-[80%] -mt-20 ml-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100 aspect-[4/3] relative z-20">
                   <img
                     src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80"
-                    alt="TSK OneIT Specialist in Diagnostics Lab"
+                    alt="TSK OneIT Certified Specialist"
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
 
-                {/* Overlapping Floating Royal Blue Circle Badge */}
+                {/* Overlapping Floating Royal Blue Circle Badge: 20+ YEARS OF EXPERIENCE */}
                 <div className="absolute top-[32%] left-[44%] -translate-x-1/2 -translate-y-1/2 z-30 size-32 sm:size-36 rounded-full bg-gradient-to-br from-[#1e40af] to-[#0284c7] text-white flex flex-col items-center justify-center text-center p-3 shadow-2xl border-4 border-white ring-4 ring-sky-100/80 animate-pulse hover:animate-none">
                   <span className="text-base sm:text-lg font-black tracking-tight leading-tight">
                     20+ YEARS
@@ -206,12 +155,12 @@ export default function WhoWeAre() {
             </ScrollReveal>
           </div>
 
-          {/* RIGHT COLUMN: Who We Are Narrative & Exact Core Pillars Grid */}
+          {/* RIGHT COLUMN: Who We Are Narrative (Matching Reference Image Layout) */}
           <div className="lg:col-span-7 space-y-6">
             <ScrollReveal animation="slide-left" delay={150}>
               <div className="space-y-4">
                 
-                {/* Title & Brand Accent Bar */}
+                {/* Title & Brand Accent Line */}
                 <div>
                   <h3 
                     id="who-we-are-heading"
@@ -226,39 +175,34 @@ export default function WhoWeAre() {
                 </div>
 
                 <h4 className="text-lg sm:text-xl font-bold text-slate-800 leading-snug">
-                  One Technology Partner. Complete End-to-End Solutions.
+                  Your Trusted Technology Partner for Personal Devices, Smart Living, and Enterprise Digital Transformation
                 </h4>
 
                 <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                  <strong className="text-slate-900 font-bold">TSK OneIT</strong> is your trusted single point of accountability for personal device care, smart connected living, and enterprise digital transformation. Combining <strong className="text-slate-900 font-semibold">20+ Years of Industry Experience</strong> with <strong className="text-slate-900 font-semibold">Enterprise-Grade Expertise</strong>, our certified engineers deliver dependable technology under one roof.
+                  <strong className="text-slate-900 font-bold">TSK OneIT</strong> is a premier technology company dedicated to delivering end-to-end IT, automation, and infrastructure solutions under one roof. With certified engineers and two decades of proven industry leadership, we eliminate vendor fragmentation for home users, startups, SMBs, and enterprise organizations.
                 </p>
 
-                {/* 8 Core Pillars Grid using the exact required details */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  {corePillars.map((pillar) => {
-                    const Icon = pillar.icon;
-                    return (
-                      <div 
-                        key={pillar.title}
-                        className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-sky-300 hover:shadow-xs transition-all duration-200 flex items-start gap-3"
-                      >
-                        <div className="size-8 rounded-lg bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 mt-0.5">
-                          <Icon className="size-4" />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="text-xs font-bold text-slate-900 leading-snug">
-                            {pillar.title}
-                          </span>
-                          <span className="text-[11px] text-slate-500 leading-tight mt-0.5">
-                            {pillar.desc}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                  From cleanroom data recovery, Apple logic board micro-soldering, and smart home automation to mission-critical multi-cloud migrations (Azure, AWS, GCP), 24×7 NOC/SOC threat shielding, and custom AI software, we power your digital future with transparent pricing and fast response.
+                </p>
+
+                {/* 3 Quick Value Highlight Badges */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <CheckCircle2 className="size-4 text-emerald-500 shrink-0" />
+                    <span className="text-xs font-bold text-slate-800">Certified Engineers</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <CheckCircle2 className="size-4 text-emerald-500 shrink-0" />
+                    <span className="text-xs font-bold text-slate-800">Genuine OEM Parts</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <CheckCircle2 className="size-4 text-emerald-500 shrink-0" />
+                    <span className="text-xs font-bold text-slate-800">24×7 SLA Support</span>
+                  </div>
                 </div>
 
-                {/* Actions Bar */}
+                {/* CTA Action Buttons */}
                 <div className="pt-4 flex flex-wrap items-center gap-4">
                   <Link
                     href="#divisions"
