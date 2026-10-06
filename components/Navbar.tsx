@@ -12,67 +12,51 @@ import {
   ArrowRight, 
   Sparkles, 
   Contrast, 
-  User, 
-  Globe,
-  CheckCircle2,
-  ChevronRight
+  User
 } from 'lucide-react';
 
-export const deviceCareServices = [
-  { title: 'Laptop & Desktop Repair', desc: 'Hardware diagnostics, OS troubleshooting & repairs' },
-  { title: 'Apple MacBook Repair', desc: 'MacBook Pro & Air logic boards, screens & batteries' },
-  { title: 'Chip-Level Motherboard Repair', desc: 'BGA rework, circuit diagnostics & micro-soldering' },
-  { title: 'Data Recovery', desc: 'HDD, SSD, NVMe & RAID recovery from damaged media' },
-  { title: 'SSD & RAM Upgrades', desc: 'Performance acceleration & NVMe storage expansion' },
-  { title: 'Genuine Spare Parts', desc: 'OEM screens, batteries, keyboards & power adapters' },
-  { title: 'Annual Maintenance (AMC)', desc: 'Preventive maintenance & priority breakdown support' },
-  { title: 'Doorstep Pickup & Delivery', desc: 'Secure transit with live ticket tracking across Chennai' },
+export const deviceCareList = [
+  'Laptop & Desktop Repair',
+  'Apple Macbook Repair',
+  'Chip Level Mother Board Repair',
+  'Data Recovery',
+  'SSD & RAM Upgrades',
+  'Genuine Spareparts',
+  'AMC',
+  'Doorstep Pickup & Delivery',
 ];
 
-export const homeAutomationServices = [
-  { title: 'Smart Home Automation', desc: 'Unified control of lighting, security, shades & climate' },
-  { title: 'CCTV & IP Surveillance', desc: 'HD/4K security cameras with mobile monitoring' },
-  { title: 'Smart Door Locks', desc: 'Biometric, keypad, RFID & mobile app keyless entry' },
-  { title: 'Video Door Phones', desc: 'Smart intercoms, visitor verification & 2-way audio' },
-  { title: 'Smart Lighting', desc: 'Automated schedules, scene control & energy optimization' },
-  { title: 'Home Wi-Fi & Mesh', desc: 'Zero-deadzone high-speed Wi-Fi 6/7 mesh coverage' },
-  { title: 'Access Control Systems', desc: 'RFID gates, smart entry barriers & visitor logs' },
-  { title: 'Voice Assistants Integration', desc: 'Alexa, Google Home & Apple HomeKit synchronization' },
-  { title: 'Home Cybersecurity', desc: 'IoT threat shielding, secure gateways & parental controls' },
+export const homeAutomationList = [
+  'Smart Home Automation',
+  'CCTV',
+  'Smartdoor Locks',
+  'Video Door Phones',
+  'Smart Lighting',
+  'Home WiFi & Mesh',
+  'Access Control',
+  'Voice Assistants',
+  'Home Cyber Security',
 ];
 
-export const businessSolutionsServices = [
-  { title: 'IT Infrastructure', desc: 'LAN/WAN, enterprise Wi-Fi, switching & structured cabling' },
-  { title: 'Cloud Solutions', desc: 'Microsoft Azure, AWS & Google Cloud (GCP) migrations' },
-  { title: 'Cybersecurity', desc: 'Next-Gen Firewalls, Endpoint Defense, SOC & Vulnerability Audits' },
-  { title: 'Managed IT Services', desc: 'Dedicated engineers, SLA helpdesk & 24x7 monitoring' },
-  { title: 'NOC / SOC / TAC', desc: 'Proactive network, security & tech assistance centers' },
-  { title: 'AI & Business Applications', desc: 'AI workflow automation, analytics & intelligent bots' },
-  { title: 'CRM / ERP Solutions', desc: 'Custom enterprise resource planning & customer platforms' },
-  { title: 'WhatsApp Automation', desc: 'Official WhatsApp Business API, CRM sync & bots' },
-  { title: 'Custom Software Development', desc: 'Scalable web apps, portals & cloud-native backends' },
-];
-
-export const industriesList = [
-  { name: 'Startups', desc: 'Agile cloud architecture & growth security' },
-  { name: 'SMBs', desc: 'Managed IT, network & modern workplace' },
-  { name: 'Enterprises', desc: '24x7 NOC/SOC, multi-cloud & SLA AMC' },
-  { name: 'Manufacturing', desc: 'Plant floor IoT, biometric gates & CCTV' },
-  { name: 'Healthcare', desc: 'HIPAA compliance, patient Wi-Fi & server DR' },
-  { name: 'Hospitality', desc: 'Guest Wi-Fi, room automation & surveillance' },
-  { name: 'Retail', desc: 'POS networking, inventory tracking & security' },
-  { name: 'Education', desc: 'Campus-wide Wi-Fi, smart boards & lab IT' },
-  { name: 'BFSI', desc: 'Banking-grade cybersecurity & disaster recovery' },
-  { name: 'Government', desc: 'High-security networks & compliant IT infrastructure' },
+export const businessSolutionsList = [
+  'IT Infrastructure',
+  'Cloud Solutions (Microsoft Azure, AWS, GCP)',
+  'Cybersecurity',
+  'Managed IT Services',
+  'NOC/SOC/TAC',
+  'AI & Business Applications',
+  'CRM/ERP',
+  'WhatsApp Automation',
+  'Custom Software Development',
 ];
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [fontSizeIndex, setFontSizeIndex] = useState(1); // 0 = A-, 1 = A, 2 = A+
   const [highContrast, setHighContrast] = useState(false);
 
-  // Toggle drawer body scroll lock
+  // Toggle drawer body scroll lock & ESC key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isDrawerOpen) {
@@ -93,8 +77,8 @@ export default function Navbar() {
     };
   }, [isDrawerOpen]);
 
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section);
+  const toggleAccordion = (name: string) => {
+    setExpandedMenu(expandedMenu === name ? null : name);
   };
 
   const adjustFontSize = (level: number) => {
@@ -107,7 +91,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 1. TOP UTILITY & ACCESSIBILITY BAR (Dark Navy Bar from Reference) */}
+      {/* 1. TOP UTILITY & ACCESSIBILITY BAR */}
       <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
           
@@ -193,7 +177,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 2. MAIN NAVBAR WITH ANGLED BLUE SLANT (Exact Avuetech Reference Layout) */}
+      {/* 2. MAIN NAVBAR WITH ANGLED BLUE SLANT & USER CONTENT */}
       <header className="sticky top-0 z-50 w-full bg-white shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-slate-100 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
@@ -226,53 +210,109 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Links (Clean & Direct) */}
+            {/* Desktop Navigation Links (Configured Exactly to the Brief) */}
             <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+              {/* Home */}
               <Link
                 href="#top"
                 className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
               >
                 Home
               </Link>
-              <Link
-                href="#divisions"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                Divisions
-              </Link>
-              <Link
-                href="#digital-transformation"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                Services
-              </Link>
-              <Link
-                href="#industries"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                Industries
-              </Link>
-              <Link
-                href="#amc"
-                className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
-              >
-                AMC Support
-              </Link>
+
+              {/* Device Care Dropdown */}
+              <div className="group relative">
+                <button
+                  type="button"
+                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
+                >
+                  <span>Device Care</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+                </button>
+
+                <div className="invisible absolute top-full left-0 z-40 w-72 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
+                    {deviceCareList.map((item) => (
+                      <Link
+                        key={item}
+                        href="#divisions"
+                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Home Automation Dropdown */}
+              <div className="group relative">
+                <button
+                  type="button"
+                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
+                >
+                  <span>Home Automation</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+                </button>
+
+                <div className="invisible absolute top-full left-0 z-40 w-72 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
+                    {homeAutomationList.map((item) => (
+                      <Link
+                        key={item}
+                        href="#divisions"
+                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-800 rounded-lg transition-colors"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Business Solutions Dropdown */}
+              <div className="group relative">
+                <button
+                  type="button"
+                  className="flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
+                >
+                  <span>Business Solutions</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+                </button>
+
+                <div className="invisible absolute top-full left-0 z-40 w-80 pt-2 opacity-0 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                  <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-xl space-y-1">
+                    {businessSolutionsList.map((item) => (
+                      <Link
+                        key={item}
+                        href="#divisions"
+                        className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition-colors"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* About Us */}
               <Link
                 href="#why-us"
                 className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
               >
                 About Us
               </Link>
+
+              {/* Contact Us */}
               <Link
                 href="#contact"
                 className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition-colors"
               >
-                Contact
+                Contact Us
               </Link>
             </nav>
 
-            {/* Right: Gold CTA & Round Blue Hamburger Trigger (Matching Avuetech Exactly) */}
+            {/* Right: Gold CTA & Round Blue Hamburger Button */}
             <div className="flex items-center gap-3">
               {/* Yellow/Gold "Get A Quote" Button */}
               <Link
@@ -288,7 +328,7 @@ export default function Navbar() {
                 onClick={() => setIsDrawerOpen(true)}
                 aria-label="Open full-screen navigation menu"
                 aria-expanded={isDrawerOpen}
-                className="size-10 sm:size-11 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-md hover:scale-105"
+                className="size-10 sm:size-11 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all shadow-md hover:scale-105 cursor-pointer"
               >
                 <Menu className="size-5" />
               </button>
@@ -298,10 +338,10 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* 3. FULL-SCREEN SPLIT DRAWER MENU (Exact Avuetech Slide 3 Layout) */}
+      {/* 3. FULL-SCREEN SPLIT DRAWER MENU (Matching Avuetech Sub-item Layout) */}
       {isDrawerOpen && (
         <div 
-          className="fixed inset-0 z-[100] h-dvh w-screen bg-black/70 backdrop-blur-md transition-all duration-300"
+          className="fixed inset-0 z-[100] h-dvh w-screen bg-black/75 backdrop-blur-md transition-all duration-300"
           onClick={() => setIsDrawerOpen(false)}
         >
           <div 
@@ -309,11 +349,11 @@ export default function Navbar() {
             onClick={(e) => e.stopPropagation()}
           >
             
-            {/* Left Panel: Royal Blue Menu List (70% Width on Desktop) */}
+            {/* Left Panel: Royal Blue Menu List (68% Width on Desktop) */}
             <div className="relative w-full lg:w-[68%] h-full bg-gradient-to-br from-[#1e40af] via-[#1e3a8a] to-[#0f2761] text-white p-6 sm:p-12 lg:p-16 flex flex-col justify-between overflow-y-auto">
               
               {/* Top Left Logo in Drawer */}
-              <div className="flex items-center justify-between pb-8">
+              <div className="flex items-center justify-between pb-6">
                 <div className="flex items-center gap-3">
                   <div className="size-9 text-white">
                     <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
@@ -341,8 +381,8 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Big Vertical Navigation Items */}
-              <nav className="space-y-4 my-auto py-6">
+              {/* Big Vertical Navigation Items Structured Exactly to User's Specification */}
+              <nav className="space-y-4 my-auto py-4">
                 
                 {/* 1. Home */}
                 <div>
@@ -355,161 +395,106 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* 2. Company / About Us */}
-                <div>
-                  <Link
-                    href="#why-us"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white hover:translate-x-2 transition-all block"
-                  >
-                    Company
-                  </Link>
-                </div>
-
-                {/* 3. Services (Expandable) */}
+                {/* 2. Device Care (Expandable with bullet sub-items) */}
                 <div>
                   <button
-                    onClick={() => toggleSection('services')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors"
+                    onClick={() => toggleAccordion('device-care')}
+                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors cursor-pointer"
                   >
-                    <span>Services</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform ${expandedSection === 'services' ? 'rotate-180' : ''}`} />
+                    <span>Device Care</span>
+                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-200 ${expandedMenu === 'device-care' ? 'rotate-180' : ''}`} />
                   </button>
 
-                  {expandedSection === 'services' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 pl-4 border-l-2 border-cyan-400/40 my-2">
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        💻 Device Care &amp; Chip-Level Repairs
-                      </Link>
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        🏠 Home Automation &amp; Smart Living
-                      </Link>
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        🏢 Business Solutions &amp; Cloud IT
-                      </Link>
-                      <Link 
-                        href="#digital-transformation" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        ⚡ Digital Transformation Grid
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                {/* 4. Solutions (Expandable) */}
-                <div>
-                  <button
-                    onClick={() => toggleSection('solutions')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors"
-                  >
-                    <span>Solutions</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform ${expandedSection === 'solutions' ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {expandedSection === 'solutions' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 pl-4 border-l-2 border-cyan-400/40 my-2">
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        Cloud Migrations (Azure, AWS, GCP)
-                      </Link>
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        Cybersecurity &amp; 24x7 SOC
-                      </Link>
-                      <Link 
-                        href="#divisions" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        AI &amp; WhatsApp Business Automation
-                      </Link>
-                      <Link 
-                        href="#amc" 
-                        onClick={() => setIsDrawerOpen(false)}
-                        className="p-2 rounded-lg hover:bg-white/10 text-white text-sm font-semibold"
-                      >
-                        Annual Maintenance Contracts (AMC)
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                {/* 5. Industries (Expandable) */}
-                <div>
-                  <button
-                    onClick={() => toggleSection('industries')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors"
-                  >
-                    <span>Industries</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform ${expandedSection === 'industries' ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {expandedSection === 'industries' && (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-4 pl-4 border-l-2 border-cyan-400/40 my-2 text-xs">
-                      {industriesList.map((ind) => (
-                        <Link 
-                          key={ind.name}
-                          href="#industries" 
+                  {expandedMenu === 'device-care' && (
+                    <div className="mt-3 p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-2.5">
+                      {deviceCareList.map((item) => (
+                        <Link
+                          key={item}
+                          href="#divisions"
                           onClick={() => setIsDrawerOpen(false)}
-                          className="p-2 rounded-lg hover:bg-white/10 text-white font-medium"
+                          className="flex items-center gap-2.5 text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:translate-x-1.5 transition-all"
                         >
-                          &bull; {ind.name}
+                          <span className="size-2 rounded-full bg-cyan-400 shrink-0" />
+                          <span>{item}</span>
                         </Link>
                       ))}
                     </div>
                   )}
                 </div>
 
-                {/* 6. Products & Spares */}
+                {/* 3. Home Automation (Expandable with bullet sub-items) */}
                 <div>
-                  <Link
-                    href="#divisions"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white hover:translate-x-2 transition-all block"
+                  <button
+                    onClick={() => toggleAccordion('home-automation')}
+                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors cursor-pointer"
                   >
-                    Products &amp; Spares
-                  </Link>
+                    <span>Home Automation</span>
+                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-200 ${expandedMenu === 'home-automation' ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {expandedMenu === 'home-automation' && (
+                    <div className="mt-3 p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-2.5">
+                      {homeAutomationList.map((item) => (
+                        <Link
+                          key={item}
+                          href="#divisions"
+                          onClick={() => setIsDrawerOpen(false)}
+                          className="flex items-center gap-2.5 text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:translate-x-1.5 transition-all"
+                        >
+                          <span className="size-2 rounded-full bg-amber-400 shrink-0" />
+                          <span>{item}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* 7. Resources */}
+                {/* 4. Business Solutions (Expandable with bullet sub-items) */}
+                <div>
+                  <button
+                    onClick={() => toggleAccordion('business-solutions')}
+                    className="w-full flex items-center justify-between text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white text-left transition-colors cursor-pointer"
+                  >
+                    <span>Business Solutions</span>
+                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-200 ${expandedMenu === 'business-solutions' ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {expandedMenu === 'business-solutions' && (
+                    <div className="mt-3 p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-2.5">
+                      {businessSolutionsList.map((item) => (
+                        <Link
+                          key={item}
+                          href="#divisions"
+                          onClick={() => setIsDrawerOpen(false)}
+                          className="flex items-center gap-2.5 text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:translate-x-1.5 transition-all"
+                        >
+                          <span className="size-2 rounded-full bg-indigo-400 shrink-0" />
+                          <span>{item}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 5. About Us */}
                 <div>
                   <Link
                     href="#why-us"
                     onClick={() => setIsDrawerOpen(false)}
                     className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white hover:translate-x-2 transition-all block"
                   >
-                    Resources
+                    About Us
                   </Link>
                 </div>
 
-                {/* 8. Contact */}
+                {/* 6. Contact Us */}
                 <div>
                   <Link
                     href="#contact"
                     onClick={() => setIsDrawerOpen(false)}
                     className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 hover:text-white hover:translate-x-2 transition-all block"
                   >
-                    Contact
+                    Contact Us
                   </Link>
                 </div>
 
@@ -531,7 +516,7 @@ export default function Navbar() {
                   type="button"
                   onClick={() => setIsDrawerOpen(false)}
                   aria-label="Close menu"
-                  className="size-11 rounded-full border border-white/25 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-105"
+                  className="size-11 rounded-full border border-white/25 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-105 cursor-pointer"
                 >
                   <X className="size-5" />
                 </button>
