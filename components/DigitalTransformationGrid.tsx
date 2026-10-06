@@ -148,24 +148,24 @@ export default function DigitalTransformationGrid() {
             : 'bg-white text-slate-900 border-slate-200/90 hover:border-slate-300'
         }`}
       >
-        {/* Full-Bleed Background Image (25% opacity, zooms smoothly on hover without disturbing text) */}
+        {/* Full-Bleed Background Image (Clearly visible with smooth zoom on hover) */}
         <img 
           src={card.image} 
           alt={card.title} 
           className={`absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-108 transition-all duration-700 ease-out pointer-events-none ${
             isDark 
-              ? 'opacity-25 group-hover:opacity-40 mix-blend-luminosity' 
-              : 'opacity-18 group-hover:opacity-30'
+              ? 'opacity-60 group-hover:opacity-85' 
+              : 'opacity-55 group-hover:opacity-75'
           }`}
           loading="lazy"
         />
 
-        {/* Contrast Gradient Mask to Ensure 100% Readable Text */}
+        {/* Tailored Contrast Gradient Scrim to Ensure 100% Sharp Readable Text */}
         <div 
           className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
             isDark 
-              ? 'bg-gradient-to-t from-slate-950 via-slate-950/85 to-slate-950/40' 
-              : 'bg-gradient-to-t from-white via-white/95 to-white/60'
+              ? 'bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/20' 
+              : 'bg-gradient-to-t from-white via-white/80 to-transparent'
           }`} 
         />
 
