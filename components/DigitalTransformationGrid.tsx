@@ -188,7 +188,7 @@ export default function DigitalTransformationGrid() {
 
   return (
     <section 
-      id="digital-transformation"
+      id="our-services"
       aria-labelledby="transformation-heading"
       className="py-20 lg:py-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
     >
@@ -200,22 +200,27 @@ export default function DigitalTransformationGrid() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header (Matching Damco / Enterprise Reference Exactly) */}
+        {/* Section Header */}
         <ScrollReveal animation="fade-up">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-sky-900 shadow-xs">
+              <Sparkles className="size-3.5 text-amber-500" />
+              <span>Full Technology Lifecycle</span>
+            </div>
+
             <h2 
               id="transformation-heading"
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0f172a]"
             >
-              Your Technology &amp; Digital Transformation Partner
+              Our Services
             </h2>
             
-            {/* Signature Red Accent Bar from Reference Image */}
-            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-4 mb-6 rounded-full" />
+            {/* Signature Red Accent Bar */}
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-6 rounded-full" />
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Whether you develop technology products or use technology to implement business solutions for your enterprise, 
-              TSK OneIT can help advance and accelerate your business outcomes.
+              Whether you need personal device restoration, smart living automation, or enterprise digital transformation, 
+              TSK OneIT delivers end-to-end technology excellence.
             </p>
           </div>
         </ScrollReveal>

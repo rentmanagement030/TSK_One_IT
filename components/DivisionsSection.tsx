@@ -263,16 +263,15 @@ export default function DivisionsSection() {
 
             <h2 
               id="divisions-heading"
-              className="font-black tracking-tight text-[#0b1b3a]"
-              style={{ fontSize: 'clamp(2rem, 3.5vw + 0.5rem, 3.2rem)' }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0f172a]"
             >
-              Our Three Core Divisions
+              What We Do
             </h2>
             
-            <div className="title-accent-line" />
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-6 rounded-full" />
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed pt-2 max-w-2xl mx-auto">
-              Whether you need precision hardware repair, connected smart home automation, or scalable enterprise IT, our certified divisions deliver excellence.
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+              Our operations are structured into <strong className="text-slate-900 font-bold">Three Core Divisions</strong>: Device Care, Home Automation, and Enterprise Business Solutions.
             </p>
           </div>
         </ScrollReveal>
