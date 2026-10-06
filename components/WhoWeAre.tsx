@@ -118,11 +118,6 @@ export default function WhoWeAre() {
         {/* Banner Content */}
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
           <ScrollReveal animation="fade-up">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-950/80 border border-sky-800/80 text-xs font-semibold text-sky-300 shadow-xs mb-2">
-              <Sparkles className="size-3.5 text-amber-400" />
-              <span>Your Trusted Technology Partner</span>
-            </div>
-
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               About TSK OneIT
             </h2>
