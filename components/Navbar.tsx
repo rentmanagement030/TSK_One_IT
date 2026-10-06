@@ -14,84 +14,57 @@ import {
   ChevronRight
 } from 'lucide-react';
 
-export const allServicesList = [
-  {
-    id: 'it-support',
-    title: 'IT Support & Repairs',
-    desc: 'Laptops, desktops & chip-level repairs',
-    category: 'Hardware & Onsite',
-  },
-  {
-    id: 'networking-wifi',
-    title: 'Enterprise Wi-Fi & LAN',
-    desc: 'SD-WAN, structured cabling & network design',
-    category: 'Connectivity',
-  },
-  {
-    id: 'servers-storage',
-    title: 'Servers & Storage',
-    desc: 'Virtualization, SAN/NAS & disaster recovery',
-    category: 'Enterprise Compute',
-  },
-  {
-    id: 'cctv-surveillance',
-    title: 'CCTV & Surveillance',
-    desc: 'IP cameras, remote monitoring & video analytics',
-    category: 'Visual Security',
-  },
-  {
-    id: 'cybersecurity',
-    title: 'Cybersecurity & SOC',
-    desc: 'Next-gen firewall, endpoint security & SOC',
-    category: 'Threat Defense',
-  },
-  {
-    id: 'biometric-access',
-    title: 'Biometric Access Control',
-    desc: 'RFID, time attendance & visitor management',
-    category: 'Access Systems',
-  },
-  {
-    id: 'cloud-backup',
-    title: 'Cloud & Backup Solutions',
-    desc: 'Cloud migration, hybrid cloud & automated backup',
-    category: 'Cloud Infrastructure',
-  },
-  {
-    id: 'business-applications',
-    title: 'Business Applications (CRM / ERP / AI)',
-    desc: 'Custom CRM/ERP, AI apps & web development',
-    category: 'Custom Software',
-  },
-  {
-    id: 'managed-it',
-    title: 'Managed IT & 24x7 NOC',
-    desc: 'AMC support, dedicated engineers, NOC & TAC',
-    category: '24x7 Managed Ops',
-  },
-  {
-    id: 'smart-automation',
-    title: 'Smart Home & Office Automation',
-    desc: 'Smart lighting, security, door locks & scenes',
-    category: 'Smart Living & Workspaces',
-  },
-  {
-    id: 'audio-video-av',
-    title: 'Audio/Video & Conference Rooms',
-    desc: 'Smart boards, video walls & acoustic automation',
-    category: 'Enterprise AV',
-  },
-  {
-    id: 'it-consultancy',
-    title: 'IT Consultancy & Projects',
-    desc: 'Turnkey IT audits, vendor mgmt & tech roadmap',
-    category: 'Advisory & Execution',
-  },
+export const deviceCareServices = [
+  { title: 'Laptop & Desktop Repair', desc: 'Hardware diagnostics, OS troubleshooting & repairs' },
+  { title: 'Apple MacBook Repair', desc: 'MacBook Pro & Air logic boards, screens & batteries' },
+  { title: 'Chip-Level Motherboard Repair', desc: 'BGA rework, circuit diagnostics & micro-soldering' },
+  { title: 'Data Recovery', desc: 'HDD, SSD, NVMe & RAID recovery from damaged media' },
+  { title: 'SSD & RAM Upgrades', desc: 'Performance acceleration & NVMe storage expansion' },
+  { title: 'Genuine Spare Parts', desc: 'OEM screens, batteries, keyboards & power adapters' },
+  { title: 'Annual Maintenance (AMC)', desc: 'Preventive maintenance & priority breakdown support' },
+  { title: 'Doorstep Pickup & Delivery', desc: 'Secure transit with live ticket tracking across Chennai' },
+];
+
+export const homeAutomationServices = [
+  { title: 'Smart Home Automation', desc: 'Unified control of lighting, security, shades & climate' },
+  { title: 'CCTV & IP Surveillance', desc: 'HD/4K security cameras with mobile monitoring' },
+  { title: 'Smart Door Locks', desc: 'Biometric, keypad, RFID & mobile app keyless entry' },
+  { title: 'Video Door Phones', desc: 'Smart intercoms, visitor verification & 2-way audio' },
+  { title: 'Smart Lighting', desc: 'Automated schedules, scene control & energy optimization' },
+  { title: 'Home Wi-Fi & Mesh', desc: 'Zero-deadzone high-speed Wi-Fi 6/7 mesh coverage' },
+  { title: 'Access Control Systems', desc: 'RFID gates, smart entry barriers & visitor logs' },
+  { title: 'Voice Assistants Integration', desc: 'Alexa, Google Home & Apple HomeKit synchronization' },
+  { title: 'Home Cybersecurity', desc: 'IoT threat shielding, secure gateways & parental controls' },
+];
+
+export const businessSolutionsServices = [
+  { title: 'IT Infrastructure', desc: 'LAN/WAN, enterprise Wi-Fi, switching & structured cabling' },
+  { title: 'Cloud Solutions', desc: 'Microsoft Azure, AWS & Google Cloud (GCP) migrations' },
+  { title: 'Cybersecurity', desc: 'Next-Gen Firewalls, Endpoint Defense, SOC & Vulnerability Audits' },
+  { title: 'Managed IT Services', desc: 'Dedicated engineers, SLA helpdesk & 24x7 monitoring' },
+  { title: 'NOC / SOC / TAC', desc: 'Proactive network, security & tech assistance centers' },
+  { title: 'AI & Business Applications', desc: 'AI workflow automation, analytics & intelligent bots' },
+  { title: 'CRM / ERP Solutions', desc: 'Custom enterprise resource planning & customer platforms' },
+  { title: 'WhatsApp Automation', desc: 'Official WhatsApp Business API, CRM sync & bots' },
+  { title: 'Custom Software Development', desc: 'Scalable web apps, portals & cloud-native backends' },
+];
+
+export const industriesList = [
+  { name: 'Startups', desc: 'Agile cloud architecture & growth security' },
+  { name: 'SMBs', desc: 'Managed IT, network & modern workplace' },
+  { name: 'Enterprises', desc: '24x7 NOC/SOC, multi-cloud & SLA AMC' },
+  { name: 'Manufacturing', desc: 'Plant floor IoT, biometric gates & CCTV' },
+  { name: 'Healthcare', desc: 'HIPAA compliance, patient Wi-Fi & server DR' },
+  { name: 'Hospitality', desc: 'Guest Wi-Fi, room automation & surveillance' },
+  { name: 'Retail', desc: 'POS networking, inventory tracking & security' },
+  { name: 'Education', desc: 'Campus-wide Wi-Fi, smart boards & lab IT' },
+  { name: 'BFSI', desc: 'Banking-grade cybersecurity & disaster recovery' },
+  { name: 'Government', desc: 'High-security networks & compliant IT infrastructure' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeMobileTab, setActiveMobileTab] = useState<'services' | 'menu'>('services');
+  const [mobileSection, setMobileSection] = useState<'divisions' | 'industries' | 'menu'>('divisions');
 
   // Handle ESC key to close mobile menu
   useEffect(() => {
@@ -127,193 +100,181 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <ul className="hidden items-center gap-1 xl:gap-2 lg:flex">
             
-            {/* Mega Menu: Clean Textual 12 Services (No Numbers, No Icons) */}
-            <li className="group/mm static">
-              <button
-                type="button"
-                aria-haspopup="true"
-                className="flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 group-hover/mm:bg-sky-50 group-hover/mm:text-sky-800 group-focus-within/mm:bg-sky-50 group-focus-within/mm:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
+            {/* Home Link */}
+            <li>
+              <Link
+                href="#top"
+                className="flex h-10 items-center rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                <span>Our Services</span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover/mm:rotate-180 group-focus-within/mm:rotate-180" />
-              </button>
-
-              {/* Clean Minimalist 3-Column Mega Panel */}
-              <div 
-                role="region"
-                aria-label="Services Mega Menu"
-                className="invisible absolute top-full left-1/2 z-40 mt-1.5 w-[min(64rem,calc(100vw-2rem))] -translate-x-1/2 translate-y-2 rounded-3xl border border-sky-100 bg-white p-6 opacity-0 shadow-[0_30px_70px_-15px_rgba(14,165,233,0.22)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  
-                  {/* Column 1: Core IT & Hardware */}
-                  <div>
-                    <div className="mb-3 border-b border-sky-100 pb-2">
-                      <span className="text-xs font-mono font-bold tracking-wider text-sky-800 uppercase">
-                        Core IT &amp; Hardware
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      {allServicesList.slice(0, 4).map((service) => (
-                        <Link
-                          key={service.id}
-                          href="#services"
-                          className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
-                        >
-                          <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
-                            {service.title}
-                          </span>
-                          <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
-                            {service.desc}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Column 2: Security & Software */}
-                  <div>
-                    <div className="mb-3 border-b border-sky-100 pb-2">
-                      <span className="text-xs font-mono font-bold tracking-wider text-emerald-800 uppercase">
-                        Security &amp; Software
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      {allServicesList.slice(4, 8).map((service) => (
-                        <Link
-                          key={service.id}
-                          href="#services"
-                          className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
-                        >
-                          <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
-                            {service.title}
-                          </span>
-                          <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
-                            {service.desc}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Column 3: Managed Ops & Smart */}
-                  <div>
-                    <div className="mb-3 border-b border-sky-100 pb-2">
-                      <span className="text-xs font-mono font-bold tracking-wider text-indigo-800 uppercase">
-                        Managed Ops &amp; Smart
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      {allServicesList.slice(8, 12).map((service) => (
-                        <Link
-                          key={service.id}
-                          href={service.id === 'smart-automation' || service.id === 'audio-video-av' ? '#smart-automation' : '#services'}
-                          className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
-                        >
-                          <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
-                            {service.title}
-                          </span>
-                          <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
-                            {service.desc}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Bottom Feasibility Check Bar */}
-                <div className="mt-5 pt-4 border-t border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-sky-50/70 via-blue-50/50 to-cyan-50/70 -mx-6 -mb-6 p-4 rounded-b-3xl">
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-8 items-center justify-center rounded-xl bg-sky-500 text-white shadow-xs">
-                      <Sparkles className="w-4 h-4" />
-                    </span>
-                    <div>
-                      <span className="block text-xs font-bold text-[#0b1b3a]">
-                        Free Site Assessment &amp; Feasibility Check
-                      </span>
-                      <span className="block text-[11px] text-slate-600">
-                        Zero-obligation technical survey across Chennai &amp; Tamil Nadu
-                      </span>
-                    </div>
-                  </div>
-
-                  <Link
-                    href="#contact"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#0a2a66] hover:bg-[#061a45] shadow-sm transition-all shrink-0"
-                  >
-                    <span>Book Assessment</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-
-              </div>
+                Home
+              </Link>
             </li>
 
-            {/* Dropdown 2: Solutions (No SVG Icons) */}
+            {/* Division 1: Device Care Dropdown */}
             <li className="group/mm relative">
               <button
                 type="button"
                 aria-haspopup="true"
                 className="flex h-10 items-center gap-1 rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 group-hover/mm:bg-sky-50 group-hover/mm:text-sky-800 group-focus-within/mm:bg-sky-50 group-focus-within/mm:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                <span>Solutions</span>
+                <span>Device Care</span>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover/mm:rotate-180 group-focus-within/mm:rotate-180" />
               </button>
 
               <div 
                 role="region"
-                aria-label="Solutions Dropdown"
-                className="invisible absolute top-full left-1/2 z-40 mt-1.5 grid w-[20rem] -translate-x-1/2 translate-y-2 grid-cols-2 gap-1.5 rounded-3xl border border-sky-100 bg-white p-3.5 opacity-0 shadow-[0_25px_60px_-15px_rgba(14,165,233,0.2)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
+                aria-label="Device Care Dropdown"
+                className="invisible absolute top-full left-1/2 z-40 mt-1.5 w-[36rem] -translate-x-1/2 translate-y-2 rounded-3xl border border-sky-100 bg-white p-5 opacity-0 shadow-[0_25px_60px_-15px_rgba(14,165,233,0.2)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
               >
-                <Link href="#hero-heading" className="rounded-2xl p-2.5 outline-none transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50">
-                  <span className="block text-xs font-bold text-slate-900">Enterprises</span>
-                  <span className="mt-0.5 block text-[11px] text-slate-500">NOC, SOC &amp; SLA</span>
-                </Link>
-
-                <Link href="#hero-heading" className="rounded-2xl p-2.5 outline-none transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50">
-                  <span className="block text-xs font-bold text-slate-900">Businesses</span>
-                  <span className="mt-0.5 block text-[11px] text-slate-500">Workspaces &amp; IT Ops</span>
-                </Link>
-
-                <Link href="#hero-heading" className="rounded-2xl p-2.5 outline-none transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50">
-                  <span className="block text-xs font-bold text-slate-900">Startups</span>
-                  <span className="mt-0.5 block text-[11px] text-slate-500">Cloud &amp; Security</span>
-                </Link>
-
-                <Link href="#smart-automation" className="rounded-2xl p-2.5 outline-none transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50">
-                  <span className="block text-xs font-bold text-slate-900">Homes</span>
-                  <span className="mt-0.5 block text-[11px] text-slate-500">Smart Living &amp; AV</span>
-                </Link>
+                <div className="mb-3 flex items-center justify-between border-b border-sky-100 pb-2">
+                  <span className="text-xs font-mono font-bold tracking-wider text-sky-800 uppercase">
+                    Device Care &bull; Individuals &amp; Businesses
+                  </span>
+                  <Link href="#divisions" className="text-[11px] font-bold text-sky-600 hover:text-sky-800">
+                    View Division &rarr;
+                  </Link>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {deviceCareServices.map((service) => (
+                    <Link
+                      key={service.title}
+                      href="#divisions"
+                      className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
+                    >
+                      <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
+                        {service.title}
+                      </span>
+                      <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
+                        {service.desc}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </li>
 
-            {/* Direct Navigation Links */}
-            <li>
-              <Link
-                href="#smart-automation"
-                className="flex h-10 items-center rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
+            {/* Division 2: Home Automation Dropdown */}
+            <li className="group/mm relative">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className="flex h-10 items-center gap-1 rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 group-hover/mm:bg-sky-50 group-hover/mm:text-sky-800 group-focus-within/mm:bg-sky-50 group-focus-within/mm:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                Smart Automation
-              </Link>
+                <span>Home Automation</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover/mm:rotate-180 group-focus-within/mm:rotate-180" />
+              </button>
+
+              <div 
+                role="region"
+                aria-label="Home Automation Dropdown"
+                className="invisible absolute top-full left-1/2 z-40 mt-1.5 w-[38rem] -translate-x-1/2 translate-y-2 rounded-3xl border border-sky-100 bg-white p-5 opacity-0 shadow-[0_25px_60px_-15px_rgba(14,165,233,0.2)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
+              >
+                <div className="mb-3 flex items-center justify-between border-b border-sky-100 pb-2">
+                  <span className="text-xs font-mono font-bold tracking-wider text-amber-800 uppercase">
+                    Home Automation &bull; Smart &amp; Connected Living
+                  </span>
+                  <Link href="#divisions" className="text-[11px] font-bold text-sky-600 hover:text-sky-800">
+                    View Division &rarr;
+                  </Link>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {homeAutomationServices.map((service) => (
+                    <Link
+                      key={service.title}
+                      href="#divisions"
+                      className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
+                    >
+                      <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
+                        {service.title}
+                      </span>
+                      <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
+                        {service.desc}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </li>
 
-            <li>
-              <Link
-                href="#amc"
-                className="flex h-10 items-center rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
+            {/* Division 3: Business Solutions Dropdown */}
+            <li className="group/mm relative">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className="flex h-10 items-center gap-1 rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 group-hover/mm:bg-sky-50 group-hover/mm:text-sky-800 group-focus-within/mm:bg-sky-50 group-focus-within/mm:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                AMC Support
-              </Link>
+                <span>Business Solutions</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover/mm:rotate-180 group-focus-within/mm:rotate-180" />
+              </button>
+
+              <div 
+                role="region"
+                aria-label="Business Solutions Dropdown"
+                className="invisible absolute top-full left-1/2 z-40 mt-1.5 w-[38rem] -translate-x-1/2 translate-y-2 rounded-3xl border border-sky-100 bg-white p-5 opacity-0 shadow-[0_25px_60px_-15px_rgba(14,165,233,0.2)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
+              >
+                <div className="mb-3 flex items-center justify-between border-b border-sky-100 pb-2">
+                  <span className="text-xs font-mono font-bold tracking-wider text-indigo-800 uppercase">
+                    Enterprise IT &bull; Cloud, Cyber &amp; AI Transformation
+                  </span>
+                  <Link href="#divisions" className="text-[11px] font-bold text-sky-600 hover:text-sky-800">
+                    View Division &rarr;
+                  </Link>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {businessSolutionsServices.map((service) => (
+                    <Link
+                      key={service.title}
+                      href="#divisions"
+                      className="group/item block rounded-xl p-2.5 transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50 outline-none"
+                    >
+                      <span className="block text-xs font-bold text-slate-900 group-hover/item:text-[#0a2a66] transition-colors truncate">
+                        {service.title}
+                      </span>
+                      <span className="block text-[11px] text-slate-500 leading-tight mt-0.5 truncate">
+                        {service.desc}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </li>
 
+            {/* Industries Dropdown */}
+            <li className="group/mm relative">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className="flex h-10 items-center gap-1 rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 group-hover/mm:bg-sky-50 group-hover/mm:text-sky-800 group-focus-within/mm:bg-sky-50 group-focus-within/mm:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
+              >
+                <span>Industries</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover/mm:rotate-180 group-focus-within/mm:rotate-180" />
+              </button>
+
+              <div 
+                role="region"
+                aria-label="Industries Dropdown"
+                className="invisible absolute top-full left-1/2 z-40 mt-1.5 grid w-[26rem] -translate-x-1/2 translate-y-2 grid-cols-2 gap-1.5 rounded-3xl border border-sky-100 bg-white p-4 opacity-0 shadow-[0_25px_60px_-15px_rgba(14,165,233,0.2)] transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-[''] group-hover/mm:visible group-hover/mm:translate-y-0 group-hover/mm:opacity-100 group-focus-within/mm:visible group-focus-within/mm:translate-y-0 group-focus-within/mm:opacity-100 motion-reduce:transition-none"
+              >
+                {industriesList.map((ind) => (
+                  <Link
+                    key={ind.name}
+                    href="#industries"
+                    className="rounded-2xl p-2.5 outline-none transition-colors hover:bg-sky-50/80 focus-visible:bg-sky-50"
+                  >
+                    <span className="block text-xs font-bold text-slate-900">{ind.name}</span>
+                    <span className="mt-0.5 block text-[11px] text-slate-500 truncate">{ind.desc}</span>
+                  </Link>
+                ))}
+              </div>
+            </li>
+
+            {/* Direct Links */}
             <li>
               <Link
                 href="#why-us"
                 className="flex h-10 items-center rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                Why Us
+                About Us
               </Link>
             </li>
 
@@ -322,38 +283,29 @@ export default function Navbar() {
                 href="#contact"
                 className="flex h-10 items-center rounded-full px-3.5 text-[13px] font-semibold text-slate-700 transition-all hover:bg-sky-50 hover:text-sky-800 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-sky-500"
               >
-                Contact
+                Contact Us
               </Link>
             </li>
 
           </ul>
 
-          {/* Desktop Right CTAs (Styled with tskautomations.com aesthetics) */}
+          {/* Desktop Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
             <a
               href="tel:+914446030632"
               className="hidden xl:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-[#0a2a66] hover:bg-sky-50 border border-slate-200/80 transition-colors whitespace-nowrap"
-              aria-label="Call TSK One IT at 044 46030632"
+              aria-label="Call TSK OneIT at 044 46030632"
             >
               <PhoneCall className="w-3.5 h-3.5 text-sky-600" />
               <span>044 46030632</span>
             </a>
 
-            {/* Senti AI / Consultation Gradient Pill (Matching tskautomations.com) */}
-            <Link
-              href="#contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#d946ef] hover:brightness-110 shadow-sm transition-all whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-200" />
-              <span>Consultation</span>
-            </Link>
-
-            {/* LEVELUP / FREE ASSESSMENT Yellow Standout Pill (Matching tskautomations.com) */}
+            {/* Primary Standout CTA matching Brief: Book a Free Technology Consultation */}
             <Link
               href="#contact"
               className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-xl text-xs font-black tracking-wide text-[#0b1b3a] bg-[#ffdd00] hover:bg-[#ffea00] hover:brightness-105 shadow-md shadow-amber-500/20 transition-all whitespace-nowrap"
             >
-              <span>FREE ASSESSMENT</span>
+              <span>FREE CONSULTATION</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#0b1b3a]" />
             </Link>
           </div>
@@ -364,7 +316,7 @@ export default function Navbar() {
               href="#contact"
               className="px-3.5 py-1.5 text-xs font-black text-[#0b1b3a] bg-[#ffdd00] rounded-xl transition-all shadow-sm inline-flex items-center gap-1"
             >
-              <span>Assessment</span>
+              <span>Consultation</span>
             </Link>
 
             <button
@@ -381,7 +333,7 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* CodeFronts Glassmorphism Responsive Sidepanel (tsm-10 Architecture) */}
+      {/* CodeFronts Glassmorphism Responsive Sidepanel (tsm-10) */}
       {isOpen && (
         <div 
           className="lg:hidden fixed inset-0 z-[100] h-dvh w-screen bg-black/60 backdrop-blur-md transition-opacity duration-300"
@@ -402,8 +354,8 @@ export default function Navbar() {
             {/* Sidebar Header */}
             <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.03]">
               <div>
-                <p className="text-sm font-black tracking-tight text-white">TSK ONE IT</p>
-                <p className="text-[10px] font-mono text-cyan-300/80">Smart. Secure. Connected.</p>
+                <p className="text-sm font-black tracking-tight text-white">TSK OneIT</p>
+                <p className="text-[10px] font-mono text-cyan-300/80">Repair. Connect. Secure. Transform.</p>
               </div>
 
               <button
@@ -416,107 +368,138 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Mobile Tab Switches */}
+            {/* Mobile Navigation Tabs */}
             <div className="px-5 pt-3">
-              <div className="grid grid-cols-2 p-1 bg-white/5 border border-white/10 rounded-xl">
+              <div className="grid grid-cols-3 p-1 bg-white/5 border border-white/10 rounded-xl text-center">
                 <button
                   type="button"
-                  onClick={() => setActiveMobileTab('services')}
-                  className={`py-1.5 text-xs font-bold rounded-lg transition-all ${
-                    activeMobileTab === 'services'
+                  onClick={() => setMobileSection('divisions')}
+                  className={`py-1.5 text-[11px] font-bold rounded-lg transition-all ${
+                    mobileSection === 'divisions'
                       ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-md'
                       : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  All Services
+                  Divisions
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveMobileTab('menu')}
-                  className={`py-1.5 text-xs font-bold rounded-lg transition-all ${
-                    activeMobileTab === 'menu'
+                  onClick={() => setMobileSection('industries')}
+                  className={`py-1.5 text-[11px] font-bold rounded-lg transition-all ${
+                    mobileSection === 'industries'
                       ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-md'
                       : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  Overview &amp; AMC
+                  Industries
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileSection('menu')}
+                  className={`py-1.5 text-[11px] font-bold rounded-lg transition-all ${
+                    mobileSection === 'menu'
+                      ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-md'
+                      : 'text-white/70 hover:text-white'
+                  }`}
+                >
+                  Quick Links
                 </button>
               </div>
             </div>
 
             {/* Mobile Scrollable Body */}
             <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
-              {activeMobileTab === 'services' ? (
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between px-1 pb-1">
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-300">
-                      Solutions Catalog
-                    </span>
+              {mobileSection === 'divisions' && (
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs font-bold text-sky-300">1. Device Care</p>
+                    <p className="text-[10px] text-white/60 mt-0.5">Laptop, MacBook, Chip-Level &amp; Data Recovery</p>
+                    <Link
+                      href="#divisions"
+                      onClick={() => setIsOpen(false)}
+                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-white"
+                    >
+                      <span>Explore Services &rarr;</span>
+                    </Link>
                   </div>
 
-                  {allServicesList.map((service) => (
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs font-bold text-amber-300">2. Home Automation</p>
+                    <p className="text-[10px] text-white/60 mt-0.5">Smart Lighting, CCTV, Door Locks &amp; Mesh Wi-Fi</p>
                     <Link
-                      key={service.id}
-                      href={service.id === 'smart-automation' || service.id === 'audio-video-av' ? '#smart-automation' : '#services'}
+                      href="#divisions"
                       onClick={() => setIsOpen(false)}
-                      className="block p-2.5 rounded-xl border border-transparent hover:border-white/12 hover:bg-white/8 transition-all group"
+                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-white"
                     >
-                      <div className="flex items-center justify-between">
-                        <p className="text-xs font-bold text-white/90 group-hover:text-cyan-300 transition-colors truncate">
-                          {service.title}
-                        </p>
-                        <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white/80 transition-all shrink-0" />
+                      <span>Explore Services &rarr;</span>
+                    </Link>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs font-bold text-indigo-300">3. Business Solutions</p>
+                    <p className="text-[10px] text-white/60 mt-0.5">Cloud (Azure/AWS/GCP), Cybersecurity, NOC/SOC &amp; AI</p>
+                    <Link
+                      href="#divisions"
+                      onClick={() => setIsOpen(false)}
+                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-white"
+                    >
+                      <span>Explore Services &rarr;</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {mobileSection === 'industries' && (
+                <div className="space-y-1.5">
+                  {industriesList.map((ind) => (
+                    <Link
+                      key={ind.name}
+                      href="#industries"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-transparent hover:border-white/12 hover:bg-white/8 transition-all"
+                    >
+                      <div>
+                        <p className="text-xs font-bold text-white/90">{ind.name}</p>
+                        <p className="text-[10px] text-white/50">{ind.desc}</p>
                       </div>
-                      <p className="text-[10px] text-white/50 truncate mt-0.5">
-                        {service.desc}
-                      </p>
+                      <ChevronRight className="w-3.5 h-3.5 text-white/30" />
                     </Link>
                   ))}
                 </div>
-              ) : (
+              )}
+
+              {mobileSection === 'menu' && (
                 <div className="space-y-2">
                   <Link
-                    href="#services"
+                    href="#top"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition-colors"
+                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs"
                   >
-                    <span>Our Core Services</span>
+                    <span>Home</span>
                     <ChevronRight className="w-3.5 h-3.5 text-white/40" />
                   </Link>
-
                   <Link
-                    href="#smart-automation"
+                    href="#divisions"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition-colors"
+                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs"
                   >
-                    <span>Smart Home &amp; Automation</span>
+                    <span>3 Core Specialized Divisions</span>
                     <ChevronRight className="w-3.5 h-3.5 text-white/40" />
                   </Link>
-
-                  <Link
-                    href="#amc"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition-colors"
-                  >
-                    <span>AMC Support &amp; SLA Packages</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-white/40" />
-                  </Link>
-
                   <Link
                     href="#why-us"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition-colors"
+                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs"
                   >
-                    <span>Why TSK One IT</span>
+                    <span>Why Choose TSK OneIT (20+ Yrs Exp)</span>
                     <ChevronRight className="w-3.5 h-3.5 text-white/40" />
                   </Link>
-
                   <Link
                     href="#contact"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition-colors"
+                    className="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold text-xs"
                   >
-                    <span>Anna Salai Experience Lounge</span>
+                    <span>Contact &amp; Experience Lounge</span>
                     <ChevronRight className="w-3.5 h-3.5 text-white/40" />
                   </Link>
                 </div>
@@ -531,7 +514,7 @@ export default function Navbar() {
                   className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border border-white/15 bg-white/10 text-white font-bold text-xs hover:bg-white/15 transition-colors"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-sky-400" />
-                  <span>Call Desk</span>
+                  <span>044 46030632</span>
                 </a>
 
                 <a
@@ -550,7 +533,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#ffdd00] text-[#0b1b3a] font-black text-xs shadow-md hover:brightness-105 transition-all"
               >
-                <span>Free Site Assessment &rarr;</span>
+                <span>Free Technology Consultation &rarr;</span>
               </Link>
             </div>
 

@@ -5,43 +5,49 @@ import {
   MessageSquare, 
   Mail,
   MapPin, 
-  Globe, 
-  ShieldCheck, 
-  ArrowUp,
-  ExternalLink
+  Sparkles
 } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const services = [
-    { name: 'IT Support & Repairs', href: '#services' },
-    { name: 'Enterprise Wi-Fi & LAN', href: '#services' },
-    { name: 'Servers & Storage', href: '#services' },
-    { name: 'CCTV & Surveillance', href: '#services' },
-    { name: 'Cybersecurity & SOC', href: '#services' },
-    { name: 'Biometric Access Control', href: '#services' },
-    { name: 'Cloud & Backup Solutions', href: '#services' },
-    { name: 'Custom CRM / ERP & AI', href: '#services' },
-    { name: '24x7 Managed IT Ops', href: '#services' },
+  const deviceCareServices = [
+    { name: 'Laptop & Desktop Repair', href: '#divisions' },
+    { name: 'Apple MacBook Repair', href: '#divisions' },
+    { name: 'Chip-Level Motherboard Repair', href: '#divisions' },
+    { name: 'Data Recovery Solutions', href: '#divisions' },
+    { name: 'SSD & RAM Upgrades', href: '#divisions' },
+    { name: 'Genuine Spare Parts', href: '#divisions' },
+    { name: 'Doorstep Pickup & Delivery', href: '#divisions' },
   ];
 
-  const quickLinks = [
-    { name: 'Home', href: '#top' },
-    { name: 'Enterprise Solutions', href: '#services' },
-    { name: 'Smart Home & Automation', href: '#smart-automation' },
-    { name: 'AMC Support Packages', href: '#amc' },
-    { name: 'Why TSK One IT', href: '#why-us' },
-    { name: 'Experience Lounge', href: '#contact' },
+  const automationServices = [
+    { name: 'Smart Home Automation', href: '#divisions' },
+    { name: 'CCTV & IP Surveillance', href: '#divisions' },
+    { name: 'Smart Door Locks', href: '#divisions' },
+    { name: 'Video Door Phones', href: '#divisions' },
+    { name: 'Smart Lighting & Energy', href: '#divisions' },
+    { name: 'Home Wi-Fi & Mesh Systems', href: '#divisions' },
+    { name: 'Access Control Systems', href: '#divisions' },
   ];
 
-  const companyLinks = [
-    { name: 'About TSK One IT', href: '#why-us' },
-    { name: 'SLA & 24x7 NOC Guarantee', href: '#amc' },
-    { name: 'ISO Standards & Compliance', href: '#why-us' },
-    { name: 'Privacy Policy', href: '#contact' },
-    { name: 'Terms of Service', href: '#contact' },
-    { name: 'Careers & Certified Engineers', href: '#contact' },
+  const businessSolutions = [
+    { name: 'IT Infrastructure & LAN/WAN', href: '#divisions' },
+    { name: 'Cloud (Azure, AWS, GCP)', href: '#divisions' },
+    { name: 'Cybersecurity & Firewalls', href: '#divisions' },
+    { name: '24x7 NOC / SOC / TAC Ops', href: '#divisions' },
+    { name: 'Managed IT Services & AMC', href: '#amc' },
+    { name: 'AI & Business Applications', href: '#divisions' },
+    { name: 'CRM, ERP & WhatsApp Automation', href: '#divisions' },
+  ];
+
+  const industriesList = [
+    { name: 'Startups & SMBs', href: '#industries' },
+    { name: 'Enterprises & BFSI', href: '#industries' },
+    { name: 'Manufacturing & Plants', href: '#industries' },
+    { name: 'Healthcare & Hospitals', href: '#industries' },
+    { name: 'Hospitality & Retail', href: '#industries' },
+    { name: 'Education & Institutions', href: '#industries' },
   ];
 
   return (
@@ -69,21 +75,24 @@ export default function Footer() {
             <span className="text-white">IT </span>
             <span className="text-white">SOLUTIONS</span>
           </h2>
-          <p className="mt-2 text-xs sm:text-sm font-mono tracking-widest text-slate-400 group-hover/title:text-sky-400 transition-colors duration-300 uppercase">
-            One Partner. Every IT Need. • Smart. Secure. Connected.
+          <p className="mt-3 text-xs sm:text-sm font-mono tracking-widest text-slate-400 group-hover/title:text-sky-400 transition-colors duration-300 uppercase">
+            Repair • Connect • Secure • Transform
+          </p>
+          <p className="mt-2 text-xs text-slate-400 max-w-2xl mx-auto font-sans normal-case">
+            From personal devices to enterprise digital transformation, TSK OneIT provides complete end-to-end technology solutions under one roof.
           </p>
         </div>
 
-        {/* 4-Column Footer Navigation Grid (Matching User Reference) */}
+        {/* 4-Column Footer Navigation Grid (Structured by Divisions & Contact) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12 border-b border-white/10">
           
-          {/* Column 1: OUR SERVICES */}
+          {/* Column 1: DEVICE CARE */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">
-              OUR SERVICES
+            <h3 className="text-xs font-black uppercase tracking-wider text-sky-400 mb-4 flex items-center gap-1.5">
+              <span>01. DEVICE CARE</span>
             </h3>
             <ul className="space-y-2.5 text-xs text-slate-300">
-              {services.map((item) => (
+              {deviceCareServices.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -96,13 +105,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: QUICK LINKS */}
+          {/* Column 2: HOME AUTOMATION */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">
-              QUICK LINKS
+            <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-1.5">
+              <span>02. HOME AUTOMATION</span>
             </h3>
             <ul className="space-y-2.5 text-xs text-slate-300">
-              {quickLinks.map((item) => (
+              {automationServices.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -115,13 +124,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: TSK ONE IT */}
+          {/* Column 3: BUSINESS SOLUTIONS */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">
-              TSK ONE IT
+            <h3 className="text-xs font-black uppercase tracking-wider text-indigo-400 mb-4 flex items-center gap-1.5">
+              <span>03. BUSINESS SOLUTIONS</span>
             </h3>
             <ul className="space-y-2.5 text-xs text-slate-300">
-              {companyLinks.map((item) => (
+              {businessSolutions.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -187,7 +196,7 @@ export default function Footer() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="TSK One IT on Instagram"
+                  aria-label="TSK OneIT on Instagram"
                   className="size-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all hover:scale-105"
                 >
                   <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -200,7 +209,7 @@ export default function Footer() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="TSK One IT on LinkedIn"
+                  aria-label="TSK OneIT on LinkedIn"
                   className="size-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all hover:scale-105"
                 >
                   <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -213,7 +222,7 @@ export default function Footer() {
                   href="https://youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="TSK One IT on YouTube"
+                  aria-label="TSK OneIT on YouTube"
                   className="size-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all hover:scale-105"
                 >
                   <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -226,7 +235,7 @@ export default function Footer() {
                   href="https://x.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="TSK One IT on X"
+                  aria-label="TSK OneIT on X"
                   className="size-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all hover:scale-105"
                 >
                   <svg className="size-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -239,14 +248,14 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Copyright & Credits Bar (Matching User Reference) */}
+        {/* Bottom Copyright & Credits Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
-            &copy; {currentYear} TSK ONE IT Solutions. All rights reserved.
+            &copy; {currentYear} TSK OneIT Solutions. All rights reserved.
           </div>
 
           <div className="font-mono text-[11px] uppercase tracking-wider text-slate-300 flex items-center gap-2">
-            <span>BUILT FOR RELIABILITY &amp; SCALE ❤️</span>
+            <span>REPAIR • CONNECT • SECURE • TRANSFORM</span>
             <span className="text-slate-600">|</span>
             <span className="text-sky-400 font-bold">CHENNAI EXPERIENCE LOUNGE</span>
           </div>
