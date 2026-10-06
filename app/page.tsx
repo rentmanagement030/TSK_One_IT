@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '@/components/Hero';
+import PartnerEcosystem from '@/components/PartnerEcosystem';
 import WhoWeAre from '@/components/WhoWeAre';
 import DivisionsSection from '@/components/DivisionsSection';
 import DigitalTransformationGrid from '@/components/DigitalTransformationGrid';
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <PartnerEcosystem />
       <WhoWeAre />
       <DivisionsSection />
       <DigitalTransformationGrid />

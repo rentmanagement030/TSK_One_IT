@@ -132,6 +132,61 @@
   }
 }
 
+/* Multi-directional Partner Ecosystem Marquee */
+@keyframes marquee-scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.marquee-row-left {
+  display: flex;
+  flex-shrink: 0;
+  gap: 3.5rem;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee-scroll-left 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row-right {
+  display: flex;
+  flex-shrink: 0;
+  gap: 3.5rem;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee-scroll-right 44s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row-left-alt {
+  display: flex;
+  flex-shrink: 0;
+  gap: 3.5rem;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee-scroll-left 46s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row-container:hover .marquee-row-left,
+.marquee-row-container:hover .marquee-row-right,
+.marquee-row-container:hover .marquee-row-left-alt {
+  animation-play-state: paused !important;
+}
+
 /* Magnetic Hover Interaction Variables */
 .magnetic-btn {
   transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0px);
