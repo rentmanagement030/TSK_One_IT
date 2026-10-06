@@ -299,24 +299,20 @@ export default function DivisionsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header (Matching Reference Image Header) */}
+        {/* Section Header (Matching About TSK OneIT Style) */}
         <ScrollReveal animation="fade-up">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-mono font-bold tracking-widest text-[#0284c7] uppercase">
-              WHAT WE DO
-            </span>
-
             <h2 
               id="what-we-do-heading"
               className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0f172a]"
             >
-              Complete IT & Technology Solutions
+              What We Do
             </h2>
             
             {/* Signature Red Accent Bar */}
-            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-2.5 mb-4 rounded-full" />
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-4 rounded-full" />
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl mx-auto">
               From personal devices to smart automation and enterprise digital transformation under one roof.
             </p>
           </div>
