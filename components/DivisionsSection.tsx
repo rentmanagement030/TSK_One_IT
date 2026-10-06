@@ -322,7 +322,7 @@ export default function DivisionsSection() {
           </div>
         </ScrollReveal>
 
-        {/* 3 Horizontal Split Cards (Matching the Avuetech Reference Layout) */}
+        {/* 3 Cards (70% Top Image Height & 30% Bottom Text) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {divisionsData.map((division, idx) => {
             const Icon = division.icon;
@@ -330,68 +330,65 @@ export default function DivisionsSection() {
               <ScrollReveal key={division.id} animation="fade-up" delay={idx * 150}>
                 <div 
                   onClick={() => setSelectedDivision(division)}
-                  className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-sky-300 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer h-full"
+                  className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-sky-400 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer h-[480px] sm:h-[500px]"
                 >
-                  {/* Card Inner Split Container */}
-                  <div className="p-6 sm:p-7 flex flex-col justify-between h-full">
+                  {/* TOP 70% IMAGE CONTAINER */}
+                  <div className="relative w-full h-[68%] overflow-hidden bg-slate-900">
+                    <img 
+                      src={division.image} 
+                      alt={division.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                      loading="lazy"
+                    />
                     
-                    <div>
-                      {/* Top Row: Icon Badge & Category Tag */}
-                      <div className="flex items-center justify-between gap-4 mb-5">
-                        <div className="size-13 rounded-2xl bg-gradient-to-br from-[#1e40af] to-[#0284c7] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-                          <Icon className="size-6 text-white" />
-                        </div>
-                        <span className="text-[11px] font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
-                          Division 0{idx + 1}
-                        </span>
+                    {/* Atmospheric Dark & Tech Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/30 to-slate-950/40" />
+
+                    {/* Top Floating Badges */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                      <div className="size-11 rounded-2xl bg-[#1e40af]/90 backdrop-blur-md text-white flex items-center justify-center border border-white/25 shadow-lg group-hover:scale-105 transition-transform">
+                        <Icon className="size-5.5 text-white" />
                       </div>
-
-                      {/* Division Name & Category Subtitle */}
-                      <h3 className="text-2xl font-black tracking-tight text-slate-900 group-hover:text-[#1e40af] transition-colors duration-200">
-                        {division.name}
-                      </h3>
-                      <p className="text-xs font-semibold text-slate-500 mt-1 mb-5">
-                        {division.subCategories}
-                      </p>
-
-                      {/* Photo Banner with Zoom Effect */}
-                      <div className="w-full h-44 rounded-2xl overflow-hidden mb-6 bg-slate-100 relative shadow-inner">
-                        <img 
-                          src={division.image} 
-                          alt={division.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                        <div className="absolute bottom-3 left-3 text-white text-xs font-bold flex items-center gap-1.5">
-                          <Sparkles className="size-3.5 text-amber-400" />
-                          <span>{division.tagline}</span>
-                        </div>
-                      </div>
-
-                      {/* Checklist of Services */}
-                      <ul className="space-y-2.5 mb-6">
-                        {division.highlights.map((item) => (
-                          <li key={item} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                            <CheckCircle2 className="size-4 text-emerald-500 shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <span className="text-[11px] font-bold text-white bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                        Division 0{idx + 1}
+                      </span>
                     </div>
 
-                    {/* Bottom Action Link */}
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <span className="inline-flex items-center gap-2 text-sm font-bold text-[#1e40af] group-hover:text-[#0284c7] transition-colors">
+                    {/* Bottom Tagline on Image */}
+                    <div className="absolute bottom-3 left-4 right-4 z-10">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/15 text-white text-xs font-bold">
+                        <Sparkles className="size-3.5 text-amber-400 shrink-0" />
+                        <span className="truncate">{division.tagline}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BOTTOM 30% TEXT CONTAINER */}
+                  <div className="p-5 sm:p-6 flex flex-col justify-between h-[32%] bg-white">
+                    <div>
+                      {/* Division Name */}
+                      <h3 className="text-2xl font-black tracking-tight text-slate-900 group-hover:text-[#1e40af] transition-colors leading-tight">
+                        {division.name}
+                      </h3>
+
+                      {/* Sub-keywords Line */}
+                      <p className="text-xs font-semibold text-slate-500 mt-1 leading-snug">
+                        {division.subCategories}
+                      </p>
+                    </div>
+
+                    {/* Bottom Action Link + Services Count */}
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-2 text-sm font-bold text-[#1e40af] group-hover:text-[#0284c7] transition-all">
                         <span>Explore {division.name}</span>
                         <ArrowRight className="size-4 group-hover:translate-x-1.5 transition-transform" />
                       </span>
-                      <span className="text-[11px] font-bold text-slate-400 group-hover:text-slate-600">
+                      <span className="text-xs font-bold text-slate-400 group-hover:text-slate-600">
                         {division.services.length} Services
                       </span>
                     </div>
-
                   </div>
+
                 </div>
               </ScrollReveal>
             );
