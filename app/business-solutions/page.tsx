@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import ContactSection from '@/components/ContactSection';
 import PartnerEcosystem from '@/components/PartnerEcosystem';
+import EnquiryButton from '@/components/EnquiryButton';
 
 export const metadata: Metadata = {
   title: 'Business Solutions | TSK OneIT - Enterprise IT & Digital Transformation',
@@ -161,9 +162,13 @@ export default function BusinessSolutionsPage() {
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-200/60 flex items-center gap-2 text-xs font-semibold text-emerald-600">
-                  <CheckCircle2 className="size-4" />
-                  <span>SLA Backed & 24×7 Active NOC/SOC</span>
+                <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                    <CheckCircle2 className="size-4 shrink-0" />
+                    <span className="truncate">SLA Backed</span>
+                  </div>
+
+                  <EnquiryButton serviceTitle={service.title} />
                 </div>
               </div>
             );

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   PhoneCall, 
   Mail, 
@@ -10,9 +11,7 @@ import {
   X, 
   ChevronDown, 
   ArrowRight, 
-  Sparkles, 
-  Contrast, 
-  User
+  Sparkles
 } from 'lucide-react';
 
 export const deviceCareList = [
@@ -54,7 +53,6 @@ export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [fontSizeIndex, setFontSizeIndex] = useState(1); // 0 = A-, 1 = A, 2 = A+
-  const [highContrast, setHighContrast] = useState(false);
 
   // Smart Visibility State: Hide on scroll down, show on scroll up or mouse hover near top
   const [isVisible, setIsVisible] = useState(true);
@@ -212,25 +210,6 @@ export default function Navbar() {
                   A+
                 </button>
               </div>
-
-              {/* Contrast Toggle */}
-              <button
-                onClick={() => setHighContrast(!highContrast)}
-                className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-all duration-200 hover:scale-105"
-                title="Toggle High Contrast"
-                aria-label="Toggle High Contrast"
-              >
-                <Contrast className="size-3.5" />
-              </button>
-
-              {/* Accessibility Icon */}
-              <button
-                className="size-7 rounded bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 text-slate-200 transition-all duration-200 hover:scale-105"
-                title="Accessibility Tools"
-                aria-label="Accessibility Tools"
-              >
-                <User className="size-3.5" />
-              </button>
             </div>
 
           </div>
@@ -243,16 +222,20 @@ export default function Navbar() {
             {/* Left: Angled Blue Brand Block FLUSH to the Left Edge of Screen */}
             <div className="flex items-center h-full">
               <Link
-                href="#top"
+                href="/"
                 className="group relative flex items-center h-full bg-[#1e40af] text-white pl-6 sm:pl-10 lg:pl-14 pr-12 sm:pr-20 [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] transition-colors hover:bg-[#1d4ed8]"
               >
                 <div className="flex items-center gap-3 sm:gap-4">
-                  {/* Delta Tech Logo Icon */}
-                  <div className="relative size-8 sm:size-10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
-                      <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
-                      <polygon points="16,8 26,26 6,26" fill="currentColor" />
-                    </svg>
+                  {/* Brand Monogram Logo Icon */}
+                  <div className="relative size-8 sm:size-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Image
+                      src="/images/logo.png"
+                      alt="TSK One IT Logo"
+                      width={40}
+                      height={40}
+                      className="size-full object-contain rounded-lg shadow-xs"
+                      priority
+                    />
                   </div>
 
                   {/* Brand Typography */}
@@ -268,15 +251,115 @@ export default function Navbar() {
               </Link>
             </div>
 
+            {/* Center: 3 Interactive Hover Dropdown Navigation Buttons */}
+            <nav aria-label="Desktop primary navigation" className="hidden lg:flex items-center gap-1 xl:gap-2">
+              
+              {/* 1. IT Device Care Dropdown */}
+              <div className="relative group py-5">
+                <Link
+                  href="/device-care"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
+                >
+                  <span>IT Device Care</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
+                </Link>
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-80 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-sky-50 text-[11px] font-mono font-bold text-sky-800 uppercase tracking-wider flex items-center justify-between">
+                    <span>IT Device Care</span>
+                    <span className="text-[10px] text-sky-600 font-bold">8 Services</span>
+                  </div>
+                  <div className="space-y-0.5">
+                    {deviceCareList.map((item) => (
+                      <Link
+                        key={item}
+                        href="/device-care"
+                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-sky-50 transition-all"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Home Automation Dropdown */}
+              <div className="relative group py-5">
+                <Link
+                  href="/home-automation"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
+                >
+                  <span>Home Automation</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
+                </Link>
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-80 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-amber-50 text-[11px] font-mono font-bold text-amber-800 uppercase tracking-wider flex items-center justify-between">
+                    <span>Home Automation</span>
+                    <span className="text-[10px] text-amber-600 font-bold">9 Services</span>
+                  </div>
+                  <div className="space-y-0.5">
+                    {homeAutomationList.map((item) => (
+                      <Link
+                        key={item}
+                        href="/home-automation"
+                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-amber-50/70 transition-all"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Business Solutions Dropdown */}
+              <div className="relative group py-5">
+                <Link
+                  href="/business-solutions"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
+                >
+                  <span>Business Solutions</span>
+                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
+                </Link>
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-84 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-indigo-50 text-[11px] font-mono font-bold text-indigo-800 uppercase tracking-wider flex items-center justify-between">
+                    <span>Business Solutions</span>
+                    <span className="text-[10px] text-indigo-600 font-bold">9 Services</span>
+                  </div>
+                  <div className="space-y-0.5">
+                    {businessSolutionsList.map((item) => (
+                      <Link
+                        key={item}
+                        href="/business-solutions"
+                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-indigo-50/70 transition-all"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </nav>
+
             {/* Right: ONLY "Get A Quote" Button & Sandwich Menu Trigger Button */}
             <div className="flex items-center gap-3 sm:gap-4">
               {/* Yellow/Gold "Get A Quote" Button */}
-              <Link
-                href="#contact"
-                className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg hover:shadow-amber-500/30 hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap"
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
+                  }
+                }}
+                className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg hover:shadow-amber-500/30 hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap cursor-pointer"
               >
                 Get A Quote
-              </Link>
+              </button>
 
               {/* Round Blue Sandwich / Hamburger Button */}
               <button
@@ -334,11 +417,14 @@ export default function Navbar() {
               {/* Top Drawer Header (Mobile Close Button Only shown on mobile) */}
               <div className="flex items-center justify-between pb-6 border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="size-9 sm:size-10 text-white">
-                    <svg className="size-full text-white" viewBox="0 0 32 32" fill="currentColor">
-                      <polygon points="16,2 30,28 2,28" stroke="currentColor" strokeWidth="2" fill="none" />
-                      <polygon points="16,8 26,26 6,26" fill="currentColor" />
-                    </svg>
+                  <div className="size-9 sm:size-10 flex items-center justify-center shrink-0">
+                    <Image
+                      src="/images/logo.png"
+                      alt="TSK One IT Logo"
+                      width={40}
+                      height={40}
+                      className="size-full object-contain rounded-lg shadow-xs"
+                    />
                   </div>
                   <div>
                     <p className="text-2xl sm:text-3xl font-black tracking-wider uppercase text-white leading-tight">
@@ -367,7 +453,7 @@ export default function Navbar() {
                 {/* 1. Home */}
                 <div className="border-b border-white/10 py-3.5">
                   <Link
-                    href="#top"
+                    href="/"
                     onClick={() => setIsDrawerOpen(false)}
                     className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
                   >
@@ -377,13 +463,23 @@ export default function Navbar() {
 
                 {/* 2. Device Care */}
                 <div className="border-b border-white/10 py-3.5">
-                  <button
-                    onClick={() => toggleAccordion('device-care')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 text-left transition-colors duration-200 cursor-pointer group"
-                  >
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">Device Care</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-300 ${expandedMenu === 'device-care' ? 'rotate-180 text-amber-300' : ''}`} />
-                  </button>
+                  <div className="w-full flex items-center justify-between">
+                    <Link
+                      href="/device-care"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
+                    >
+                      Device Care
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleAccordion('device-care')}
+                      aria-label="Toggle Device Care sub-services"
+                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
+                    >
+                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'device-care' ? 'rotate-180 text-amber-300' : ''}`} />
+                    </button>
+                  </div>
 
                   <div 
                     className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
@@ -397,7 +493,7 @@ export default function Navbar() {
                         {deviceCareList.map((item) => (
                           <Link
                             key={item}
-                            href="#divisions"
+                            href="/device-care"
                             onClick={() => setIsDrawerOpen(false)}
                             className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
                           >
@@ -412,13 +508,23 @@ export default function Navbar() {
 
                 {/* 3. Home Automation */}
                 <div className="border-b border-white/10 py-3.5">
-                  <button
-                    onClick={() => toggleAccordion('home-automation')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 text-left transition-colors duration-200 cursor-pointer group"
-                  >
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">Home Automation</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-300 ${expandedMenu === 'home-automation' ? 'rotate-180 text-amber-300' : ''}`} />
-                  </button>
+                  <div className="w-full flex items-center justify-between">
+                    <Link
+                      href="/home-automation"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
+                    >
+                      Home Automation
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleAccordion('home-automation')}
+                      aria-label="Toggle Home Automation sub-services"
+                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
+                    >
+                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'home-automation' ? 'rotate-180 text-amber-300' : ''}`} />
+                    </button>
+                  </div>
 
                   <div 
                     className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
@@ -432,7 +538,7 @@ export default function Navbar() {
                         {homeAutomationList.map((item) => (
                           <Link
                             key={item}
-                            href="#divisions"
+                            href="/home-automation"
                             onClick={() => setIsDrawerOpen(false)}
                             className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
                           >
@@ -447,13 +553,23 @@ export default function Navbar() {
 
                 {/* 4. Business Solutions */}
                 <div className="border-b border-white/10 py-3.5">
-                  <button
-                    onClick={() => toggleAccordion('business-solutions')}
-                    className="w-full flex items-center justify-between text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 text-left transition-colors duration-200 cursor-pointer group"
-                  >
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">Business Solutions</span>
-                    <ChevronDown className={`size-6 text-cyan-300 transition-transform duration-300 ${expandedMenu === 'business-solutions' ? 'rotate-180 text-amber-300' : ''}`} />
-                  </button>
+                  <div className="w-full flex items-center justify-between">
+                    <Link
+                      href="/business-solutions"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
+                    >
+                      Business Solutions
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleAccordion('business-solutions')}
+                      aria-label="Toggle Business Solutions sub-services"
+                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
+                    >
+                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'business-solutions' ? 'rotate-180 text-amber-300' : ''}`} />
+                    </button>
+                  </div>
 
                   <div 
                     className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
@@ -467,7 +583,7 @@ export default function Navbar() {
                         {businessSolutionsList.map((item) => (
                           <Link
                             key={item}
-                            href="#divisions"
+                            href="/business-solutions"
                             onClick={() => setIsDrawerOpen(false)}
                             className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
                           >
@@ -480,10 +596,21 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* 5. About Us */}
+                {/* 5. Industries We Serve */}
                 <div className="border-b border-white/10 py-3.5">
                   <Link
-                    href="#why-us"
+                    href="/#industries"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
+                  >
+                    Industries
+                  </Link>
+                </div>
+
+                {/* 6. About Us */}
+                <div className="border-b border-white/10 py-3.5">
+                  <Link
+                    href="/#who-we-are"
                     onClick={() => setIsDrawerOpen(false)}
                     className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
                   >
@@ -491,10 +618,10 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* 6. Contact Us */}
+                {/* 7. Contact Us */}
                 <div className="border-b border-white/10 py-3.5">
                   <Link
-                    href="#contact"
+                    href="/#contact"
                     onClick={() => setIsDrawerOpen(false)}
                     className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
                   >
@@ -599,14 +726,19 @@ export default function Navbar() {
 
                 {/* Mobile Bottom Get A Quote CTA */}
                 <div className="pt-2">
-                  <Link
-                    href="#contact"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      if (typeof window !== 'undefined') {
+                        window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
+                      }
+                    }}
+                    className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group cursor-pointer"
                   >
                     <span>Get A Quote</span>
                     <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </Link>
+                  </button>
                 </div>
 
               </div>
@@ -727,14 +859,19 @@ export default function Navbar() {
 
               {/* Bottom White CTA Button */}
               <div className="pt-8">
-                <Link
-                  href="#contact"
-                  onClick={() => setIsDrawerOpen(false)}
-                  className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDrawerOpen(false);
+                    if (typeof window !== 'undefined') {
+                      window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
+                    }
+                  }}
+                  className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group cursor-pointer"
                 >
                   <span>Get A Quote</span>
                   <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
+                </button>
               </div>
 
             </div>

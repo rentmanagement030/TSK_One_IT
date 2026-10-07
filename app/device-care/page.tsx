@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import ContactSection from '@/components/ContactSection';
 import PartnerEcosystem from '@/components/PartnerEcosystem';
+import EnquiryButton from '@/components/EnquiryButton';
 
 export const metadata: Metadata = {
   title: 'Device Care | TSK OneIT - Laptop, Apple MacBook & Chip-Level Repair',
@@ -148,9 +149,13 @@ export default function DeviceCarePage() {
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-200/60 flex items-center gap-2 text-xs font-semibold text-emerald-600">
-                  <CheckCircle2 className="size-4" />
-                  <span>100% Genuine Spare Parts Warranty</span>
+                <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                    <CheckCircle2 className="size-4 shrink-0" />
+                    <span className="truncate">OEM Warranty</span>
+                  </div>
+
+                  <EnquiryButton serviceTitle={service.title} />
                 </div>
               </div>
             );

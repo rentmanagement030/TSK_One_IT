@@ -286,26 +286,43 @@ export default function DivisionsSection() {
     <section 
       id="divisions"
       aria-labelledby="what-we-do-heading"
-      className="py-20 lg:py-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
+      className="pb-20 lg:pb-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
     >
-      {/* Background Subtle Tech Highlights */}
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute top-10 right-10 w-[600px] h-[600px] rounded-full bg-sky-100/60 blur-[150px]"
-      />
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute bottom-10 left-10 w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[140px]"
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* 1. TOP WHAT WE DO BANNER (Dark Corporate Blue with Enhanced Tech Photography) */}
+      <div className="relative bg-[#07193d] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden mb-12 sm:mb-16">
+        {/* Full-Bleed Background Tech Architecture Image (Enhanced Visibility) */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-[0.35] mix-blend-luminosity pointer-events-none scale-105"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80')",
+          }}
+          aria-hidden="true"
+        />
         
-        {/* Section Header (Matching About TSK OneIT Style) */}
-        <ScrollReveal animation="fade-up">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        {/* Deep Blue Gradient Contrast Scrim */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-[#061430]/85 via-[#07193d]/65 to-[#0b1b3a]/90 pointer-events-none" 
+          aria-hidden="true" 
+        />
+
+        {/* Ambient Subtle Tech Grid */}
+        <div 
+          className="absolute inset-0 opacity-10 pointer-events-none [background-image:radial-gradient(rgba(56,189,248,0.3)_1px,transparent_1px)] [background-size:24px_24px]"
+          aria-hidden="true"
+        />
+
+        {/* Soft Blue Radial Glow */}
+        <div 
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-sky-500/15 blur-[140px] rounded-full"
+        />
+
+        {/* Banner Content */}
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <ScrollReveal animation="fade-up">
             <h2 
               id="what-we-do-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0f172a]"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white"
             >
               What We Do
             </h2>
@@ -313,12 +330,14 @@ export default function DivisionsSection() {
             {/* Signature Red Accent Bar */}
             <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-4 rounded-full" />
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl mx-auto">
+            <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
               From personal devices to smart automation and enterprise digital transformation under one roof.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* 3 Interactive Cards (Normal: Top Image + White Base; Hover: Image Zooms to Full 100% Card with Frosted Overlay) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {divisionsData.map((division, idx) => {

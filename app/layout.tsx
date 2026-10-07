@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingContactBar from '@/components/FloatingContactBar';
+import EnquiryModal from '@/components/EnquiryModal';
 
 export const viewport: Viewport = {
   themeColor: '#f4f9fd',
@@ -16,6 +17,16 @@ export const metadata: Metadata = {
   title: {
     default: 'TSK One IT | One Partner. Every IT Need.',
     template: '%s | TSK One IT',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/logo.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/images/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
   },
   description:
     'Complete IT Solutions for Homes, Businesses & Enterprises. IT Support & Repairs, Enterprise Wi-Fi, Servers, CCTV, Cybersecurity, Cloud, Custom CRM/ERP/AI, 24x7 AMC, and Smart Automation.',
@@ -126,6 +137,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/images/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -148,6 +162,7 @@ export default function RootLayout({
 
         <Footer />
         <FloatingContactBar />
+        <EnquiryModal />
       </body>
     </html>
   );

@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import ScrollReveal from './ScrollReveal';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface BentoService {
   id: string;
@@ -16,6 +17,8 @@ interface BentoService {
 }
 
 export default function DigitalTransformationGrid() {
+  const router = useRouter();
+  const [showAll, setShowAll] = useState(false);
   // 12 Cards with full background images across 3 Staggered Columns
   const col1Cards: BentoService[] = [
     {
@@ -139,9 +142,9 @@ export default function DigitalTransformationGrid() {
     const isDark = card.theme === 'dark';
 
     return (
-      <Link
+      <div
         key={card.id}
-        href={card.link}
+        onClick={() => router.push(card.link)}
         className={`group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer flex flex-col justify-end p-7 min-h-[340px] sm:min-h-[360px] border ${
           isDark 
             ? 'bg-slate-950 text-white border-slate-800/60' 
@@ -192,14 +195,27 @@ export default function DigitalTransformationGrid() {
             {card.desc}
           </p>
 
-          {/* Signature Red Circular Action Button */}
-          <div>
-            <div className="size-8 rounded-full border-2 border-[#ef4444] text-[#ef4444] flex items-center justify-center group-hover:bg-[#ef4444] group-hover:text-white transition-all duration-300 shadow-xs">
-              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
-            </div>
+          {/* Card Footer: Enquiry on Left, Arrow Mark on Right of the Card */}
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('select-service', { detail: card.title }));
+                  window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: card.title } }));
+                }
+              }}
+              className="w-full flex items-center justify-between text-sm sm:text-base font-extrabold text-[#ef4444] hover:text-[#dc2626] transition-all duration-200 cursor-pointer group/enquiry"
+            >
+              <span className="underline-offset-4 group-hover/enquiry:underline">Enquiry</span>
+              <div className="size-8 rounded-full border-2 border-[#ef4444] text-[#ef4444] flex items-center justify-center group-hover/enquiry:bg-[#ef4444] group-hover/enquiry:text-white transition-all duration-300 shadow-xs">
+                <ArrowRight className="size-4 group-hover/enquiry:translate-x-0.5 transition-transform" />
+              </div>
+            </button>
           </div>
         </div>
-      </Link>
+      </div>
     );
   };
 
@@ -207,42 +223,65 @@ export default function DigitalTransformationGrid() {
     <section 
       id="our-services"
       aria-labelledby="transformation-heading"
-      className="py-20 lg:py-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
+      className="pb-20 lg:pb-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
     >
-      {/* Background Subtle Tech Highlights */}
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-200/30 blur-[160px] rounded-full"
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* 1. TOP OUR SERVICES BANNER (Dark Corporate Blue with Enhanced Tech Photography) */}
+      <div className="relative bg-[#07193d] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden mb-12 sm:mb-16">
+        {/* Full-Bleed Background Digital Transformation Network Image (Enhanced Visibility) */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-[0.35] mix-blend-luminosity pointer-events-none scale-105"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80')",
+          }}
+          aria-hidden="true"
+        />
         
-        {/* Section Header */}
-        <ScrollReveal animation="fade-up">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        {/* Deep Blue Gradient Contrast Scrim */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-[#061430]/85 via-[#07193d]/65 to-[#0b1b3a]/90 pointer-events-none" 
+          aria-hidden="true" 
+        />
+
+        {/* Ambient Subtle Tech Grid */}
+        <div 
+          className="absolute inset-0 opacity-10 pointer-events-none [background-image:radial-gradient(rgba(56,189,248,0.3)_1px,transparent_1px)] [background-size:24px_24px]"
+          aria-hidden="true"
+        />
+
+        {/* Soft Blue Radial Glow */}
+        <div 
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-sky-500/15 blur-[140px] rounded-full"
+        />
+
+        {/* Banner Content */}
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <ScrollReveal animation="fade-up">
             <h2 
               id="transformation-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0f172a]"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white"
             >
               Our Services
             </h2>
             
             {/* Signature Red Accent Bar */}
-            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-5 rounded-full" />
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-4 rounded-full" />
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
+            <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
               Whether you need personal device restoration, smart living automation, or enterprise digital transformation, 
               TSK OneIT delivers end-to-end technology excellence.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* 3-Column Staggered Masonry Stack */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mb-16 items-start">
           
           {/* COLUMN 1 */}
           <div className="flex flex-col gap-6 sm:gap-7">
-            {col1Cards.map((card, idx) => (
+            {(showAll ? col1Cards : col1Cards.slice(0, 2)).map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100}>
                 {renderCard(card)}
               </ScrollReveal>
@@ -251,7 +290,7 @@ export default function DigitalTransformationGrid() {
 
           {/* COLUMN 2 */}
           <div className="flex flex-col gap-6 sm:gap-7">
-            {col2Cards.map((card, idx) => (
+            {(showAll ? col2Cards : col2Cards.slice(0, 2)).map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100 + 50}>
                 {renderCard(card)}
               </ScrollReveal>
@@ -260,7 +299,7 @@ export default function DigitalTransformationGrid() {
 
           {/* COLUMN 3 */}
           <div className="flex flex-col gap-6 sm:gap-7">
-            {col3Cards.map((card, idx) => (
+            {(showAll ? col3Cards : col3Cards.slice(0, 2)).map((card, idx) => (
               <ScrollReveal key={card.id} animation="fade-up" delay={idx * 100 + 100}>
                 {renderCard(card)}
               </ScrollReveal>
@@ -269,16 +308,27 @@ export default function DigitalTransformationGrid() {
 
         </div>
 
-        {/* Centered "View All Services ->" Pill Button */}
+        {/* Centered "View All Services" Dynamic Toggle Button */}
         <ScrollReveal animation="fade-up" delay={200}>
           <div className="flex justify-center">
-            <Link
-              href="#divisions"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white border-2 border-[#ef4444] text-[#ef4444] hover:bg-[#ef4444] hover:text-white font-bold text-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 group"
+            <button
+              type="button"
+              onClick={() => {
+                setShowAll(!showAll);
+                if (showAll) {
+                  const el = document.getElementById('our-services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white border-2 border-[#ef4444] text-[#ef4444] hover:bg-[#ef4444] hover:text-white font-bold text-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
             >
-              <span>View All Services</span>
-              <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+              <span>{showAll ? 'Show Less' : 'View All Services'}</span>
+              {showAll ? (
+                <ChevronUp className="size-4 group-hover:-translate-y-0.5 transition-transform" />
+              ) : (
+                <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
+              )}
+            </button>
           </div>
         </ScrollReveal>
 

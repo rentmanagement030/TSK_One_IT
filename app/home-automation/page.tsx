@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import ContactSection from '@/components/ContactSection';
 import PartnerEcosystem from '@/components/PartnerEcosystem';
+import EnquiryButton from '@/components/EnquiryButton';
 
 export const metadata: Metadata = {
   title: 'Home Automation | TSK OneIT - Smart Connected Living & Security',
@@ -161,9 +162,13 @@ export default function HomeAutomationPage() {
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-200/60 flex items-center gap-2 text-xs font-semibold text-emerald-600">
-                  <CheckCircle2 className="size-4" />
-                  <span>Installed by Certified Smart Engineers</span>
+                <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                    <CheckCircle2 className="size-4 shrink-0" />
+                    <span className="truncate">Certified Install</span>
+                  </div>
+
+                  <EnquiryButton serviceTitle={service.title} />
                 </div>
               </div>
             );

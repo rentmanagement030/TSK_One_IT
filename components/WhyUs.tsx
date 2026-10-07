@@ -60,43 +60,59 @@ export default function WhyUs() {
     <section 
       id="why-us"
       aria-labelledby="why-us-heading"
-      className="py-20 lg:py-28 bg-gradient-to-b from-[#f4f9ff] via-[#ffffff] to-[#eef6ff] text-[#0b1b3a] relative overflow-hidden"
+      className="pb-20 lg:pb-28 bg-[#f8fafc] text-[#0b1b3a] relative overflow-hidden"
     >
-      {/* Background Subtle Luminous Glows */}
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute bottom-0 left-10 w-96 h-96 rounded-full bg-sky-200/40 blur-[140px] animate-float"
-      />
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute top-10 right-10 w-96 h-96 rounded-full bg-cyan-200/30 blur-[140px] animate-float-delayed"
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* 1. TOP WHY CHOOSE US BANNER (Dark Corporate Blue with Enhanced Tech Photography) */}
+      <div className="relative bg-[#07193d] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden mb-12 sm:mb-16">
+        {/* Full-Bleed Background Enterprise Architecture Image (Enhanced Visibility) */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-[0.35] mix-blend-luminosity pointer-events-none scale-105"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80')",
+          }}
+          aria-hidden="true"
+        />
         
-        {/* Section Header */}
-        <ScrollReveal animation="fade-up">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-sky-800 shadow-sm shimmer-badge">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>The TSK OneIT Advantage</span>
-            </div>
+        {/* Deep Blue Gradient Contrast Scrim */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-[#061430]/85 via-[#07193d]/65 to-[#0b1b3a]/90 pointer-events-none" 
+          aria-hidden="true" 
+        />
 
+        {/* Ambient Subtle Tech Grid */}
+        <div 
+          className="absolute inset-0 opacity-10 pointer-events-none [background-image:radial-gradient(rgba(56,189,248,0.3)_1px,transparent_1px)] [background-size:24px_24px]"
+          aria-hidden="true"
+        />
+
+        {/* Soft Blue Radial Glow */}
+        <div 
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-sky-500/15 blur-[140px] rounded-full"
+        />
+
+        {/* Banner Content */}
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+          <ScrollReveal animation="fade-up">
             <h2 
               id="why-us-heading"
-              className="font-extrabold tracking-tight text-[#0b1b3a]"
-              style={{ fontSize: 'clamp(1.85rem, 3.2vw + 0.5rem, 2.75rem)' }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white"
             >
               Why Choose TSK OneIT?
             </h2>
-            <div className="title-accent-line" />
+            
+            {/* Signature Red Accent Bar */}
+            <div className="w-16 h-1 bg-[#ef4444] mx-auto mt-3 mb-4 rounded-full" />
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed pt-2">
+            <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
               We bridge the gap between complex technology and seamless business operations 
               through certified skill, transparent values, and dependable service.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* 8 Core Pillars Grid with Staggered ScrollReveal Entrance */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

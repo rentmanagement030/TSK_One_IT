@@ -4,19 +4,23 @@ import PartnerEcosystem from '@/components/PartnerEcosystem';
 import WhoWeAre from '@/components/WhoWeAre';
 import DivisionsSection from '@/components/DivisionsSection';
 import DigitalTransformationGrid from '@/components/DigitalTransformationGrid';
-import WhyUs from '@/components/WhyUs';
+import IndustriesWeServe from '@/components/IndustriesWeServe';
 import ContactSection from '@/components/ContactSection';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <PartnerEcosystem />
-      <WhoWeAre />
-      <DivisionsSection />
-      <DigitalTransformationGrid />
-      <WhyUs />
-      <ContactSection />
+      
+      {/* Content Curtain Overlay (Scrolls over the sticky Hero section) */}
+      <div className="relative z-20 bg-[#f4f9fd] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        <PartnerEcosystem />
+        <WhoWeAre />
+        <DivisionsSection />
+        <DigitalTransformationGrid />
+        <IndustriesWeServe />
+        <ContactSection />
+      </div>
     </>
   );
 }

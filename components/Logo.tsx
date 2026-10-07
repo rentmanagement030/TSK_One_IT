@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
+import Image from 'next/image';
+
 interface LogoProps {
   showTagline?: boolean;
   className?: string;
@@ -16,26 +18,20 @@ export default function Logo({
 
   return (
     <Link
-      href="#top"
+      href="/"
       className={`group/logo flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-lg p-1 transition-transform ${className}`}
       aria-label="TSK OneIT - Your Trusted Technology Partner"
     >
-      {/* Modern Hexagonal Tech Circuit Icon */}
-      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[#0284c7] via-[#0ea5e9] to-[#06b6d4] shadow-md shadow-sky-500/25 group-hover/logo:scale-105 transition-all duration-300 shrink-0">
-        <svg
-          className="w-5 h-5 text-white"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-        {/* Amber Tech Circuit Accent Dot */}
-        <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-amber-400 ring-2 ring-white shadow-xs" />
+      {/* Brand Hexagon Monogram Logo */}
+      <div className="relative flex items-center justify-center size-10 rounded-xl overflow-hidden shadow-md shadow-sky-500/20 group-hover/logo:scale-105 transition-all duration-300 shrink-0 bg-transparent">
+        <Image
+          src="/images/logo.png"
+          alt="TSK One IT Logo"
+          width={40}
+          height={40}
+          className="size-full object-contain rounded-lg"
+          priority
+        />
       </div>
 
       {/* Brand Text */}

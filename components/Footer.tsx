@@ -12,42 +12,47 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const deviceCareServices = [
-    { name: 'Laptop & Desktop Repair', href: '#divisions' },
-    { name: 'Apple MacBook Repair', href: '#divisions' },
-    { name: 'Chip-Level Motherboard Repair', href: '#divisions' },
-    { name: 'Data Recovery Solutions', href: '#divisions' },
-    { name: 'SSD & RAM Upgrades', href: '#divisions' },
-    { name: 'Genuine Spare Parts', href: '#divisions' },
-    { name: 'Doorstep Pickup & Delivery', href: '#divisions' },
+    { name: 'Laptop & Desktop Repair', href: '/device-care' },
+    { name: 'Apple Macbook Repair', href: '/device-care' },
+    { name: 'Chip Level Mother Board Repair', href: '/device-care' },
+    { name: 'Data Recovery', href: '/device-care' },
+    { name: 'SSD & RAM Upgrades', href: '/device-care' },
+    { name: 'Genuine Spareparts', href: '/device-care' },
+    { name: 'AMC', href: '/device-care' },
+    { name: 'Doorstep Pickup & Delivery', href: '/device-care' },
   ];
 
   const automationServices = [
-    { name: 'Smart Home Automation', href: '#divisions' },
-    { name: 'CCTV & IP Surveillance', href: '#divisions' },
-    { name: 'Smart Door Locks', href: '#divisions' },
-    { name: 'Video Door Phones', href: '#divisions' },
-    { name: 'Smart Lighting & Energy', href: '#divisions' },
-    { name: 'Home Wi-Fi & Mesh Systems', href: '#divisions' },
-    { name: 'Access Control Systems', href: '#divisions' },
+    { name: 'Smart Home Automation', href: '/home-automation' },
+    { name: 'CCTV', href: '/home-automation' },
+    { name: 'Smartdoor Locks', href: '/home-automation' },
+    { name: 'Video Door Phones', href: '/home-automation' },
+    { name: 'Smart Lighting', href: '/home-automation' },
+    { name: 'Home WiFi & Mesh', href: '/home-automation' },
+    { name: 'Access Control', href: '/home-automation' },
+    { name: 'Voice Assistants', href: '/home-automation' },
+    { name: 'Home Cyber Security', href: '/home-automation' },
   ];
 
   const businessSolutions = [
-    { name: 'IT Infrastructure & LAN/WAN', href: '#divisions' },
-    { name: 'Cloud (Azure, AWS, GCP)', href: '#divisions' },
-    { name: 'Cybersecurity & Firewalls', href: '#divisions' },
-    { name: '24x7 NOC / SOC / TAC Ops', href: '#divisions' },
-    { name: 'Managed IT Services & AMC', href: '#amc' },
-    { name: 'AI & Business Applications', href: '#divisions' },
-    { name: 'CRM, ERP & WhatsApp Automation', href: '#divisions' },
+    { name: 'IT Infrastructure', href: '/business-solutions' },
+    { name: 'Cloud Solutions (Microsoft Azure, AWS, GCP)', href: '/business-solutions' },
+    { name: 'Cybersecurity', href: '/business-solutions' },
+    { name: 'Managed IT Services', href: '/business-solutions' },
+    { name: 'NOC/SOC/TAC', href: '/business-solutions' },
+    { name: 'AI & Business Applications', href: '/business-solutions' },
+    { name: 'CRM/ERP', href: '/business-solutions' },
+    { name: 'WhatsApp Automation', href: '/business-solutions' },
+    { name: 'Custom Software Development', href: '/business-solutions' },
   ];
 
   const industriesList = [
-    { name: 'Startups & SMBs', href: '#industries' },
-    { name: 'Enterprises & BFSI', href: '#industries' },
-    { name: 'Manufacturing & Plants', href: '#industries' },
-    { name: 'Healthcare & Hospitals', href: '#industries' },
-    { name: 'Hospitality & Retail', href: '#industries' },
-    { name: 'Education & Institutions', href: '#industries' },
+    { name: 'Startups & SMBs', href: '/#industries' },
+    { name: 'Enterprises & BFSI', href: '/#industries' },
+    { name: 'Manufacturing & Plants', href: '/#industries' },
+    { name: 'Healthcare & Hospitals', href: '/#industries' },
+    { name: 'Hospitality & Retail', href: '/#industries' },
+    { name: 'Education & Institutions', href: '/#industries' },
   ];
 
   return (
@@ -88,15 +93,18 @@ export default function Footer() {
           
           {/* Column 1: DEVICE CARE */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-sky-400 mb-4 flex items-center gap-1.5">
+            <Link 
+              href="/device-care"
+              className="text-xs font-black uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors mb-4 inline-flex items-center gap-1.5"
+            >
               <span>01. DEVICE CARE</span>
-            </h3>
+            </Link>
             <ul className="space-y-2.5 text-xs text-slate-300">
               {deviceCareServices.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="hover:text-amber-400 transition-colors inline-block"
+                    className="hover:text-sky-400 transition-colors inline-block"
                   >
                     {item.name}
                   </Link>
@@ -107,9 +115,12 @@ export default function Footer() {
 
           {/* Column 2: HOME AUTOMATION */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-1.5">
+            <Link 
+              href="/home-automation"
+              className="text-xs font-black uppercase tracking-wider text-amber-400 hover:text-amber-300 transition-colors mb-4 inline-flex items-center gap-1.5"
+            >
               <span>02. HOME AUTOMATION</span>
-            </h3>
+            </Link>
             <ul className="space-y-2.5 text-xs text-slate-300">
               {automationServices.map((item) => (
                 <li key={item.name}>
@@ -126,15 +137,18 @@ export default function Footer() {
 
           {/* Column 3: BUSINESS SOLUTIONS */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-indigo-400 mb-4 flex items-center gap-1.5">
+            <Link 
+              href="/business-solutions"
+              className="text-xs font-black uppercase tracking-wider text-indigo-400 hover:text-indigo-300 transition-colors mb-4 inline-flex items-center gap-1.5"
+            >
               <span>03. BUSINESS SOLUTIONS</span>
-            </h3>
+            </Link>
             <ul className="space-y-2.5 text-xs text-slate-300">
               {businessSolutions.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="hover:text-amber-400 transition-colors inline-block"
+                    className="hover:text-indigo-400 transition-colors inline-block"
                   >
                     {item.name}
                   </Link>
