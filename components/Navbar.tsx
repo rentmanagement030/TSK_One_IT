@@ -275,31 +275,50 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [isNearTop, setIsNearTop] = useState(true);
   const lastScrollY = useRef(0);
+  const isTicking = useRef(false);
+  const lastVisibleRef = useRef(true);
+  const lastNearTopRef = useRef(true);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Scroll listener for auto hide/show
+  // High-Performance RAF Scroll listener for smooth 60fps scrolling
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    const onScroll = () => {
+      if (!isTicking.current) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const nextNearTop = currentScrollY < 40;
 
-      if (currentScrollY < 40) {
-        setIsVisible(true);
-        setIsNearTop(true);
-      } else {
-        setIsNearTop(false);
-        if (currentScrollY > lastScrollY.current + 10) {
-          setIsVisible(false);
-          setActiveDropdown(null);
-        } else if (currentScrollY < lastScrollY.current - 10) {
-          setIsVisible(true);
-        }
+          if (nextNearTop !== lastNearTopRef.current) {
+            setIsNearTop(nextNearTop);
+            lastNearTopRef.current = nextNearTop;
+          }
+
+          let nextVisible = lastVisibleRef.current;
+          if (nextNearTop) {
+            nextVisible = true;
+          } else if (currentScrollY > lastScrollY.current + 15) {
+            nextVisible = false;
+          } else if (currentScrollY < lastScrollY.current - 15) {
+            nextVisible = true;
+          }
+
+          if (nextVisible !== lastVisibleRef.current) {
+            setIsVisible(nextVisible);
+            lastVisibleRef.current = nextVisible;
+            if (!nextVisible) {
+              setActiveDropdown(null);
+            }
+          }
+
+          lastScrollY.current = currentScrollY;
+          isTicking.current = false;
+        });
+        isTicking.current = true;
       }
-
-      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const handleMouseEnter = (id: string) => {

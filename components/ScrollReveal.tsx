@@ -67,7 +67,7 @@ export default function ScrollReveal({
         opacity: 1,
         transform: 'translate3d(0, 0, 0) scale(1)',
         transition: baseTransition,
-        willChange: 'opacity, transform',
+        willChange: 'auto',
       };
     }
 
