@@ -6,12 +6,12 @@ import { PhoneCall, CalendarCheck } from 'lucide-react';
 export default function FloatingContactBar() {
   return (
     <>
-      {/* Right Edge Floating Side Tabs (Fixed right next to the scrollbar) */}
+      {/* Right Edge Floating Side Tabs (Desktop only: hidden md:flex) */}
       <aside 
         aria-label="Quick action sidebar tabs"
-        className="fixed right-0 top-[40%] -translate-y-1/2 z-40 flex flex-col gap-3 items-end select-none pointer-events-auto"
+        className="hidden md:flex fixed right-0 top-[42%] -translate-y-1/2 z-40 flex-col gap-3.5 items-end select-none pointer-events-auto"
       >
-        {/* Tab 1: Book Free Consultation (Vibrant Azure Blue matching reference) */}
+        {/* Tab 1: Book Free Consultation (Vibrant Azure Blue with Shimmer & Sparkling Highlights) */}
         <button
           type="button"
           onClick={() => {
@@ -20,25 +20,61 @@ export default function FloatingContactBar() {
             }
           }}
           aria-label="Book Free Consultation with TSK OneIT"
-          className="group flex items-center justify-center bg-[#0074b7] hover:bg-[#005ea2] active:bg-[#004e87] text-white py-4 px-2.5 sm:px-3 rounded-l-2xl shadow-xl shadow-sky-950/25 border-l-2 border-t-2 border-b-2 border-white/40 transition-all duration-300 hover:-translate-x-1.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400"
+          className="group relative overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#0080ca] to-[#005ea2] hover:from-[#0091e6] hover:to-[#006bb8] text-white py-4 px-2.5 sm:px-3 rounded-l-2xl border-l-2 border-t-2 border-b-2 border-white/50 transition-all duration-300 hover:-translate-x-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400 tab-pulse-blue"
         >
+          {/* Animated Diagonal Shimmer Flare */}
+          <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
+          <span className="pointer-events-none absolute -inset-full animate-shimmer-sweep bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+
+          {/* Sparkling Star 1 (Top) */}
+          <span className="pointer-events-none absolute top-1.5 left-1 text-sky-200 animate-sparkle-twinkle">
+            <svg className="size-3 fill-amber-300 drop-shadow-[0_0_6px_rgba(251,191,36,0.9)]" viewBox="0 0 24 24">
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+          </span>
+
+          {/* Sparkling Star 2 (Bottom) */}
+          <span className="pointer-events-none absolute bottom-2 left-1 text-white animate-sparkle-twinkle-alt">
+            <svg className="size-2 fill-white drop-shadow-[0_0_4px_#fff]" viewBox="0 0 24 24">
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+          </span>
+
           <div 
-            className="flex items-center gap-2 font-bold text-[12px] sm:text-[13px] tracking-wider text-white whitespace-nowrap"
+            className="flex items-center gap-2 font-bold text-[12px] sm:text-[13px] tracking-wider text-white whitespace-nowrap drop-shadow-sm"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
           >
             <span>Book Free Consultation</span>
-            <CalendarCheck className="size-3.5 sm:size-4 text-sky-100 group-hover:scale-110 transition-transform" />
+            <CalendarCheck className="size-3.5 sm:size-4 text-sky-100 group-hover:scale-110 group-hover:rotate-6 transition-transform" />
           </div>
         </button>
 
-        {/* Tab 2: Call now (Vibrant Brand Orange matching reference) */}
+        {/* Tab 2: Call now (Vibrant Brand Orange with Shimmer & Sparkling Highlights) */}
         <a
           href="tel:+914446030632"
           aria-label="Call TSK OneIT Now at 044 46030632"
-          className="group flex items-center justify-center bg-[#f26522] hover:bg-[#d94f0e] active:bg-[#bf4108] text-white py-3.5 px-2.5 sm:px-3 rounded-l-2xl shadow-xl shadow-orange-950/25 border-l-2 border-t-2 border-b-2 border-white/40 transition-all duration-300 hover:-translate-x-1.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="group relative overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#f26522] to-[#d44806] hover:from-[#ff7330] hover:to-[#e0500a] text-white py-3.5 px-2.5 sm:px-3 rounded-l-2xl border-l-2 border-t-2 border-b-2 border-white/50 transition-all duration-300 hover:-translate-x-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400 tab-pulse-orange"
         >
+          {/* Animated Diagonal Shimmer Flare */}
+          <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
+          <span className="pointer-events-none absolute -inset-full animate-shimmer-sweep bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+
+          {/* Sparkling Star 1 (Top) */}
+          <span className="pointer-events-none absolute top-1.5 left-1 text-amber-200 animate-sparkle-twinkle">
+            <svg className="size-3 fill-yellow-200 drop-shadow-[0_0_6px_rgba(254,240,138,0.9)]" viewBox="0 0 24 24">
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+          </span>
+
+          {/* Sparkling Star 2 (Bottom) */}
+          <span className="pointer-events-none absolute bottom-2 left-1 text-white animate-sparkle-twinkle-alt">
+            <svg className="size-2 fill-white drop-shadow-[0_0_4px_#fff]" viewBox="0 0 24 24">
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+          </span>
+
           <div 
-            className="flex items-center gap-2 font-bold text-[12px] sm:text-[13px] tracking-wider text-white whitespace-nowrap"
+            className="flex items-center gap-2 font-bold text-[12px] sm:text-[13px] tracking-wider text-white whitespace-nowrap drop-shadow-sm"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
           >
             <span>Call now</span>

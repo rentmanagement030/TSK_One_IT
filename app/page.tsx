@@ -13,7 +13,7 @@ export default function HomePage() {
       <Hero />
       
       {/* Content Curtain Overlay (Scrolls over the sticky Hero section) */}
-      <div className="relative z-20 bg-[#f4f9fd] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+      <div id="explore-content" className="relative z-20 bg-[#f4f9fd] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
         <PartnerEcosystem />
         <WhoWeAre />
         <DivisionsSection />

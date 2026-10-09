@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import FloatingContactBar from '@/components/FloatingContactBar';
-import EnquiryModal from '@/components/EnquiryModal';
+import ClientProviders from '@/components/ClientProviders';
+import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
 export const viewport: Viewport = {
   themeColor: '#f4f9fd',
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/images/logo.png', type: 'image/png' },
+      { url: CLOUDINARY_IMAGES.logo, type: 'image/png' },
     ],
     apple: [
-      { url: '/images/logo.png', sizes: '180x180', type: 'image/png' },
+      { url: CLOUDINARY_IMAGES.logo, sizes: '180x180', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
   },
@@ -138,8 +138,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/images/logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/logo.png" />
+        <link rel="icon" href={CLOUDINARY_IMAGES.logo} type="image/png" />
+        <link rel="apple-touch-icon" href={CLOUDINARY_IMAGES.logo} />
+        
+        {/* Performance Preconnect for Cloudinary Global CDN */}
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -161,8 +166,7 @@ export default function RootLayout({
         </main>
 
         <Footer />
-        <FloatingContactBar />
-        <EnquiryModal />
+        <ClientProviders />
       </body>
     </html>
   );

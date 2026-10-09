@@ -5,875 +5,718 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { 
   PhoneCall, 
-  Mail, 
-  MapPin, 
   Menu, 
   X, 
   ChevronDown, 
+  ChevronRight, 
   ArrowRight, 
-  Sparkles
+  ArrowUpRight 
 } from 'lucide-react';
+import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
-export const deviceCareList = [
-  'Laptop & Desktop Repair',
-  'Apple Macbook Repair',
-  'Chip Level Mother Board Repair',
-  'Data Recovery',
-  'SSD & RAM Upgrades',
-  'Genuine Spareparts',
-  'AMC',
-  'Doorstep Pickup & Delivery',
-];
+export interface ServiceItem {
+  name: string;
+  href: string;
+  image: string;
+}
 
-export const homeAutomationList = [
-  'Smart Home Automation',
-  'CCTV',
-  'Smartdoor Locks',
-  'Video Door Phones',
-  'Smart Lighting',
-  'Home WiFi & Mesh',
-  'Access Control',
-  'Voice Assistants',
-  'Home Cyber Security',
-];
+export interface ServiceSubCategory {
+  title: string;
+  href: string;
+  image: string;
+  items: ServiceItem[];
+}
 
-export const businessSolutionsList = [
-  'IT Infrastructure',
-  'Cloud Solutions (Microsoft Azure, AWS, GCP)',
-  'Cybersecurity',
-  'Managed IT Services',
-  'NOC/SOC/TAC',
-  'AI & Business Applications',
-  'CRM/ERP',
-  'WhatsApp Automation',
-  'Custom Software Development',
+export interface ServiceDivision {
+  id: string;
+  number: string;
+  title: string;
+  href: string;
+  badgeColor: string;
+  accentColor: string;
+  subCategories: ServiceSubCategory[];
+  footerText: string;
+  footerCta: string;
+}
+
+export const serviceHierarchy: ServiceDivision[] = [
+  {
+    id: 'device-care',
+    number: '01',
+    title: 'IT Device Care',
+    href: '/device-care',
+    badgeColor: 'text-sky-600 bg-sky-50 border-sky-200',
+    accentColor: '#0284c7',
+    footerText: 'Free doorstep pickup, diagnosis & genuine parts in Chennai',
+    footerCta: 'Book Device Repair →',
+    subCategories: [
+      {
+        title: 'Device Repair & Maintenance',
+        href: '/device-repair-and-maintenance',
+        image: CLOUDINARY_IMAGES.bannerDeviceRepair,
+        items: [
+          { 
+            name: 'Laptop & Desktop Repair', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Apple MacBook Repair', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Chip-Level Motherboard Repair', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Data Recovery', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'SSD & RAM Upgrades', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Genuine Spare Parts', 
+            href: '/device-repair-and-maintenance',
+            image: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+      {
+        title: 'IT Support Services',
+        href: '/it-support-services',
+        image: CLOUDINARY_IMAGES.bannerItSupport,
+        items: [
+          { 
+            name: 'AMC / Annual Maintenance Contracts', 
+            href: '/it-support-services',
+            image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Doorstep Pickup & Delivery', 
+            href: '/it-support-services',
+            image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'IT Troubleshooting', 
+            href: '/it-support-services',
+            image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Managed Device Support', 
+            href: '/it-support-services',
+            image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'home-automation',
+    number: '02',
+    title: 'Home Automation',
+    href: '/home-automation',
+    badgeColor: 'text-amber-600 bg-amber-50 border-amber-200',
+    accentColor: '#d97706',
+    footerText: 'Smart villa & apartment automation design and installation',
+    footerCta: 'Book Free Site Visit →',
+    subCategories: [
+      {
+        title: 'Smart Home',
+        href: '/smart-home',
+        image: CLOUDINARY_IMAGES.bannerSmartHome,
+        items: [
+          { 
+            name: 'Smart Lighting', 
+            href: '/smart-home',
+            image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Voice Assistants', 
+            href: '/smart-home',
+            image: 'https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Home Wi-Fi & Mesh', 
+            href: '/smart-home',
+            image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Smart Home Automation', 
+            href: '/smart-home',
+            image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+      {
+        title: 'Home Security',
+        href: '/home-security',
+        image: CLOUDINARY_IMAGES.bannerHomeSecurity,
+        items: [
+          { 
+            name: 'CCTV Surveillance', 
+            href: '/home-security',
+            image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Smart Door Locks', 
+            href: '/home-security',
+            image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Video Door Phones', 
+            href: '/home-security',
+            image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Access Control', 
+            href: '/home-security',
+            image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Home Cyber Security', 
+            href: '/home-security',
+            image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'business-solutions',
+    number: '03',
+    title: 'Business Solutions',
+    href: '/business-solutions',
+    badgeColor: 'text-indigo-600 bg-indigo-50 border-indigo-200',
+    accentColor: '#4f46e5',
+    footerText: 'Enterprise AMC, Cloud architecture & Custom ERP consultation',
+    footerCta: 'Get Enterprise Proposal →',
+    subCategories: [
+      {
+        title: 'IT Infrastructure & Cloud',
+        href: '/it-infrastructure-and-cloud',
+        image: CLOUDINARY_IMAGES.bannerItInfrastructure,
+        items: [
+          { 
+            name: 'IT Infrastructure', 
+            href: '/it-infrastructure-and-cloud',
+            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Cloud Solutions (Azure, AWS, GCP)', 
+            href: '/it-infrastructure-and-cloud',
+            image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Managed IT Services', 
+            href: '/it-infrastructure-and-cloud',
+            image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'NOC / SOC / TAC', 
+            href: '/it-infrastructure-and-cloud',
+            image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Cybersecurity', 
+            href: '/it-infrastructure-and-cloud',
+            image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+      {
+        title: 'Software & AI',
+        href: '/software-and-ai',
+        image: CLOUDINARY_IMAGES.bannerSoftwareAi,
+        items: [
+          { 
+            name: 'AI & Business Applications', 
+            href: '/software-and-ai',
+            image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'CRM / ERP', 
+            href: '/software-and-ai',
+            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'WhatsApp Automation', 
+            href: '/software-and-ai',
+            image: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=300&q=80',
+          },
+          { 
+            name: 'Custom Software Development', 
+            href: '/software-and-ai',
+            image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
-  const [fontSizeIndex, setFontSizeIndex] = useState(1); // 0 = A-, 1 = A, 2 = A+
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  
+  // Track active sub-category per division for master-detail interaction
+  const [activeSubMap, setActiveSubMap] = useState<Record<string, number>>({
+    'device-care': 0,
+    'home-automation': 0,
+    'business-solutions': 0,
+  });
 
-  // Smart Visibility State: Hide on scroll down, show on scroll up or mouse hover near top
+  const [expandedDivision, setExpandedDivision] = useState<string | null>('device-care');
   const [isVisible, setIsVisible] = useState(true);
-  const [isNearTop, setIsNearTop] = useState(false);
+  const [isNearTop, setIsNearTop] = useState(true);
   const lastScrollY = useRef(0);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Scroll listener for dynamic hide/show
+  // Scroll listener for auto hide/show
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Always show at the very top of page
-      if (currentScrollY <= 15) {
+      if (currentScrollY < 40) {
         setIsVisible(true);
-      } 
-      // Scrolling down -> Hide navbar
-      else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsVisible(false);
-      } 
-      // Scrolling up -> Reveal navbar
-      else if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true);
+        setIsNearTop(true);
+      } else {
+        setIsNearTop(false);
+        if (currentScrollY > lastScrollY.current + 10) {
+          setIsVisible(false);
+          setActiveDropdown(null);
+        } else if (currentScrollY < lastScrollY.current - 10) {
+          setIsVisible(true);
+        }
       }
 
       lastScrollY.current = currentScrollY;
     };
 
-    // Mouse movement listener to reveal navbar when cursor comes near top
-    const handleMouseMove = (e: MouseEvent) => {
-      if (e.clientY <= 65) {
-        setIsNearTop(true);
-      } else if (e.clientY > 110) {
-        setIsNearTop(false);
-      }
-    };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Toggle drawer body scroll lock & ESC key listener
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isDrawerOpen) {
-        setIsDrawerOpen(false);
-      }
-    };
-
-    if (isDrawerOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDrawerOpen]);
-
-  const toggleAccordion = (name: string) => {
-    setExpandedMenu(expandedMenu === name ? null : name);
+  const handleMouseEnter = (id: string) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setActiveDropdown(id);
   };
 
-  const adjustFontSize = (level: number) => {
-    setFontSizeIndex(level);
-    const htmlEl = document.documentElement;
-    if (level === 0) htmlEl.style.fontSize = '14px';
-    if (level === 1) htmlEl.style.fontSize = '16px';
-    if (level === 2) htmlEl.style.fontSize = '18px';
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 180);
+  };
+
+  const handleSubCategorySelect = (divisionId: string, subIndex: number) => {
+    setActiveSubMap((prev) => ({ ...prev, [divisionId]: subIndex }));
+  };
+
+  const handleServiceClick = (_serviceName?: string) => {
+    setActiveDropdown(null);
+    setIsDrawerOpen(false);
+  };
+
+  const openQuoteModal = () => {
+    setIsDrawerOpen(false);
+    setActiveDropdown(null);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
+    }
   };
 
   const showNavbar = isVisible || isNearTop || isDrawerOpen;
 
   return (
     <>
-      {/* Invisible Hover Sensor Zone at the very top of screen */}
+      {/* Top Hover Sensor Zone */}
       <div 
-        className="fixed top-0 left-0 right-0 h-5 z-40 pointer-events-auto"
+        className="fixed top-0 left-0 right-0 h-4 z-40 pointer-events-auto"
         onMouseEnter={() => setIsNearTop(true)}
       />
 
-      {/* Main Floating / Dynamic Header Wrapper */}
+      {/* Main Header */}
       <div 
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-in-out ${
           showNavbar ? 'translate-y-0' : '-translate-y-full'
         }`}
         onMouseEnter={() => setIsNearTop(true)}
       >
-        {/* 1. TOP UTILITY & ACCESSIBILITY BAR (Full Screen Width) */}
-        <div className="bg-[#070e1c] text-slate-300 text-xs border-b border-white/10 hidden md:block w-full">
-          <div className="w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between h-10">
+        <header className="w-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-b border-slate-200/90 relative">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between h-15 sm:h-16">
             
-            {/* Left: Contact Info */}
-            <div className="flex items-center gap-6">
-              <a 
-                href="tel:+919150843991" 
-                className="flex items-center gap-1.5 hover:text-amber-400 transition-colors duration-200"
-              >
-                <PhoneCall className="size-3.5 text-amber-400" />
-                <span>+91 91508 43991</span>
-              </a>
-
-              <a 
-                href="mailto:info@tskoneit.com" 
-                className="flex items-center gap-1.5 hover:text-amber-400 transition-colors duration-200"
-              >
-                <Mail className="size-3.5 text-amber-400" />
-                <span>info@tskoneit.com</span>
-              </a>
-
-              <div className="flex items-center gap-1.5 text-slate-400">
-                <MapPin className="size-3.5 text-amber-400" />
-                <span>Anna Salai, Chennai, India</span>
+            {/* Left: Official Brand Logo */}
+            <Link 
+              href="/" 
+              className="flex items-center group focus:outline-none shrink-0"
+              aria-label="TSK One IT - Home"
+            >
+              <div className="relative h-11 sm:h-12 w-36 sm:w-44 flex items-center justify-start shrink-0">
+                <Image
+                  src={CLOUDINARY_IMAGES.logo}
+                  alt="TSK One IT Logo"
+                  fill
+                  sizes="(max-width: 640px) 144px, 176px"
+                  className="object-contain object-left group-hover:scale-105 transition-transform duration-300"
+                  priority
+                />
               </div>
-            </div>
+            </Link>
 
-            {/* Right: Accessibility Controls */}
-            <div className="flex items-center gap-2">
-              <a
-                href="#main-content"
-                className="px-2.5 py-1 rounded bg-white/10 text-slate-200 text-[11px] font-semibold border border-white/15 hover:bg-amber-400 hover:text-slate-900 transition-all duration-200 inline-flex items-center gap-1 hover:scale-105"
-              >
-                <Sparkles className="size-3 text-amber-400" />
-                <span>Skip to Content</span>
-              </a>
-
-              {/* Font Sizer */}
-              <div className="flex items-center rounded bg-white/10 border border-white/15 overflow-hidden text-[11px] font-bold">
-                <button 
-                  onClick={() => adjustFontSize(0)} 
-                  className={`px-2 py-0.5 hover:bg-white/20 transition-colors duration-150 ${fontSizeIndex === 0 ? 'bg-sky-500 text-white' : ''}`}
-                  title="Decrease font size"
-                >
-                  A-
-                </button>
-                <button 
-                  onClick={() => adjustFontSize(1)} 
-                  className={`px-2 py-0.5 border-x border-white/15 hover:bg-white/20 transition-colors duration-150 ${fontSizeIndex === 1 ? 'bg-sky-500 text-white' : ''}`}
-                  title="Default font size"
-                >
-                  A
-                </button>
-                <button 
-                  onClick={() => adjustFontSize(2)} 
-                  className={`px-2 py-0.5 hover:bg-white/20 transition-colors duration-150 ${fontSizeIndex === 2 ? 'bg-sky-500 text-white' : ''}`}
-                  title="Increase font size"
-                >
-                  A+
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* 2. MAIN NAVBAR WITH FULL SCREEN WIDTH FLUSH LOGO & ONLY 2 BUTTONS */}
-        <header className="w-full bg-white shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-slate-100 transition-all">
-          <div className="w-full flex items-center justify-between h-16 sm:h-20 pr-4 sm:pr-8 lg:pr-12">
-            
-            {/* Left: Angled Blue Brand Block FLUSH to the Left Edge of Screen */}
-            <div className="flex items-center h-full">
-              <Link
-                href="/"
-                className="group relative flex items-center h-full bg-[#1e40af] text-white pl-6 sm:pl-10 lg:pl-14 pr-12 sm:pr-20 [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] transition-colors hover:bg-[#1d4ed8]"
-              >
-                <div className="flex items-center gap-3 sm:gap-4">
-                  {/* Brand Monogram Logo Icon */}
-                  <div className="relative size-8 sm:size-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <Image
-                      src="/images/logo.png"
-                      alt="TSK One IT Logo"
-                      width={40}
-                      height={40}
-                      className="size-full object-contain rounded-lg shadow-xs"
-                      priority
-                    />
-                  </div>
-
-                  {/* Brand Typography */}
-                  <div className="flex flex-col">
-                    <span className="text-xl sm:text-2xl font-black tracking-wider uppercase leading-tight font-sans text-white">
-                      TSK ONE<span className="text-cyan-300">IT</span>
-                    </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-200/80 uppercase -mt-0.5">
-                      INSPIRED BY YOU
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Center: 3 Interactive Hover Dropdown Navigation Buttons */}
-            <nav aria-label="Desktop primary navigation" className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {/* Center Navigation: IT Device Care, Home Automation, Business Solutions */}
+            <nav aria-label="Desktop primary navigation" className="hidden lg:flex items-center gap-6 xl:gap-8">
               
-              {/* 1. IT Device Care Dropdown */}
-              <div className="relative group py-5">
-                <Link
-                  href="/device-care"
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
-                >
-                  <span>IT Device Care</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
+              {serviceHierarchy.map((div) => {
+                const isOpen = activeDropdown === div.id;
+                const activeSubIndex = activeSubMap[div.id] ?? 0;
+                const activeSubCategory = div.subCategories[activeSubIndex] || div.subCategories[0];
 
-                {/* Dropdown Menu */}
-                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-80 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-sky-50 text-[11px] font-mono font-bold text-sky-800 uppercase tracking-wider flex items-center justify-between">
-                    <span>IT Device Care</span>
-                    <span className="text-[10px] text-sky-600 font-bold">8 Services</span>
-                  </div>
-                  <div className="space-y-0.5">
-                    {deviceCareList.map((item) => (
-                      <Link
-                        key={item}
-                        href="/device-care"
-                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-sky-50 transition-all"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                return (
+                  <div 
+                    key={div.id}
+                    className="relative"
+                    onMouseEnter={() => handleMouseEnter(div.id)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {/* Top Level Nav Button */}
+                    <Link
+                      href={div.href}
+                      className={`flex items-center gap-1.5 text-[13px] xl:text-[14px] font-extrabold uppercase tracking-wide transition-colors py-5 cursor-pointer ${
+                        isOpen ? 'text-[#0284c7]' : 'text-slate-800 hover:text-[#0284c7]'
+                      }`}
+                      aria-expanded={isOpen}
+                    >
+                      <span>{div.title}</span>
+                      <ChevronDown className={`size-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#0284c7]' : 'text-slate-500'}`} />
+                    </Link>
 
-              {/* 2. Home Automation Dropdown */}
-              <div className="relative group py-5">
-                <Link
-                  href="/home-automation"
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
-                >
-                  <span>Home Automation</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
+                    {/* Master-Detail Visual Dropdown Mega-Menu matching Mockup */}
+                    <div 
+                      className={`absolute left-1/2 -translate-x-1/2 top-full -mt-1 w-[860px] xl:w-[920px] bg-white rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden transition-all duration-200 z-50 ${
+                        isOpen 
+                          ? 'opacity-100 translate-y-0 pointer-events-auto' 
+                          : 'opacity-0 -translate-y-2 pointer-events-none'
+                      }`}
+                    >
+                      {/* Top Header Strip */}
+                      <div className="px-6 py-3.5 bg-slate-900 text-white flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                            {div.title}
+                          </h3>
+                        </div>
+                        <Link 
+                          href={div.href}
+                          onClick={() => setActiveDropdown(null)}
+                          className="text-xs font-bold text-sky-400 hover:text-sky-300 flex items-center gap-1 hover:underline transition-colors"
+                        >
+                          <span>Explore {div.title}</span>
+                          <ArrowUpRight className="size-3.5" />
+                        </Link>
+                      </div>
 
-                {/* Dropdown Menu */}
-                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-80 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-amber-50 text-[11px] font-mono font-bold text-amber-800 uppercase tracking-wider flex items-center justify-between">
-                    <span>Home Automation</span>
-                    <span className="text-[10px] text-amber-600 font-bold">9 Services</span>
-                  </div>
-                  <div className="space-y-0.5">
-                    {homeAutomationList.map((item) => (
-                      <Link
-                        key={item}
-                        href="/home-automation"
-                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-amber-50/70 transition-all"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                      {/* 2-Column Split Body matching User Mockup */}
+                      <div className="grid grid-cols-12 p-3.5 sm:p-4 gap-3.5 bg-slate-50/60">
+                        
+                        {/* LEFT COLUMN: Large Category Cards (Image on Top + Title on Bottom) */}
+                        <div className="col-span-4 flex flex-col gap-3">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 px-1">
+                            Select Category
+                          </span>
 
-              {/* 3. Business Solutions Dropdown */}
-              <div className="relative group py-5">
-                <Link
-                  href="/business-solutions"
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] xl:text-[14px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-slate-100/80 transition-all"
-                >
-                  <span>Business Solutions</span>
-                  <ChevronDown className="size-3.5 text-slate-400 group-hover:text-[#1e40af] group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
+                          {div.subCategories.map((sub, idx) => {
+                            const isSelected = activeSubIndex === idx;
 
-                {/* Dropdown Menu */}
-                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-84 p-3 bg-white rounded-2xl shadow-2xl shadow-blue-950/20 border border-slate-100 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                  <div className="px-3 py-1.5 mb-1.5 rounded-lg bg-indigo-50 text-[11px] font-mono font-bold text-indigo-800 uppercase tracking-wider flex items-center justify-between">
-                    <span>Business Solutions</span>
-                    <span className="text-[10px] text-indigo-600 font-bold">9 Services</span>
+                            return (
+                              <Link
+                                key={sub.title}
+                                href={sub.href}
+                                onMouseEnter={() => handleSubCategorySelect(div.id, idx)}
+                                onClick={() => setActiveDropdown(null)}
+                                className={`group/cat block bg-white rounded-2xl p-2.5 sm:p-3 border transition-all duration-200 cursor-pointer ${
+                                  isSelected
+                                    ? 'border-[#0284c7] ring-2 ring-[#0284c7]/30 shadow-md bg-sky-50/30'
+                                    : 'border-slate-200/80 hover:border-slate-300 shadow-sm hover:shadow'
+                                }`}
+                              >
+                                {/* Top Thumbnail Image */}
+                                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 mb-2 border border-slate-200/60">
+                                  <Image
+                                    src={sub.image}
+                                    alt={sub.title}
+                                    fill
+                                    sizes="260px"
+                                    className="object-cover group-hover/cat:scale-105 transition-transform duration-300"
+                                  />
+                                </div>
+                                {/* Bottom Title */}
+                                <h4 className={`text-xs font-black uppercase tracking-wider text-center transition-colors line-clamp-1 ${
+                                  isSelected ? 'text-[#0284c7]' : 'text-slate-900 group-hover/cat:text-[#0284c7]'
+                                }`}>
+                                  {sub.title}
+                                </h4>
+                              </Link>
+                            );
+                          })}
+                        </div>
+
+                        {/* RIGHT COLUMN: 2-Column Grid of Service Cards with Matching Images */}
+                        <div className="col-span-8 bg-white rounded-2xl border border-slate-200/80 p-3 sm:p-3.5 flex flex-col shadow-sm">
+                          {/* Dynamically equally-divided Grid of Service Cards */}
+                          <div className={`grid grid-cols-2 gap-2.5 sm:gap-3.5 h-full flex-1 ${
+                            activeSubCategory.items.length <= 4 ? 'grid-rows-2' : 'grid-rows-3'
+                          }`}>
+                            {activeSubCategory.items.map((item) => {
+                              const isCompact = activeSubCategory.items.length > 4;
+
+                              return (
+                                <Link
+                                  key={item.name}
+                                  href={item.href}
+                                  onClick={() => handleServiceClick(item.name)}
+                                  className={`group/item flex items-center rounded-2xl bg-slate-100/80 hover:bg-sky-50 border border-transparent hover:border-sky-200 hover:shadow-sm transition-all duration-150 cursor-pointer h-full ${
+                                    isCompact ? 'gap-3 p-2.5 sm:p-3' : 'gap-4 p-3 sm:p-4'
+                                  }`}
+                                >
+                                  {/* Left Thumbnail Image - Scaled to fill the card nicely */}
+                                  <div className={`relative shrink-0 rounded-xl overflow-hidden bg-slate-200 border border-slate-300/70 shadow-inner ${
+                                    isCompact 
+                                      ? 'w-16 sm:w-20 h-14 sm:h-16' 
+                                      : 'w-24 sm:w-28 h-20 sm:h-24'
+                                  }`}>
+                                    <Image
+                                      src={item.image}
+                                      alt={item.name}
+                                      fill
+                                      sizes={isCompact ? "100px" : "150px"}
+                                      className="object-cover group-hover/item:scale-105 transition-transform duration-300"
+                                    />
+                                  </div>
+                                  {/* Right Title */}
+                                  <span className={`font-black text-slate-900 group-hover/item:text-[#0284c7] transition-colors leading-snug ${
+                                    isCompact 
+                                      ? 'text-xs sm:text-[13px] line-clamp-2' 
+                                      : 'text-sm sm:text-base'
+                                  }`}>
+                                    {item.name}
+                                  </span>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                      </div>
+
+                      {/* Dropdown Footer Strip */}
+                      <div className="bg-slate-50 px-5 py-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span className="text-slate-500 font-medium truncate max-w-[500px]">
+                          {div.footerText}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={openQuoteModal}
+                          className="font-bold text-[#0284c7] hover:underline shrink-0 cursor-pointer ml-3"
+                        >
+                          {div.footerCta}
+                        </button>
+                      </div>
+
+                    </div>
                   </div>
-                  <div className="space-y-0.5">
-                    {businessSolutionsList.map((item) => (
-                      <Link
-                        key={item}
-                        href="/business-solutions"
-                        className="block px-3 py-2 rounded-xl text-[13px] font-bold text-slate-800 hover:text-[#1e40af] hover:bg-indigo-50/70 transition-all"
-                      >
-                        {item}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                );
+              })}
 
             </nav>
 
-            {/* Right: ONLY "Get A Quote" Button & Sandwich Menu Trigger Button */}
-            <div className="flex items-center gap-3 sm:gap-4">
-              {/* Yellow/Gold "Get A Quote" Button */}
+            {/* Right: Contact & Get Quote Button */}
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              
+              {/* Contact Link */}
+              <Link
+                href="/contact"
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs xl:text-sm font-extrabold uppercase tracking-wider text-slate-700 hover:text-[#0284c7] transition-colors px-2 py-1"
+              >
+                <PhoneCall className="size-3.5 text-[#0284c7]" />
+                <span>Contact</span>
+              </Link>
+
+              {/* Standout "Get Quote" Button */}
               <button
                 type="button"
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
-                  }
-                }}
-                className="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-lg hover:shadow-amber-500/30 hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap cursor-pointer"
+                onClick={openQuoteModal}
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-black text-xs sm:text-[13px] uppercase tracking-wider shadow-sm hover:shadow-md hover:shadow-amber-500/20 active:scale-95 transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
-                Get A Quote
+                Get Quote
               </button>
 
-              {/* Round Blue Sandwich / Hamburger Button */}
+              {/* Mobile Hamburger Menu Toggle Button */}
               <button
                 type="button"
                 onClick={() => setIsDrawerOpen(true)}
-                aria-label="Open navigation menu"
-                aria-expanded={isDrawerOpen}
-                className="size-11 sm:size-12 rounded-full bg-[#0a2558] hover:bg-[#1e40af] text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-blue-900/40 hover:scale-110 active:scale-95 cursor-pointer"
+                aria-label="Open mobile navigation menu"
+                className="lg:hidden p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer"
               >
-                <Menu className="size-5 sm:size-6 transition-transform duration-300 hover:rotate-90" />
+                <Menu className="size-5" />
               </button>
+
             </div>
 
           </div>
         </header>
       </div>
 
-      {/* 3. FULL-SCREEN / RESPONSIVE DRAWER MENU (Scrollbar Hidden, Clean Animations) */}
+      {/* MOBILE RESPONSIVE DRAWER */}
       {isDrawerOpen && (
-        <div 
-          className="fixed inset-0 z-[100] h-dvh w-screen bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
-          onClick={() => setIsDrawerOpen(false)}
-        >
+        <div className="fixed inset-0 z-[100] lg:hidden animate-fadeIn" role="dialog" aria-modal="true">
+          {/* Backdrop */}
           <div 
-            className="fixed inset-0 flex flex-col lg:flex-row h-full w-full overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+            onClick={() => setIsDrawerOpen(false)}
+          />
+
+          {/* Drawer Panel */}
+          <div className="absolute top-0 right-0 bottom-0 w-[88vw] max-w-md bg-white shadow-2xl z-10 flex flex-col justify-between overflow-y-auto">
             
-            {/* Left Panel / Main Scrollable Container (Scrollbar Hidden with CSS) */}
-            <div className="relative w-full lg:w-[68%] h-full bg-[#0d2870] text-white p-6 sm:p-10 lg:p-14 flex flex-col justify-between overflow-y-auto isolate [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              
-              {/* 18% Transparent Background Photography Layer */}
-              <div 
-                aria-hidden="true" 
-                className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center opacity-[0.18] mix-blend-luminosity"
-                style={{ 
-                  backgroundImage: `url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop')` 
-                }}
-              />
-
-              {/* Royal Blue Deep Gradient Overlay */}
-              <div 
-                aria-hidden="true" 
-                className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-[#123896]/95 via-[#0c266e]/90 to-[#07194d]/95"
-              />
-
-              {/* Decorative Watermark Curved Lines & Dot Grid */}
-              <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute -top-24 -right-24 size-[550px] rounded-full border border-white/10 opacity-40" />
-                <div className="absolute -top-10 -right-10 size-[400px] rounded-full border border-white/10 opacity-40" />
-                <div className="absolute -bottom-20 -left-20 size-[450px] rounded-full border border-white/10 opacity-30" />
-                <div className="absolute bottom-28 right-12 w-48 h-48 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:16px_16px] opacity-15" />
-              </div>
-
-              {/* Top Drawer Header (Mobile Close Button Only shown on mobile) */}
-              <div className="flex items-center justify-between pb-6 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="size-9 sm:size-10 flex items-center justify-center shrink-0">
-                    <Image
-                      src="/images/logo.png"
-                      alt="TSK One IT Logo"
-                      width={40}
-                      height={40}
-                      className="size-full object-contain rounded-lg shadow-xs"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-2xl sm:text-3xl font-black tracking-wider uppercase text-white leading-tight">
-                      TSK ONE<span className="text-cyan-300">IT</span>
-                    </p>
-                    <p className="text-[10px] sm:text-[11px] font-mono tracking-widest text-cyan-200/80 uppercase">
-                      INSPIRED BY YOU
-                    </p>
-                  </div>
-                </div>
-
-                {/* Circular Close Button on Left Panel (ONLY VISIBLE ON MOBILE) */}
-                <button
-                  type="button"
+            {/* Drawer Header */}
+            <div>
+              <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+                <Link
+                  href="/"
                   onClick={() => setIsDrawerOpen(false)}
-                  aria-label="Close navigation menu"
-                  className="lg:hidden size-11 sm:size-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/20 hover:border-white/60 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer shadow-lg shrink-0"
+                  className="relative h-10 w-36 flex items-center justify-start"
                 >
-                  <X className="size-6 transition-transform duration-200 hover:rotate-90" />
-                </button>
-              </div>
+                  <Image
+                    src={CLOUDINARY_IMAGES.logo}
+                    alt="TSK One IT Logo"
+                    fill
+                    sizes="144px"
+                    className="object-contain object-left"
+                  />
+                </Link>
 
-              {/* Navigation Items (Single column, Smooth Collapsible Accordions) */}
-              <nav className="my-6 space-y-1">
-                
-                {/* 1. Home */}
-                <div className="border-b border-white/10 py-3.5">
-                  <Link
-                    href="/"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
-                  >
-                    Home
-                  </Link>
-                </div>
-
-                {/* 2. Device Care */}
-                <div className="border-b border-white/10 py-3.5">
-                  <div className="w-full flex items-center justify-between">
-                    <Link
-                      href="/device-care"
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
-                    >
-                      Device Care
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => toggleAccordion('device-care')}
-                      aria-label="Toggle Device Care sub-services"
-                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
-                    >
-                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'device-care' ? 'rotate-180 text-amber-300' : ''}`} />
-                    </button>
-                  </div>
-
-                  <div 
-                    className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
-                      expandedMenu === 'device-care' 
-                        ? 'grid-rows-[1fr] opacity-100 mt-3' 
-                        : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-[#061845]/75 border border-white/15 backdrop-blur-md space-y-2">
-                        {deviceCareList.map((item) => (
-                          <Link
-                            key={item}
-                            href="/device-care"
-                            onClick={() => setIsDrawerOpen(false)}
-                            className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
-                          >
-                            <span className="size-2 rounded-full bg-cyan-400 group-hover/sub:bg-amber-400 group-hover/sub:scale-125 transition-all shrink-0" />
-                            <span>{item}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. Home Automation */}
-                <div className="border-b border-white/10 py-3.5">
-                  <div className="w-full flex items-center justify-between">
-                    <Link
-                      href="/home-automation"
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
-                    >
-                      Home Automation
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => toggleAccordion('home-automation')}
-                      aria-label="Toggle Home Automation sub-services"
-                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
-                    >
-                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'home-automation' ? 'rotate-180 text-amber-300' : ''}`} />
-                    </button>
-                  </div>
-
-                  <div 
-                    className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
-                      expandedMenu === 'home-automation' 
-                        ? 'grid-rows-[1fr] opacity-100 mt-3' 
-                        : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-[#061845]/75 border border-white/15 backdrop-blur-md space-y-2">
-                        {homeAutomationList.map((item) => (
-                          <Link
-                            key={item}
-                            href="/home-automation"
-                            onClick={() => setIsDrawerOpen(false)}
-                            className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
-                          >
-                            <span className="size-2 rounded-full bg-amber-400 group-hover/sub:scale-125 transition-all shrink-0" />
-                            <span>{item}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Business Solutions */}
-                <div className="border-b border-white/10 py-3.5">
-                  <div className="w-full flex items-center justify-between">
-                    <Link
-                      href="/business-solutions"
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200"
-                    >
-                      Business Solutions
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => toggleAccordion('business-solutions')}
-                      aria-label="Toggle Business Solutions sub-services"
-                      className="p-2 rounded-xl hover:bg-white/10 text-cyan-300 hover:text-amber-300 transition-colors cursor-pointer"
-                    >
-                      <ChevronDown className={`size-6 transition-transform duration-300 ${expandedMenu === 'business-solutions' ? 'rotate-180 text-amber-300' : ''}`} />
-                    </button>
-                  </div>
-
-                  <div 
-                    className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
-                      expandedMenu === 'business-solutions' 
-                        ? 'grid-rows-[1fr] opacity-100 mt-3' 
-                        : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="p-4 sm:p-5 rounded-2xl bg-[#061845]/75 border border-white/15 backdrop-blur-md space-y-2">
-                        {businessSolutionsList.map((item) => (
-                          <Link
-                            key={item}
-                            href="/business-solutions"
-                            onClick={() => setIsDrawerOpen(false)}
-                            className="group/sub flex items-center gap-3 py-1.5 px-2.5 rounded-xl text-sm sm:text-base font-medium text-cyan-100 hover:text-amber-300 hover:bg-white/10 hover:translate-x-2 transition-all duration-200"
-                          >
-                            <span className="size-2 rounded-full bg-indigo-400 group-hover/sub:bg-amber-400 group-hover/sub:scale-125 transition-all shrink-0" />
-                            <span>{item}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5. Industries We Serve */}
-                <div className="border-b border-white/10 py-3.5">
-                  <Link
-                    href="/#industries"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
-                  >
-                    Industries
-                  </Link>
-                </div>
-
-                {/* 6. About Us */}
-                <div className="border-b border-white/10 py-3.5">
-                  <Link
-                    href="/#who-we-are"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
-                  >
-                    About Us
-                  </Link>
-                </div>
-
-                {/* 7. Contact Us */}
-                <div className="border-b border-white/10 py-3.5">
-                  <Link
-                    href="/#contact"
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-2xl sm:text-3xl font-extrabold text-white/95 hover:text-amber-300 hover:translate-x-2 transition-all duration-200 block"
-                  >
-                    Contact Us
-                  </Link>
-                </div>
-
-              </nav>
-
-              {/* Mobile Embedded Contact & Follow Us Section */}
-              <div className="lg:hidden mt-8 pt-8 border-t border-white/20 space-y-8 pb-6">
-                
-                {/* Mobile Contact Us */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1.5">
-                    Contact Us
-                  </h3>
-                  <div className="w-10 h-0.5 bg-amber-400 mb-5" />
-
-                  <div className="space-y-4 text-xs sm:text-sm text-slate-200">
-                    <div className="flex items-start gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
-                        <MapPin className="size-4" />
-                      </div>
-                      <p className="leading-relaxed">
-                        1629 Anna Salai, White Lane, Chennai - 600002, Tamil Nadu, India
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
-                        <Mail className="size-4" />
-                      </div>
-                      <a href="mailto:info@tskoneit.com" className="hover:text-amber-400 transition-colors duration-200">
-                        info@tskoneit.com
-                      </a>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
-                        <PhoneCall className="size-4" />
-                      </div>
-                      <a href="tel:+919150843991" className="hover:text-amber-400 font-bold transition-colors duration-200">
-                        +91 91508 43991
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mobile Follow Us */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1.5">
-                    Follow Us
-                  </h3>
-                  <div className="w-10 h-0.5 bg-amber-400 mb-5" />
-
-                  <div className="flex items-center gap-2.5">
-                    <a
-                      href="https://facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Facebook"
-                      className="size-11 rounded-xl bg-white/10 hover:bg-blue-600 flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href="https://x.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="X Twitter"
-                      className="size-11 rounded-xl bg-white/10 hover:bg-slate-700 flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all duration-200"
-                    >
-                      <span className="font-bold text-sm">𝕏</span>
-                    </a>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="LinkedIn"
-                      className="size-11 rounded-xl bg-white/10 hover:bg-blue-700 flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href="https://youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="YouTube"
-                      className="size-11 rounded-xl bg-white/10 hover:bg-red-600 flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Mobile Bottom Get A Quote CTA */}
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsDrawerOpen(false);
-                      if (typeof window !== 'undefined') {
-                        window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
-                      }
-                    }}
-                    className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group cursor-pointer"
-                  >
-                    <span>Get A Quote</span>
-                    <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </button>
-                </div>
-
-              </div>
-
-              {/* Tagline footer in left drawer (Desktop) */}
-              <div className="hidden lg:block pt-6 border-t border-white/15 text-xs font-mono text-cyan-200">
-                Repair &bull; Connect &bull; Secure &bull; Transform &bull; Chennai Lounge
-              </div>
-
-            </div>
-
-            {/* Right Panel: Dark Navy Contact & Socials (Desktop Only, 32% Width) */}
-            <div className="hidden lg:flex relative w-[32%] h-full bg-[#050c1a] text-white p-6 sm:p-10 lg:p-12 flex-col justify-between border-l border-white/10 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              
-              {/* Close Button at Top Right (Desktop Only) */}
-              <div className="flex justify-end mb-6">
                 <button
                   type="button"
                   onClick={() => setIsDrawerOpen(false)}
                   aria-label="Close menu"
-                  className="size-11 rounded-full border border-white/25 flex items-center justify-center text-white hover:bg-white/20 hover:border-white/60 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer shadow-lg"
+                  className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors"
                 >
-                  <X className="size-5 transition-transform duration-200 hover:rotate-90" />
+                  <X className="size-5" />
                 </button>
               </div>
 
-              {/* Contact Us Block */}
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1.5">
-                    Contact Us
-                  </h3>
-                  <div className="w-10 h-0.5 bg-amber-400 mb-5" />
+              {/* Drawer Links */}
+              <div className="p-4 space-y-4">
+                
+                {/* 3 Divisions Accordion */}
+                <div className="space-y-3">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400 block">
+                    SERVICES &amp; SOLUTIONS
+                  </span>
 
-                  <div className="space-y-4 text-xs sm:text-sm text-slate-300">
-                    <div className="flex items-start gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
-                        <MapPin className="size-4" />
-                      </div>
-                      <p className="leading-relaxed">
-                        1629 Anna Salai, White Lane, Chennai - 600002, Tamil Nadu, India
-                      </p>
-                    </div>
+                  {serviceHierarchy.map((div) => {
+                    const isExpanded = expandedDivision === div.id;
 
-                    <div className="flex items-center gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
-                        <Mail className="size-4" />
-                      </div>
-                      <a href="mailto:info@tskoneit.com" className="hover:text-amber-400 transition-colors duration-200">
-                        info@tskoneit.com
-                      </a>
-                    </div>
+                    return (
+                      <div key={div.id} className="rounded-xl border border-slate-100 overflow-hidden bg-slate-50/50">
+                        <button
+                          type="button"
+                          onClick={() => setExpandedDivision(isExpanded ? null : div.id)}
+                          className="w-full flex items-center justify-between p-3 text-left font-black text-xs uppercase tracking-wider text-slate-900 hover:bg-slate-100 transition-colors"
+                        >
+                          <span>{div.title}</span>
+                          <ChevronDown className={`size-4 text-slate-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
 
-                    <div className="flex items-center gap-3">
-                      <div className="size-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
-                        <PhoneCall className="size-4" />
+                        {isExpanded && (
+                          <div className="p-3 pt-0 space-y-4 border-t border-slate-100 bg-white">
+                            <Link
+                              href={div.href}
+                              onClick={() => setIsDrawerOpen(false)}
+                              className="inline-flex items-center gap-1 text-xs font-bold text-[#0284c7] pt-2 hover:underline"
+                            >
+                              <span>Explore all {div.title}</span>
+                              <ArrowRight className="size-3" />
+                            </Link>
+
+                            {div.subCategories.map((subCat) => (
+                              <div key={subCat.title} className="space-y-2 pt-1">
+                                <Link
+                                  href={subCat.href}
+                                  onClick={() => setIsDrawerOpen(false)}
+                                  className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700 hover:text-[#0284c7] flex items-center justify-between py-0.5"
+                                >
+                                  <span>{subCat.title}</span>
+                                  <ChevronRight className="size-3 text-slate-400" />
+                                </Link>
+
+                                <div className="grid grid-cols-1 gap-1.5 pl-2 border-l border-slate-200">
+                                  {subCat.items.map((item) => (
+                                    <Link
+                                      key={item.name}
+                                      href={item.href}
+                                      onClick={() => handleServiceClick(item.name)}
+                                      className="flex items-center gap-2 text-xs text-slate-700 hover:text-[#0284c7] py-1 font-medium group"
+                                    >
+                                      <div className="relative size-6 shrink-0 rounded overflow-hidden bg-slate-100 border border-slate-200">
+                                        <Image
+                                          src={item.image}
+                                          alt={item.name}
+                                          fill
+                                          sizes="24px"
+                                          className="object-cover"
+                                        />
+                                      </div>
+                                      <span className="truncate">{item.name}</span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                      <a href="tel:+919150843991" className="hover:text-amber-400 font-bold transition-colors duration-200">
-                        +91 91508 43991
-                      </a>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
 
-                {/* Follow Us Block */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1.5">
-                    Follow Us
-                  </h3>
-                  <div className="w-10 h-0.5 bg-amber-400 mb-5" />
-
-                  <div className="flex items-center gap-2.5">
-                    <a
-                      href="https://facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Facebook"
-                      className="size-10 rounded-xl bg-white/10 hover:bg-blue-600 flex items-center justify-center text-white hover:scale-115 hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href="https://x.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="X Twitter"
-                      className="size-10 rounded-xl bg-white/10 hover:bg-slate-700 flex items-center justify-center text-white hover:scale-115 hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
-                    >
-                      <span className="font-bold text-sm">𝕏</span>
-                    </a>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="LinkedIn"
-                      className="size-10 rounded-xl bg-white/10 hover:bg-blue-700 flex items-center justify-center text-white hover:scale-115 hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href="https://youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="YouTube"
-                      className="size-10 rounded-xl bg-white/10 hover:bg-red-600 flex items-center justify-center text-white hover:scale-115 hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
-                    >
-                      <svg className="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </a>
-                  </div>
+                {/* Contact */}
+                <div className="border-t border-slate-100 pt-3">
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="block text-sm font-extrabold uppercase text-slate-900 hover:text-[#0284c7] transition-colors py-1"
+                  >
+                    CONTACT
+                  </Link>
                 </div>
-              </div>
 
-              {/* Bottom White CTA Button */}
-              <div className="pt-8">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsDrawerOpen(false);
-                    if (typeof window !== 'undefined') {
-                      window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
-                    }
-                  }}
-                  className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-gradient-to-r hover:from-amber-400 hover:to-yellow-400 hover:shadow-amber-500/30 hover:scale-102 active:scale-98 transition-all duration-200 group cursor-pointer"
-                >
-                  <span>Get A Quote</span>
-                  <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </button>
               </div>
+            </div>
 
+            {/* Drawer Bottom CTA */}
+            <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-2.5">
+              <button
+                type="button"
+                onClick={openQuoteModal}
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-black text-xs uppercase tracking-wider shadow-sm active:scale-95 transition-all"
+              >
+                <span>Get Quote</span>
+                <ArrowRight className="size-3.5" />
+              </button>
+
+              <a
+                href="tel:+919150843991"
+                className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-white border border-slate-200 text-slate-800 font-bold text-xs hover:bg-slate-100 transition-colors"
+              >
+                <PhoneCall className="size-3 text-[#0284c7]" />
+                <span>Call: +91 91508 43991</span>
+              </a>
             </div>
 
           </div>

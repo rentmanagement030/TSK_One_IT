@@ -28,7 +28,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Transition to a digital enterprise with modern application development and transformation.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
     {
       id: 'cloud',
@@ -37,7 +37,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Experience easy, secure, and faster migration to Microsoft Azure, AWS, and private enterprise cloud.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/it-infrastructure-and-cloud',
     },
     {
       id: 'mobility-device',
@@ -46,7 +46,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Certified Apple MacBook repair, laptop hardware diagnostics, and chip-level logic board micro-soldering.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
-      link: '/device-care',
+      link: '/device-repair-and-maintenance',
     },
     {
       id: 'software-engineering',
@@ -55,7 +55,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Engineer resilient, agile, and custom software products, client portals, and scalable microservices.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
   ];
 
@@ -67,7 +67,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Future-proof your business with intelligent automation, LLM agents, and smart decision-making.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
     {
       id: 'enterprise-data',
@@ -76,7 +76,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Make informed and data-driven decisions with real-time analytics and intelligent reporting dashboards.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
     {
       id: 'devops-infra',
@@ -85,7 +85,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Embrace continuous application delivery, structured CAT6/Fiber LAN cabling, and SD-WAN networks.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/it-infrastructure-and-cloud',
     },
     {
       id: 'smart-living',
@@ -94,7 +94,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Intelligent lighting, 4K CCTV surveillance, biometric smart locks, and whole-home Wi-Fi mesh.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80',
-      link: '/home-automation',
+      link: '/smart-home',
     },
   ];
 
@@ -106,7 +106,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Next-Gen Firewalls (Fortinet, Sophos), 24×7 SOC threat defense, and zero-trust perimeter protection.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/it-infrastructure-and-cloud',
     },
     {
       id: 'data-services',
@@ -115,7 +115,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Cleanroom data recovery, SAN/NAS storage architecture, and automated enterprise disaster backups.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
-      link: '/device-care',
+      link: '/device-repair-and-maintenance',
     },
     {
       id: 'rpa-whatsapp',
@@ -124,7 +124,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Official Meta WhatsApp Business Cloud API integration, CRM sync, automated notifications, and AI chatbots.',
       theme: 'dark',
       image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
     {
       id: 'crm-erp',
@@ -133,7 +133,7 @@ export default function DigitalTransformationGrid() {
       desc: 'Tailored enterprise resource planning, customer pipeline workflows, billing automation, and inventory sync.',
       theme: 'light',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-      link: '/business-solutions',
+      link: '/software-and-ai',
     },
   ];
 

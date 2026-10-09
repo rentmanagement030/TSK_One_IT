@@ -1,23 +1,19 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import ScrollReveal from './ScrollReveal';
+import Link from 'next/link';
 import { 
   PhoneCall, 
   MessageSquare, 
+  Mail, 
   MapPin, 
   Globe, 
   Send, 
   CheckCircle, 
-  Compass, 
-  ShieldCheck, 
-  Clock, 
-  Building,
-  Sparkles,
-  ArrowRight,
-  BookmarkCheck,
+  ChevronDown, 
   AlertCircle,
-  ChevronDown
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 interface Country {
@@ -47,157 +43,128 @@ const COUNTRIES: Country[] = [
   { code: '+81', name: 'Japan', flag: '🇯🇵', minDigits: 10, maxDigits: 10, placeholder: '90-1234-5678' },
 ];
 
-const serviceCategories = {
-  general: ['General Consultation / Free Site Assessment'],
-  deviceCare: [
+const serviceOptions = [
+  { group: 'IT Device Care', items: [
     'Laptop & Desktop Repair',
-    'Apple Macbook Repair',
-    'Chip Level Mother Board Repair',
+    'Apple MacBook Repair',
+    'Chip-Level Motherboard Repair',
     'Data Recovery',
     'SSD & RAM Upgrades',
-    'Genuine Spareparts',
-    'AMC',
+    'Genuine Spare Parts',
+    'AMC / Annual Maintenance Contracts',
     'Doorstep Pickup & Delivery',
-  ],
-  automation: [
+  ]},
+  { group: 'Home Automation', items: [
     'Smart Home Automation',
-    'CCTV',
-    'Smartdoor Locks',
-    'Video Door Phones',
     'Smart Lighting',
-    'Home WiFi & Mesh',
+    'Voice Assistants (Alexa / HomeKit / Google)',
+    'Home Wi-Fi & Mesh Networking',
+    'CCTV Surveillance Systems',
+    'Smart Door Locks',
+    'Video Door Phones',
     'Access Control',
-    'Voice Assistants',
     'Home Cyber Security',
-  ],
-  business: [
+  ]},
+  { group: 'Business Solutions', items: [
     'IT Infrastructure',
-    'Cloud Solutions (Microsoft Azure, AWS, GCP)',
-    'Cybersecurity',
-    'Managed IT Services',
-    'NOC/SOC/TAC',
+    'Cloud Solutions (Azure, AWS, GCP)',
+    'Managed IT Services & SLA',
+    'NOC / SOC / TAC Monitoring',
+    'Enterprise Cybersecurity',
     'AI & Business Applications',
-    'CRM/ERP',
-    'WhatsApp Automation',
+    'CRM / ERP Implementations',
+    'WhatsApp Business API Automation',
     'Custom Software Development',
-  ],
-};
-
-const allFlatServices = [
-  ...serviceCategories.general,
-  ...serviceCategories.deviceCare,
-  ...serviceCategories.automation,
-  ...serviceCategories.business,
+  ]},
+  { group: 'General', items: [
+    'General Consultation / Free Site Assessment',
+  ]}
 ];
 
 interface ContactSectionProps {
   initialService?: string;
+  isStandalonePage?: boolean;
 }
 
-export default function ContactSection({ initialService }: ContactSectionProps) {
+export default function ContactSection({ initialService, isStandalonePage = false }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: '',
     countryCode: '+91',
     phone: '',
-    service: initialService || 'General Consultation / Free Site Assessment',
+    email: '',
+    service: initialService || '',
     message: '',
   });
 
   const [errors, setErrors] = useState<{
     name?: string | null;
     phone?: string | null;
+    email?: string | null;
     service?: string | null;
   }>({});
 
   const [touched, setTouched] = useState<{
     name?: boolean;
     phone?: boolean;
+    email?: boolean;
     service?: boolean;
   }>({});
 
-  const [highlightedService, setHighlightedService] = useState<string | null>(initialService || null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [mapZoom, setMapZoom] = useState({ active: false, x: 50, y: 50 });
 
   const currentCountry = COUNTRIES.find((c) => c.code === formData.countryCode) || COUNTRIES[0];
 
-  const validateField = (field: 'name' | 'phone' | 'service', value: string, code = formData.countryCode) => {
+  const validateField = (field: 'name' | 'phone' | 'email' | 'service', value: string, code = formData.countryCode) => {
     if (field === 'name') {
       const trimmed = value.trim();
       if (!trimmed) return 'Please enter your name or organization.';
-      if (trimmed.length < 2) return 'Name must be at least 2 characters long.';
-      if (!/^[a-zA-Z0-9\s.,&'-]+$/.test(trimmed)) return 'Please enter a valid name.';
+      if (trimmed.length < 2) return 'Name must be at least 2 characters.';
       return null;
     }
 
     if (field === 'phone') {
       const digits = value.replace(/\D/g, '');
-      if (!digits) return 'Please enter your phone number.';
+      if (!digits) return 'Please enter your mobile number.';
 
       const country = COUNTRIES.find((c) => c.code === code) || COUNTRIES[0];
       if (code === '+91') {
-        if (digits.length !== 10) {
-          return 'Indian mobile numbers must be exactly 10 digits.';
-        }
-        if (!/^[6-9]/.test(digits)) {
-          return 'Mobile numbers in India must start with 6, 7, 8, or 9.';
-        }
+        if (digits.length !== 10) return 'Indian mobile numbers must be 10 digits.';
+        if (!/^[6-9]/.test(digits)) return 'Mobile number must start with 6, 7, 8, or 9.';
       } else {
         if (digits.length < country.minDigits || digits.length > country.maxDigits) {
-          return `Please enter a valid ${country.minDigits}${country.minDigits !== country.maxDigits ? `-${country.maxDigits}` : ''}-digit phone number.`;
+          return `Please enter a valid phone number.`;
         }
       }
       return null;
     }
 
-    if (field === 'service') {
-      if (!value || value.startsWith('--')) {
-        return 'Please select a valid service.';
+    if (field === 'email') {
+      const trimmed = value.trim();
+      if (trimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+        return 'Please enter a valid email address.';
       }
+      return null;
+    }
+
+    if (field === 'service') {
+      if (!value) return 'Please select a service.';
       return null;
     }
 
     return null;
   };
 
-  const handleNameChange = (val: string) => {
-    setFormData((prev) => ({ ...prev, name: val }));
-    if (touched.name) {
-      setErrors((prev) => ({ ...prev, name: validateField('name', val) }));
-    }
-  };
-
-  const handleCountryChange = (code: string) => {
-    setFormData((prev) => ({ ...prev, countryCode: code }));
-    if (touched.phone) {
-      setErrors((prev) => ({ ...prev, phone: validateField('phone', formData.phone, code) }));
-    }
-  };
-
-  const handlePhoneChange = (val: string) => {
-    const rawDigits = val.replace(/\D/g, '');
-    const max = currentCountry.maxDigits;
-    const cleanDigits = rawDigits.slice(0, max);
-
-    setFormData((prev) => ({ ...prev, phone: cleanDigits }));
-    if (touched.phone) {
-      setErrors((prev) => ({ ...prev, phone: validateField('phone', cleanDigits, formData.countryCode) }));
-    }
-  };
-
-  const handleServiceChange = (val: string) => {
-    setFormData((prev) => ({ ...prev, service: val }));
-    if (touched.service) {
-      setErrors((prev) => ({ ...prev, service: validateField('service', val) }));
-    }
-  };
-
-  const handleBlur = (field: 'name' | 'phone' | 'service') => {
+  const handleBlur = (field: 'name' | 'phone' | 'email' | 'service') => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     if (field === 'name') {
       setErrors((prev) => ({ ...prev, name: validateField('name', formData.name) }));
     } else if (field === 'phone') {
       setErrors((prev) => ({ ...prev, phone: validateField('phone', formData.phone, formData.countryCode) }));
+    } else if (field === 'email') {
+      setErrors((prev) => ({ ...prev, email: validateField('email', formData.email) }));
     } else if (field === 'service') {
       setErrors((prev) => ({ ...prev, service: validateField('service', formData.service) }));
     }
@@ -208,24 +175,12 @@ export default function ContactSection({ initialService }: ContactSectionProps) 
       const selected = e.detail;
       if (!selected) return;
 
-      const matched = allFlatServices.find(
-        (opt) => 
-          opt.toLowerCase() === selected.toLowerCase() ||
-          opt.toLowerCase().includes(selected.toLowerCase()) ||
-          selected.toLowerCase().includes(opt.toLowerCase())
-      );
-
-      const finalService = matched || selected;
-
       setFormData((prev) => ({
         ...prev,
-        service: finalService,
+        service: selected,
       }));
-
-      setHighlightedService(finalService);
       setErrors((prev) => ({ ...prev, service: null }));
 
-      // Scroll smoothly into view
       setTimeout(() => {
         const formEl = document.getElementById('contact-form') || document.getElementById('contact');
         if (formEl) {
@@ -251,456 +206,452 @@ export default function ContactSection({ initialService }: ContactSectionProps) 
     setMapZoom({ active: false, x: 50, y: 50 });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
 
     const nameErr = validateField('name', formData.name);
     const phoneErr = validateField('phone', formData.phone, formData.countryCode);
+    const emailErr = validateField('email', formData.email);
     const serviceErr = validateField('service', formData.service);
 
     setTouched({
       name: true,
       phone: true,
+      email: true,
       service: true,
     });
 
     setErrors({
       name: nameErr,
       phone: phoneErr,
+      email: emailErr,
       service: serviceErr,
     });
 
-    if (nameErr || phoneErr || serviceErr) {
-      if (nameErr) {
-        document.getElementById('name')?.focus();
-      } else if (phoneErr) {
-        document.getElementById('phone')?.focus();
-      } else if (serviceErr) {
-        document.getElementById('service')?.focus();
-      }
+    if (nameErr || phoneErr || emailErr || serviceErr) {
+      if (nameErr) document.getElementById('name')?.focus();
+      else if (phoneErr) document.getElementById('phone')?.focus();
+      else if (serviceErr) document.getElementById('service')?.focus();
+      else if (emailErr) document.getElementById('email')?.focus();
       return;
     }
 
-    // Construct the WhatsApp message URL with full international country code
+    setIsSubmitting(true);
+
     const fullPhone = `${formData.countryCode} ${formData.phone.trim()}`;
-    const textContent = `*TSK One IT Inquiry*\n\n*Name:* ${formData.name.trim()}\n*Phone:* ${fullPhone}\n*Service Needed:* ${formData.service}\n*Message/Requirements:* ${formData.message.trim() || 'Requesting Free Site Assessment & Consultation.'}`;
-    
+    const emailLine = formData.email.trim() ? `\n*Email:* ${formData.email.trim()}` : '';
+    const textContent = `*TSK One IT Inquiry*\n\n*Name:* ${formData.name.trim()}\n*Phone:* ${fullPhone}${emailLine}\n*Service Interested In:* ${formData.service}\n*Requirements/Notes:* ${formData.message.trim() || 'Requesting consultation & site assessment.'}`;
     const whatsappUrl = `https://wa.me/919150843991?text=${encodeURIComponent(textContent)}`;
 
-    setSubmitted(true);
+    try {
+      // Automatic Email Notification Dispatch to your configured email
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          phone: fullPhone,
+          email: formData.email.trim(),
+          service: formData.service,
+          message: formData.message.trim(),
+          source: isStandalonePage ? 'Dedicated Contact Page (/contact)' : 'Homepage Contact Section',
+        }),
+      });
 
-    // Open WhatsApp in a new tab safely
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      setSubmitted(true);
+      // Open WhatsApp chat in background/new tab
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      // Even if background email fails, still acknowledge submission
+      setSubmitted(true);
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section 
       id="contact"
       aria-labelledby="contact-heading"
-      className="py-20 lg:py-28 bg-gradient-to-b from-[#eef6ff] via-[#ffffff] to-[#f4f9ff] text-[#0b1b3a] relative overflow-hidden"
+      className={`bg-white text-slate-900 relative ${isStandalonePage ? 'pt-28 pb-16' : 'py-20 lg:py-28'}`}
     >
-      {/* Background Lighting with float animation */}
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute top-10 left-1/3 w-[500px] h-[500px] rounded-full bg-sky-200/40 blur-[160px] animate-float"
-      />
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute bottom-0 right-10 w-[450px] h-[450px] rounded-full bg-cyan-200/30 blur-[150px] animate-float-delayed"
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         
-        {/* Banner: FREE Site Assessment Highlight */}
-        <ScrollReveal animation="fade-down">
-          <div className="mb-16 rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-[#0a2a66] via-[#1d5fd1] to-[#0284c7] text-white shadow-xl shadow-sky-950/20 relative overflow-hidden border border-sky-300/30 hover:shadow-2xl transition-all">
-            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-              <div className="space-y-2 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/25 text-white text-xs font-mono font-bold uppercase tracking-wider shimmer-badge">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Special Initiative</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-white">
-                  FREE Site Assessment &amp; Expert Consultation
-                </h2>
-                <p className="text-sm sm:text-base font-semibold text-sky-100 max-w-2xl">
-                  Identify IT bottlenecks &bull; Map infrastructure requirements &bull; Evaluate smart automation feasibility &amp; upgrade paths.
-                </p>
-              </div>
+        {/* Main 2-Column Split matching Design Mockup */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
+          
+          {/* ========================================================================= */}
+          {/* LEFT COLUMN: Editorial Brand Narrative, Email, Hotline & Socials          */}
+          {/* ========================================================================= */}
+          <div className="lg:col-span-5 space-y-10 lg:pr-4">
+            
+            {/* Main Heading & Subtitle */}
+            <div className="space-y-4">
+              <h2 
+                id="contact-heading"
+                className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-950 font-serif leading-[1.05]"
+              >
+                Let’s Talk
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-md">
+                Connect directly with certified engineers or visit our Service Exploration Hub in Chennai.
+              </p>
+            </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-                <a
-                  href="https://wa.me/919150843991?text=Hi%20TSK%20One%20IT%2C%20I%20would%20like%20to%20book%20a%20FREE%20Site%20Assessment."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-extrabold text-[#0a2a66] bg-white hover:bg-sky-50 hover:scale-102 transition-all shadow-lg min-h-[50px] min-w-[200px] group"
+            {/* Email Section */}
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950 font-serif">
+                Email
+              </h3>
+              <div className="space-y-1">
+                <a 
+                  href="mailto:info@tskoneit.com"
+                  className="block text-sm sm:text-base text-slate-700 hover:text-[#0284c7] font-medium transition-colors"
                 >
-                  <MessageSquare className="w-4 h-4 text-emerald-600 group-hover:scale-110 transition-transform" />
-                  <span>WhatsApp to Book</span>
+                  info@tskoneit.com
                 </a>
-                <a
-                  href="tel:+914446030632"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-extrabold text-white bg-[#0a2a66] hover:bg-[#061a45] hover:scale-102 transition-all border border-sky-400/40 min-h-[50px] min-w-[180px] group"
+                <a 
+                  href="mailto:support@tskoneit.com"
+                  className="block text-xs sm:text-sm text-slate-500 hover:text-[#0284c7] transition-colors"
                 >
-                  <PhoneCall className="w-4 h-4 text-sky-300 group-hover:rotate-12 transition-transform" />
-                  <span>044 46030632</span>
+                  support@tskoneit.com
                 </a>
               </div>
             </div>
-          </div>
-        </ScrollReveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          
-          {/* Left Column: Contact Cards & Experience Lounge */}
-          <div className="lg:col-span-5 space-y-6">
-            <ScrollReveal animation="slide-right">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-sky-800 mb-3 shadow-sm shimmer-badge">
-                  <Compass className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Direct Channels</span>
-                </div>
-                <h3 
-                  id="contact-heading"
-                  className="text-2xl sm:text-3xl font-extrabold text-[#0b1b3a] mb-2"
-                >
-                  Get in Touch with Our Team
-                </h3>
-                <div className="title-accent-line !mx-0 mb-3" />
-                <p className="text-sm text-slate-600 pt-1">
-                  Connect directly with certified engineers or visit our Service Exploration Lounge in Chennai.
-                </p>
-              </div>
-
-              {/* Quick Contact Links */}
-              <div className="space-y-3.5 mt-5">
-                <a
-                  href="tel:+914446030632"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-sky-100 hover:border-sky-300 hover:shadow-md transition-all group duration-300 hover:-translate-y-0.5"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 group-hover:scale-110 group-hover:bg-[#0a2a66] group-hover:text-white transition-all shrink-0">
-                    <PhoneCall className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-500 font-medium font-mono">Landline / Phone Support</div>
-                    <div className="text-base font-bold text-[#0b1b3a] group-hover:text-[#1d5fd1] transition-colors">
-                      044 46030632
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href="https://wa.me/919150843991"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-sky-100 hover:border-emerald-300 hover:shadow-md transition-all group duration-300 hover:-translate-y-0.5"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all shrink-0">
-                    <MessageSquare className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-500 font-medium font-mono">WhatsApp / Mobile Support</div>
-                    <div className="text-base font-bold text-[#0b1b3a] group-hover:text-emerald-700 transition-colors">
-                      +91 9150843991
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href="https://www.tskoneit.com"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-sky-100 hover:border-sky-300 hover:shadow-md transition-all group duration-300 hover:-translate-y-0.5"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-[#1d5fd1] group-hover:scale-110 group-hover:bg-[#1d5fd1] group-hover:text-white transition-all shrink-0">
-                    <Globe className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-500 font-medium font-mono">Official Portal</div>
-                    <div className="text-base font-bold text-[#0b1b3a] group-hover:text-[#1d5fd1] transition-colors">
-                      www.tskoneit.com
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              {/* Service Exploration Lounge Location Card */}
-              <div className="mt-6 p-6 rounded-2xl bg-white border border-sky-200 shadow-md space-y-3 hover:shadow-lg transition-all">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#0a2a66] font-bold text-sm">
-                    <MapPin className="w-5 h-5 shrink-0 text-sky-600" />
-                    <span>Service Exploration Lounge</span>
-                  </div>
-                  <span className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 radar-ring text-emerald-500" />
-                    <span>Live &bull; Open</span>
-                  </span>
-                </div>
-                <p className="text-base font-bold text-[#0b1b3a]">
-                  Anna Salai, White Lane, Chennai
-                </p>
-                <div className="text-xs text-slate-600 leading-relaxed">
-                  <span className="font-semibold text-amber-700">Experience &bull; Plan &bull; Get Expert Advice</span>
-                  <br />
-                  Visit our physical lounge to test live smart automation controllers, touch-panel meeting AV, biometric gates, and enterprise Wi-Fi systems.
-                </div>
-                <div className="pt-2 flex items-center gap-2 text-xs text-sky-800 font-mono font-medium">
-                  <Clock className="w-4 h-4 text-sky-600" />
-                  <span>Mon – Sat: 9:00 AM – 8:00 PM (Emergency 24x7)</span>
-                </div>
-              </div>
-            </ScrollReveal>
-
-          </div>
-
-          {/* Right Column: Pre-filled WhatsApp Instant Consultation Form */}
-          <div className="lg:col-span-7">
-            <ScrollReveal animation="slide-left" delay={150}>
-              <div id="contact-form" className="bg-white rounded-3xl p-6 sm:p-10 border border-sky-100 shadow-xl hover:shadow-2xl transition-all">
-                <div className="mb-6">
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2.5 py-1 rounded border border-sky-200">
-                      Direct Dispatch Form
+            {/* Phone / Hotline Section */}
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950 font-serif">
+                Phone &amp; WhatsApp
+              </h3>
+              <div className="space-y-1 text-sm sm:text-base text-slate-700 font-medium">
+                <div>
+                  <a 
+                    href="https://wa.me/919150843991" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-600 transition-colors inline-flex items-center gap-2"
+                  >
+                    <span>+91 91508 43991</span>
+                    <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      WhatsApp
                     </span>
-                    {highlightedService && (
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 animate-pulse">
-                        <BookmarkCheck className="size-3.5 text-emerald-600" />
-                        <span>Pre-selected: {highlightedService}</span>
-                      </span>
-                    )}
+                  </a>
+                </div>
+                <div>
+                  <a 
+                    href="tel:+914446030632" 
+                    className="hover:text-[#0284c7] transition-colors inline-flex items-center gap-2"
+                  >
+                    <span>044 46030632</span>
+                    <span className="text-[10px] font-mono font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                      Landline
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Exploration Hub / Location Section */}
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950 font-serif">
+                Service Hub
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
+                Anna Salai, White Lane, Chennai, Tamil Nadu — 600002
+              </p>
+              <div className="pt-1 flex items-center gap-2 text-xs font-mono text-slate-500">
+                <Clock className="size-3.5 text-[#0284c7]" />
+                <span>Mon – Sat: 9:00 AM – 8:00 PM (Emergency 24x7)</span>
+              </div>
+            </div>
+
+            {/* Socials Section */}
+            <div className="space-y-3 pt-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950 font-serif">
+                Socials
+              </h3>
+              <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-sm sm:text-base font-semibold text-slate-800">
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline underline-offset-4 hover:text-[#0284c7] transition-colors"
+                >
+                  Instagram
+                </a>
+                <a 
+                  href="https://twitter.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline underline-offset-4 hover:text-[#0284c7] transition-colors"
+                >
+                  Twitter
+                </a>
+                <a 
+                  href="https://facebook.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline underline-offset-4 hover:text-[#0284c7] transition-colors"
+                >
+                  Facebook
+                </a>
+                <a 
+                  href="https://linkedin.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline underline-offset-4 hover:text-[#0284c7] transition-colors"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* ========================================================================= */}
+          {/* RIGHT COLUMN: Minimalist Form matching Design Mockup                      */}
+          {/* ========================================================================= */}
+          <div className="lg:col-span-7">
+            <div id="contact-form" className="w-full">
+              
+              {submitted && (
+                <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-3 animate-fadeIn">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                  <span>Your request has been prepared! Dispatching to our engineering desk on WhatsApp...</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                
+                {/* Field 1: Your Name / Organization */}
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-xs sm:text-sm font-bold text-slate-800">
+                    Your Name / Organization
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      if (touched.name) setErrors((prev) => ({ ...prev, name: validateField('name', e.target.value) }));
+                    }}
+                    onBlur={() => handleBlur('name')}
+                    placeholder=""
+                    className={`w-full px-4 py-3.5 rounded-lg text-sm text-slate-900 bg-slate-100/80 hover:bg-slate-100 focus:bg-white border transition-all focus:outline-none ${
+                      errors.name && touched.name
+                        ? 'border-rose-400 focus:border-rose-500 focus:ring-1 focus:ring-rose-500'
+                        : 'border-transparent focus:border-slate-300 focus:ring-1 focus:ring-slate-400'
+                    }`}
+                  />
+                  {errors.name && touched.name && (
+                    <p className="text-xs text-rose-600 font-medium flex items-center gap-1">
+                      <AlertCircle className="size-3.5 shrink-0" />
+                      <span>{errors.name}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Field 2: Mobile Number */}
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="block text-xs sm:text-sm font-bold text-slate-800">
+                    Mobile Number
+                  </label>
+                  <div 
+                    className={`flex rounded-lg border transition-all overflow-hidden ${
+                      errors.phone && touched.phone
+                        ? 'border-rose-400 bg-rose-50/30'
+                        : 'border-transparent bg-slate-100/80 hover:bg-slate-100 focus-within:bg-white focus-within:border-slate-300 focus-within:ring-1 focus-within:ring-slate-400'
+                    }`}
+                  >
+                    {/* Country Code Dropdown */}
+                    <div className="relative border-r border-slate-200/80 bg-slate-200/50 flex items-center shrink-0">
+                      <select
+                        aria-label="Country Dial Code"
+                        value={formData.countryCode}
+                        onChange={(e) => {
+                          setFormData({ ...formData, countryCode: e.target.value });
+                          if (touched.phone) setErrors((prev) => ({ ...prev, phone: validateField('phone', formData.phone, e.target.value) }));
+                        }}
+                        className="appearance-none bg-transparent pl-3 pr-7 py-3 text-xs sm:text-sm font-bold text-slate-900 focus:outline-none cursor-pointer"
+                      >
+                        {COUNTRIES.map((c) => (
+                          <option key={c.code + c.name} value={c.code} className="bg-white text-slate-800 py-1">
+                            {c.flag} {c.code}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-2 size-3 text-slate-500" />
+                    </div>
+
+                    <input
+                      type="tel"
+                      id="phone"
+                      value={formData.phone}
+                      onChange={(e) => {
+                        const digits = e.target.value.replace(/[^\d\s-]/g, '');
+                        setFormData({ ...formData, phone: digits });
+                        if (touched.phone) setErrors((prev) => ({ ...prev, phone: validateField('phone', digits, formData.countryCode) }));
+                      }}
+                      onBlur={() => handleBlur('phone')}
+                      maxLength={currentCountry.maxDigits}
+                      placeholder={currentCountry.placeholder}
+                      className="w-full px-4 py-3.5 bg-transparent text-sm text-slate-900 focus:outline-none"
+                    />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#0b1b3a] mt-2">
-                    Request a Callback or Site Assessment
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                    Fill in your details below to instantly connect with our lead engineering desk on WhatsApp.
+                  {errors.phone && touched.phone && (
+                    <p className="text-xs text-rose-600 font-medium flex items-center gap-1">
+                      <AlertCircle className="size-3.5 shrink-0" />
+                      <span>{errors.phone}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Field 3: What service are you interested in */}
+                <div className="space-y-2">
+                  <label htmlFor="service" className="block text-xs sm:text-sm font-bold text-slate-800">
+                    What service are you interested in
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="service"
+                      value={formData.service}
+                      onChange={(e) => {
+                        setFormData({ ...formData, service: e.target.value });
+                        if (touched.service) setErrors((prev) => ({ ...prev, service: validateField('service', e.target.value) }));
+                      }}
+                      onBlur={() => handleBlur('service')}
+                      className={`w-full px-4 py-3.5 rounded-lg text-sm text-slate-900 bg-slate-100/80 hover:bg-slate-100 focus:bg-white border transition-all focus:outline-none appearance-none cursor-pointer ${
+                        errors.service && touched.service
+                          ? 'border-rose-400 focus:border-rose-500 focus:ring-1 focus:ring-rose-500'
+                          : 'border-transparent focus:border-slate-300 focus:ring-1 focus:ring-slate-400'
+                      }`}
+                    >
+                      <option value="" disabled className="text-slate-400">
+                        Select project type
+                      </option>
+                      {serviceOptions.map((cat) => (
+                        <optgroup key={cat.group} label={cat.group} className="font-bold text-slate-900">
+                          {cat.items.map((srv) => (
+                            <option key={srv} value={srv} className="text-slate-800 font-normal">
+                              {srv}
+                            </option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-500" />
+                  </div>
+                  {errors.service && touched.service && (
+                    <p className="text-xs text-rose-600 font-medium flex items-center gap-1">
+                      <AlertCircle className="size-3.5 shrink-0" />
+                      <span>{errors.service}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Field 4: e-mail */}
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-xs sm:text-sm font-bold text-slate-800">
+                    e-mail
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                      if (touched.email) setErrors((prev) => ({ ...prev, email: validateField('email', e.target.value) }));
+                    }}
+                    onBlur={() => handleBlur('email')}
+                    placeholder=""
+                    className={`w-full px-4 py-3.5 rounded-lg text-sm text-slate-900 bg-slate-100/80 hover:bg-slate-100 focus:bg-white border transition-all focus:outline-none ${
+                      errors.email && touched.email
+                        ? 'border-rose-400 focus:border-rose-500 focus:ring-1 focus:ring-rose-500'
+                        : 'border-transparent focus:border-slate-300 focus:ring-1 focus:ring-slate-400'
+                    }`}
+                  />
+                  {errors.email && touched.email && (
+                    <p className="text-xs text-rose-600 font-medium flex items-center gap-1">
+                      <AlertCircle className="size-3.5 shrink-0" />
+                      <span>{errors.email}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* Field 5: Requirements / Notes */}
+                <div className="space-y-2">
+                  <label htmlFor="message" className="block text-xs sm:text-sm font-bold text-slate-800">
+                    Requirements / Notes
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder=""
+                    className="w-full px-4 py-3.5 rounded-lg text-sm text-slate-900 bg-slate-100/80 hover:bg-slate-100 focus:bg-white border border-transparent focus:border-slate-300 focus:ring-1 focus:ring-slate-400 transition-all focus:outline-none resize-none"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 px-6 rounded-md text-sm font-black uppercase tracking-widest text-white bg-slate-950 hover:bg-[#0284c7] disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.99] transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="size-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                        <span>Dispatching...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit</span>
+                        <Send className="size-4" />
+                      </>
+                    )}
+                  </button>
+                  <p className="text-[11px] text-slate-500 text-center mt-3 font-sans">
+                    100% Privacy Protected &bull; Direct Email &amp; WhatsApp Engineering Desk Dispatch
                   </p>
                 </div>
 
-                {submitted && (
-                  <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-                    <span>Connecting you to WhatsApp desk... Our team will respond shortly.</span>
-                  </div>
-                )}
+              </form>
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                  {/* Field 1: Name / Organization */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label htmlFor="name" className="block text-xs font-bold text-[#0b1b3a] uppercase tracking-wider font-mono">
-                        Your Name / Organization <span className="text-sky-600">*</span>
-                      </label>
-                      {touched.name && !errors.name && formData.name.trim() && (
-                        <span className="text-[11px] font-bold text-emerald-600 flex items-center gap-1">
-                          <CheckCircle className="size-3" /> Valid
-                        </span>
-                      )}
-                    </div>
-                    <input
-                      type="text"
-                      id="name"
-                      placeholder="e.g. Rajesh Kumar or TSK Enterprises"
-                      value={formData.name}
-                      onChange={(e) => handleNameChange(e.target.value)}
-                      onBlur={() => handleBlur('name')}
-                      className={`w-full px-4 py-3 rounded-xl border text-[#0b1b3a] placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:ring-2 transition-all ${
-                        errors.name && touched.name
-                          ? 'bg-rose-50/40 border-rose-400 focus:border-rose-500 focus:ring-rose-200'
-                          : 'bg-sky-50/50 border-sky-200 focus:border-sky-500 focus:ring-sky-200'
-                      }`}
-                    />
-                    {errors.name && touched.name && (
-                      <p className="mt-1.5 text-xs text-rose-600 font-medium flex items-center gap-1 animate-fadeIn">
-                        <AlertCircle className="size-3.5 shrink-0" />
-                        <span>{errors.name}</span>
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Field 2: Phone / Mobile Number with Country Code Dropdown */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label htmlFor="phone" className="block text-xs font-bold text-[#0b1b3a] uppercase tracking-wider font-mono">
-                        Phone / Mobile Number <span className="text-sky-600">*</span>
-                      </label>
-                      {touched.phone && !errors.phone && formData.phone.trim() && (
-                        <span className="text-[11px] font-bold text-emerald-600 flex items-center gap-1">
-                          <CheckCircle className="size-3" /> Valid
-                        </span>
-                      )}
-                    </div>
-
-                    <div 
-                      className={`flex rounded-xl border transition-all overflow-hidden focus-within:ring-2 focus-within:bg-white shadow-xs ${
-                        errors.phone && touched.phone
-                          ? 'border-rose-400 bg-rose-50/40 focus-within:border-rose-500 focus-within:ring-rose-200'
-                          : 'border-sky-200 bg-sky-50/50 focus-within:border-sky-500 focus-within:ring-sky-200'
-                      }`}
-                    >
-                      {/* Country Selector Dropdown */}
-                      <div className="relative border-r border-sky-200 bg-sky-100/50 hover:bg-sky-100 transition-colors flex items-center shrink-0">
-                        <select
-                          aria-label="Country Dial Code"
-                          value={formData.countryCode}
-                          onChange={(e) => handleCountryChange(e.target.value)}
-                          className="appearance-none bg-transparent pl-3 pr-7 py-3 text-xs sm:text-sm font-bold text-[#0b1b3a] focus:outline-none cursor-pointer"
-                        >
-                          {COUNTRIES.map((c) => (
-                            <option key={c.code + c.name} value={c.code} className="bg-white text-slate-800 py-1">
-                              {c.flag} {c.code} ({c.name})
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="pointer-events-none absolute right-2 size-3.5 text-slate-500" />
-                      </div>
-
-                      {/* Phone Digits Input */}
-                      <input
-                        type="tel"
-                        id="phone"
-                        placeholder={currentCountry.placeholder}
-                        value={formData.phone}
-                        onChange={(e) => handlePhoneChange(e.target.value)}
-                        onBlur={() => handleBlur('phone')}
-                        maxLength={currentCountry.maxDigits}
-                        className="w-full px-4 py-3 bg-transparent text-[#0b1b3a] placeholder-slate-400 text-sm focus:outline-none font-sans"
-                      />
-                    </div>
-
-                    {errors.phone && touched.phone && (
-                      <p className="mt-1.5 text-xs text-rose-600 font-medium flex items-center gap-1 animate-fadeIn">
-                        <AlertCircle className="size-3.5 shrink-0" />
-                        <span>{errors.phone}</span>
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Field 3: Service Needed */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label htmlFor="service" className="block text-xs font-bold text-[#0b1b3a] uppercase tracking-wider font-mono">
-                        Service Needed <span className="text-sky-600">*</span>
-                      </label>
-                    </div>
-
-                    <div className="relative">
-                      <select
-                        id="service"
-                        value={formData.service}
-                        onChange={(e) => handleServiceChange(e.target.value)}
-                        onBlur={() => handleBlur('service')}
-                        className={`w-full px-4 py-3 rounded-xl border text-[#0b1b3a] text-sm focus:outline-none focus:bg-white focus:ring-2 transition-all cursor-pointer appearance-none ${
-                          errors.service && touched.service
-                            ? 'bg-rose-50/40 border-rose-400 focus:border-rose-500 focus:ring-rose-200'
-                            : 'bg-sky-50/50 border-sky-200 focus:border-sky-500 focus:ring-sky-200'
-                        }`}
-                      >
-                        {serviceCategories.general.map((s) => (
-                          <option key={s} value={s} className="bg-white text-[#0b1b3a] font-semibold">
-                            {s}
-                          </option>
-                        ))}
-
-                        <optgroup label="01. IT DEVICE CARE" className="font-bold text-sky-700 bg-sky-50/60">
-                          {serviceCategories.deviceCare.map((s) => (
-                            <option key={s} value={s} className="bg-white text-slate-800 font-normal">
-                              {s}
-                            </option>
-                          ))}
-                        </optgroup>
-
-                        <optgroup label="02. HOME AUTOMATION" className="font-bold text-amber-700 bg-amber-50/60">
-                          {serviceCategories.automation.map((s) => (
-                            <option key={s} value={s} className="bg-white text-slate-800 font-normal">
-                              {s}
-                            </option>
-                          ))}
-                        </optgroup>
-
-                        <optgroup label="03. BUSINESS SOLUTIONS" className="font-bold text-indigo-700 bg-indigo-50/60">
-                          {serviceCategories.business.map((s) => (
-                            <option key={s} value={s} className="bg-white text-slate-800 font-normal">
-                              {s}
-                            </option>
-                          ))}
-                        </optgroup>
-
-                        {/* Any custom or dynamically passed service */}
-                        {!allFlatServices.includes(formData.service) && formData.service && (
-                          <option value={formData.service} className="bg-white text-[#0b1b3a]">
-                            {formData.service}
-                          </option>
-                        )}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-500" />
-                    </div>
-
-                    {errors.service && touched.service && (
-                      <p className="mt-1.5 text-xs text-rose-600 font-medium flex items-center gap-1 animate-fadeIn">
-                        <AlertCircle className="size-3.5 shrink-0" />
-                        <span>{errors.service}</span>
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Field 4: Requirements / Notes (Optional) */}
-                  <div>
-                    <label htmlFor="message" className="block text-xs font-bold text-[#0b1b3a] uppercase tracking-wider mb-1.5 font-mono">
-                      Requirements / Notes (Optional)
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={3}
-                      placeholder="Tell us about your IT setup, number of systems, or automation goals..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-sky-50/50 border border-sky-200 text-[#0b1b3a] placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-base font-bold text-white bg-gradient-to-r from-[#1d5fd1] to-[#0284c7] hover:brightness-110 hover:shadow-lg transition-all shadow-md shadow-sky-500/20 min-h-[52px] group cursor-pointer"
-                    >
-                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
-                      <span>Submit &amp; Chat on WhatsApp</span>
-                    </button>
-                    <p className="text-[11px] text-slate-500 text-center mt-2.5 font-sans">
-                      Instant direct dispatch &bull; No spam &bull; 100% Privacy Protected
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </ScrollReveal>
+            </div>
           </div>
 
         </div>
 
       </div>
 
-      {/* 100% Full Screen Width Google Map with Cursor-Tracking Magnification & Color Transition */}
+      {/* Interactive Google Map at the bottom */}
       <div 
         onMouseMove={handleMapMouseMove}
-        onMouseEnter={() => setMapZoom(prev => ({ ...prev, active: true }))}
+        onMouseEnter={() => setMapZoom((prev) => ({ ...prev, active: true }))}
         onMouseLeave={handleMapMouseLeave}
-        className="w-full mt-16 sm:mt-20 relative overflow-hidden border-t border-slate-200 bg-slate-900 cursor-crosshair group"
+        className="w-full mt-20 relative overflow-hidden border-t border-slate-200 bg-slate-900 cursor-crosshair group"
       >
         <div
           style={{
             transformOrigin: `${mapZoom.x}% ${mapZoom.y}%`,
-            transform: mapZoom.active ? 'scale(1.25)' : 'scale(1)',
-            transition: 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease-in-out',
+            transform: mapZoom.active ? 'scale(1.2)' : 'scale(1)',
+            transition: 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease-in-out',
           }}
-          className={`w-full h-[380px] sm:h-[440px] lg:h-[480px] will-change-transform ${
+          className={`w-full h-[360px] sm:h-[420px] will-change-transform ${
             mapZoom.active 
               ? 'grayscale-0 contrast-100 brightness-100' 
               : 'grayscale contrast-125 brightness-95'
           }`}
         >
-          {/* Google Maps Embed */}
           <iframe
-            title="TSK OneIT - TSK AUTOMATIONS Location Map"
+            title="TSK OneIT - Location Map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.587823901968!2d80.2566042!3d13.0559237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267c34cda0b5b%3A0xb851e48614c0383d!2sTSK%20AUTOMATIONS!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
             width="100%"
             height="100%"
@@ -712,6 +663,7 @@ export default function ContactSection({ initialService }: ContactSectionProps) 
           />
         </div>
       </div>
+
     </section>
   );
 }

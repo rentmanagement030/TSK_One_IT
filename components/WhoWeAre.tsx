@@ -2,22 +2,18 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ScrollReveal from './ScrollReveal';
-import WhoWeAreVisual from './WhoWeAreVisual';
 import { 
-  Briefcase, 
-  Building2, 
+  Building, 
   Layers, 
-  Heart, 
+  HeartHandshake, 
   ArrowRight, 
-  CheckCircle2,
-  Lightbulb,
-  Target,
-  ShieldCheck,
-  Award,
-  Clock,
-  UserCheck
+  Lightbulb, 
+  Target, 
+  Award 
 } from 'lucide-react';
+import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
 export default function WhoWeAre() {
   // 4 Numerical Metric Proof Points
@@ -28,7 +24,7 @@ export default function WhoWeAre() {
       label: 'Years of Industry Experience',
     },
     {
-      icon: Building2,
+      icon: Building,
       value: '500+',
       label: 'Enterprise Setups & Deployments',
     },
@@ -38,19 +34,10 @@ export default function WhoWeAre() {
       label: 'Specialized Tech Services',
     },
     {
-      icon: Heart,
+      icon: HeartHandshake,
       value: '100%',
       label: 'Customer-First Commitment',
     },
-  ];
-
-  // 5 Signature Why TSK Pillars (Exact highlights requested)
-  const whyTskHighlights = [
-    { text: '20+ Years of Industry Experience', icon: Award },
-    { text: 'Certified Technology Experts', icon: ShieldCheck },
-    { text: 'End-to-End Technology Solutions', icon: Layers },
-    { text: '24×7 Support', icon: Clock },
-    { text: 'Customer-First Approach', icon: UserCheck },
   ];
 
   return (
@@ -118,7 +105,7 @@ export default function WhoWeAre() {
                     className={`flex items-center gap-3 sm:gap-4 p-2 sm:px-4 ${idx > 0 ? 'pt-4 md:pt-0' : ''}`}
                   >
                     <div className="size-11 sm:size-12 rounded-xl bg-white/15 border border-white/25 flex items-center justify-center shrink-0 shadow-inner">
-                      <Icon className="size-5 sm:size-6 text-white" />
+                      {Icon ? <Icon className="size-5 sm:size-6 text-white" /> : null}
                     </div>
                     <div className="flex flex-col text-left">
                       <span className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-white leading-none">
@@ -136,21 +123,48 @@ export default function WhoWeAre() {
         </ScrollReveal>
       </div>
 
-      {/* 3. WHO WE ARE 2-COLUMN SECTION (Image Composite on Left, Vision/Mission & Why TSK on Right) */}
+      {/* 3. WHO WE ARE 2-COLUMN SECTION (Official Logo on Left, Vision & Mission on Right) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* LEFT COLUMN: Animated Tech Video Telemetry Visual with 20+ Years Badge */}
+          {/* LEFT COLUMN: Official TSK OneIT Logo Showcase Card */}
           <div className="lg:col-span-5 relative">
             <ScrollReveal animation="slide-right">
-              <WhoWeAreVisual />
+              <div className="relative p-8 sm:p-12 rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-sky-900/10 flex flex-col items-center justify-center text-center group overflow-hidden">
+                {/* Subtle Ambient Decorative Glows */}
+                <div className="absolute -top-20 -right-20 size-48 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-20 -left-20 size-48 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+
+                {/* Main Brand Logo */}
+                <div className="relative w-full max-w-[340px] aspect-[16/10] sm:aspect-[3/2] flex items-center justify-center py-4">
+                  <Image
+                    src={CLOUDINARY_IMAGES.logo}
+                    alt="TSK One IT Logo"
+                    fill
+                    sizes="(max-width: 768px) 300px, 420px"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
+                    priority
+                  />
+                </div>
+
+                {/* Sub-label Divider */}
+                <div className="mt-4 pt-4 border-t border-slate-100 w-full flex items-center justify-center gap-3">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0284c7]">
+                    INSPIRED BY YOU
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-500">
+                    SINCE 2004
+                  </span>
+                </div>
+              </div>
             </ScrollReveal>
           </div>
 
-          {/* RIGHT COLUMN: Who We Are Narrative + Vision/Mission + Why TSK Highlights */}
+          {/* RIGHT COLUMN: Who We Are Narrative + Vision/Mission + CTAs */}
           <div className="lg:col-span-7 space-y-6">
             <ScrollReveal animation="slide-left" delay={150}>
-              <div className="space-y-5">
+              <div className="space-y-6">
                 
                 {/* Title & Brand Accent Line */}
                 <div>
@@ -167,72 +181,40 @@ export default function WhoWeAre() {
                 </div>
 
                 <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
-                  Your trusted technology partner enabling continuous visibility, proactive risk management, and reliable protection of critical systems.
+                  Welcome to <strong className="text-slate-950 font-bold">TSK OneIT</strong>, your trusted technology partner enabling continuous visibility, proactive risk management, and reliable protection of critical systems. We provide complete end-to-end hardware repairs, smart living automation, and enterprise infrastructure solutions under one roof.
                 </p>
 
                 {/* 2 Vision & Mission Interactive Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                   {/* Card 1: Our Vision */}
-                  <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-200/80 hover:border-sky-300 transition-all space-y-1.5 shadow-xs">
+                  <div className="p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 hover:border-sky-300 transition-all space-y-2 shadow-xs">
                     <div className="flex items-center gap-2.5 text-[#0a2a66]">
-                      <div className="size-8 rounded-lg bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-700">
-                        <Lightbulb className="size-4" />
+                      <div className="size-9 rounded-lg bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-700">
+                        <Lightbulb className="size-4.5" />
                       </div>
-                      <h5 className="font-extrabold text-sm text-[#0f172a]">Our Vision</h5>
+                      <h5 className="font-extrabold text-sm sm:text-base text-[#0f172a]">Our Vision</h5>
                     </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                       To create safe, reliable, and trusted digital systems for everyone.
                     </p>
                   </div>
 
                   {/* Card 2: Our Mission */}
-                  <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-200/80 hover:border-sky-300 transition-all space-y-1.5 shadow-xs">
+                  <div className="p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 hover:border-sky-300 transition-all space-y-2 shadow-xs">
                     <div className="flex items-center gap-2.5 text-[#0a2a66]">
-                      <div className="size-8 rounded-lg bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-700">
-                        <Target className="size-4" />
+                      <div className="size-9 rounded-lg bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-700">
+                        <Target className="size-4.5" />
                       </div>
-                      <h5 className="font-extrabold text-sm text-[#0f172a]">Our Mission</h5>
+                      <h5 className="font-extrabold text-sm sm:text-base text-[#0f172a]">Our Mission</h5>
                     </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                       To protect business systems and keep them running smoothly every day.
                     </p>
                   </div>
                 </div>
 
-                {/* 5 Why TSK Highlight Badges (Exact 5 items requested) */}
-                <div className="pt-2">
-                  <div>
-                    <h4 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#0f172a]">
-                      Why Choose TSK OneIT?
-                    </h4>
-                    
-                    <div className="w-16 h-1 bg-[#1e40af] mt-2.5 mb-4 rounded-full flex overflow-hidden">
-                      <div className="w-6 h-full bg-[#ef4444]" />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-fr items-stretch">
-                    {whyTskHighlights.map((item) => {
-                      const Icon = item.icon || CheckCircle2;
-                      return (
-                        <div 
-                          key={item.text} 
-                          className="h-full min-h-[62px] flex items-center gap-3 p-3 sm:px-3.5 rounded-xl bg-slate-50/90 hover:bg-sky-50/60 border border-slate-200/90 hover:border-sky-300 shadow-2xs hover:shadow-sm transition-all duration-200 group"
-                        >
-                          <div className="size-8 rounded-lg bg-white border border-slate-200/80 flex items-center justify-center shrink-0 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-500 shadow-2xs transition-colors">
-                            <Icon className="size-4.5" />
-                          </div>
-                          <span className="text-xs sm:text-[13px] font-bold text-slate-800 group-hover:text-[#0f172a] leading-snug">
-                            {item.text}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
                 {/* CTA Action Buttons */}
-                <div className="pt-4 flex flex-wrap items-center gap-4">
+                <div className="pt-3 flex flex-wrap items-center gap-4">
                   <Link
                     href="#divisions"
                     className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 group"

@@ -12,38 +12,38 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const deviceCareServices = [
-    { name: 'Laptop & Desktop Repair', href: '/device-care' },
-    { name: 'Apple Macbook Repair', href: '/device-care' },
-    { name: 'Chip Level Mother Board Repair', href: '/device-care' },
-    { name: 'Data Recovery', href: '/device-care' },
-    { name: 'SSD & RAM Upgrades', href: '/device-care' },
-    { name: 'Genuine Spareparts', href: '/device-care' },
-    { name: 'AMC', href: '/device-care' },
-    { name: 'Doorstep Pickup & Delivery', href: '/device-care' },
+    { name: 'Laptop & Desktop Repair', href: '/device-repair-and-maintenance' },
+    { name: 'Apple Macbook Repair', href: '/device-repair-and-maintenance' },
+    { name: 'Chip Level Mother Board Repair', href: '/device-repair-and-maintenance' },
+    { name: 'Data Recovery', href: '/device-repair-and-maintenance' },
+    { name: 'SSD & RAM Upgrades', href: '/device-repair-and-maintenance' },
+    { name: 'Genuine Spareparts', href: '/device-repair-and-maintenance' },
+    { name: 'AMC Support Contracts', href: '/it-support-services' },
+    { name: 'Doorstep Pickup & Delivery', href: '/it-support-services' },
   ];
 
   const automationServices = [
-    { name: 'Smart Home Automation', href: '/home-automation' },
-    { name: 'CCTV', href: '/home-automation' },
-    { name: 'Smartdoor Locks', href: '/home-automation' },
-    { name: 'Video Door Phones', href: '/home-automation' },
-    { name: 'Smart Lighting', href: '/home-automation' },
-    { name: 'Home WiFi & Mesh', href: '/home-automation' },
-    { name: 'Access Control', href: '/home-automation' },
-    { name: 'Voice Assistants', href: '/home-automation' },
-    { name: 'Home Cyber Security', href: '/home-automation' },
+    { name: 'Smart Home Automation', href: '/smart-home' },
+    { name: 'Smart Lighting', href: '/smart-home' },
+    { name: 'Voice Assistants', href: '/smart-home' },
+    { name: 'Home WiFi & Mesh', href: '/smart-home' },
+    { name: 'CCTV Surveillance', href: '/home-security' },
+    { name: 'Smart Door Locks', href: '/home-security' },
+    { name: 'Video Door Phones', href: '/home-security' },
+    { name: 'Access Control', href: '/home-security' },
+    { name: 'Home Cyber Security', href: '/home-security' },
   ];
 
   const businessSolutions = [
-    { name: 'IT Infrastructure', href: '/business-solutions' },
-    { name: 'Cloud Solutions (Microsoft Azure, AWS, GCP)', href: '/business-solutions' },
-    { name: 'Cybersecurity', href: '/business-solutions' },
-    { name: 'Managed IT Services', href: '/business-solutions' },
-    { name: 'NOC/SOC/TAC', href: '/business-solutions' },
-    { name: 'AI & Business Applications', href: '/business-solutions' },
-    { name: 'CRM/ERP', href: '/business-solutions' },
-    { name: 'WhatsApp Automation', href: '/business-solutions' },
-    { name: 'Custom Software Development', href: '/business-solutions' },
+    { name: 'IT Infrastructure', href: '/it-infrastructure-and-cloud' },
+    { name: 'Cloud Solutions (Azure, AWS, GCP)', href: '/it-infrastructure-and-cloud' },
+    { name: 'Managed IT Services', href: '/it-infrastructure-and-cloud' },
+    { name: 'NOC / SOC / TAC', href: '/it-infrastructure-and-cloud' },
+    { name: 'Cybersecurity', href: '/it-infrastructure-and-cloud' },
+    { name: 'AI & Business Applications', href: '/software-and-ai' },
+    { name: 'CRM / ERP', href: '/software-and-ai' },
+    { name: 'WhatsApp Automation', href: '/software-and-ai' },
+    { name: 'Custom Software Development', href: '/software-and-ai' },
   ];
 
   const industriesList = [

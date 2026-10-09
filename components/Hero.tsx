@@ -1,237 +1,290 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  ArrowRight, 
-  PhoneCall
-} from 'lucide-react';
+import Image from 'next/image';
+import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
 interface SlideData {
   id: number;
-  kicker: string;
-  headline: string;
-  desc: string;
-  ctaText: string;
-  ctaLink: string;
-  bgImage: string;
+  title: string;
+  image: string;
+  href: string;
+  alt: string;
 }
 
 const slides: SlideData[] = [
   {
     id: 0,
-    kicker: 'ONE PARTNER. EVERY IT NEED.',
-    headline: 'Complete IT Solutions',
-    desc: 'From server rooms to custom ERP, we deliver end-to-end IT solutions with reliable support and maintenance.',
-    ctaText: 'Get A Quote',
-    ctaLink: '#contact',
-    bgImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop',
+    title: 'IT Products & Device Care',
+    image: CLOUDINARY_IMAGES.heroDeviceCare,
+    href: '/device-care',
+    alt: 'TSK One IT - IT Products & Device Care: Buy, Setup, Repair, Support',
   },
   {
     id: 1,
-    kicker: 'CHIP-LEVEL MASTERY',
-    headline: 'IT Device Care',
-    desc: 'Precision laptop & desktop repairs, Apple MacBook logic board micro-soldering, and cleanroom data recovery.',
-    ctaText: 'Explore Device Care',
-    ctaLink: '/device-care',
-    bgImage: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=1920&auto=format&fit=crop',
+    title: 'Smart Home Solutions',
+    image: CLOUDINARY_IMAGES.heroSmartHome,
+    href: '/home-automation',
+    alt: 'TSK One IT - Smart Home Solutions: Smarter Spaces, Safer People, Greater Comfort',
   },
   {
     id: 2,
-    kicker: 'SMART LIVING & SECURITY',
-    headline: 'Home Automation',
-    desc: 'Intelligent lighting, 4K CCTV surveillance, smart door locks, video door phones, and Wi-Fi 6 mesh systems.',
-    ctaText: 'Explore Home Automation',
-    ctaLink: '/home-automation',
-    bgImage: 'https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=1920&auto=format&fit=crop',
-  },
-  {
-    id: 3,
-    kicker: 'ENTERPRISE TRANSFORMATION',
-    headline: 'Business Solutions',
-    desc: 'Enterprise multi-cloud architecture, cybersecurity SOC threat defense, managed IT, and custom AI software.',
-    ctaText: 'Explore Business Solutions',
-    ctaLink: '/business-solutions',
-    bgImage: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1920&auto=format&fit=crop',
+    title: 'Business IT Solutions',
+    image: CLOUDINARY_IMAGES.heroBusinessSolutions,
+    href: '/business-solutions',
+    alt: 'TSK One IT - Business IT Solutions: Secure, Scalable, Always On',
   },
 ];
+
+const SLIDE_DURATION = 5000; // 5 seconds per slide
+const AUTO_SCROLL_DELAY = 10000; // 10 seconds before auto-scroll down to next section
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [animating, setAnimating] = useState(false);
+  const [progressKey, setProgressKey] = useState(0);
+  
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const userHasScrolled = useRef(false);
 
-  // Auto slide advance every 6 seconds
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setProgressKey((prev) => prev + 1);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setProgressKey((prev) => prev + 1);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setProgressKey((prev) => prev + 1);
+  };
+
+  // Smooth scroll to the next section
+  const scrollToNextSection = useCallback(() => {
+    const nextSection = document.getElementById('explore-content');
+    if (nextSection) {
+      const navOffset = 64;
+      const targetTop = nextSection.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: 'smooth',
+      });
+    } else {
+      window.scrollBy({
+        top: window.innerHeight * 0.75,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
+  // 1. Auto slide advance every 5 seconds
   useEffect(() => {
     if (isPaused) return;
-    const interval = setInterval(() => {
-      setAnimating(true);
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-      const timeout = setTimeout(() => setAnimating(false), 800);
-      return () => clearTimeout(timeout);
-    }, 6000);
-
+    const interval = setInterval(nextSlide, SLIDE_DURATION);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, nextSlide, progressKey]);
 
-  const changeSlide = (newIndex: number) => {
-    setAnimating(true);
-    setCurrentSlide(newIndex);
-    setTimeout(() => setAnimating(false), 800);
+  // 2. 10-Second Inactivity Auto-Scroll to Next Section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        userHasScrolled.current = true;
+        if (autoScrollTimerRef.current) {
+          clearTimeout(autoScrollTimerRef.current);
+          autoScrollTimerRef.current = null;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Set 10-second timer
+    autoScrollTimerRef.current = setTimeout(() => {
+      if (!userHasScrolled.current && window.scrollY < 80) {
+        scrollToNextSection();
+      }
+    }, AUTO_SCROLL_DELAY);
+
+    return () => {
+      if (autoScrollTimerRef.current) clearTimeout(autoScrollTimerRef.current);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollToNextSection]);
+
+  // Touch handlers for mobile swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
   };
 
-  const prevSlide = () => {
-    changeSlide((currentSlide - 1 + slides.length) % slides.length);
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
   };
 
-  const nextSlide = () => {
-    changeSlide((currentSlide + 1) % slides.length);
-  };
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    const swipeThreshold = 50;
 
-  const activeSlide = slides[currentSlide];
+    if (diff > swipeThreshold) {
+      nextSlide();
+    } else if (diff < -swipeThreshold) {
+      prevSlide();
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   return (
     <section 
       id="top"
-      aria-label="TSK OneIT Hero Showcase"
-      className="sticky top-0 w-full min-h-screen lg:h-screen overflow-hidden bg-slate-950 text-white flex items-center pt-24 sm:pt-28 lg:pt-32 pb-16 z-0 will-change-transform"
+      aria-label="TSK One IT Hero Showcase"
+      className="relative w-full bg-[#030a1a] overflow-hidden pt-15 sm:pt-16 select-none group/hero"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* Background Slides with Futuristic Depth & Ken-Burns Zoom */}
-      {slides.map((slide, index) => {
-        const isActive = index === currentSlide;
+      {/* 16:9 Responsive Banner Viewport */}
+      <div className="relative w-full aspect-[16/9] max-w-[1920px] mx-auto overflow-hidden">
+        
+        {/* Kinetic Depth Track: Smooth sliding with depth scaling & parallax mixing */}
+        <div 
+          className="flex w-full h-full transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+          style={{ transform: `translate3d(-${currentSlide * 100}%, 0, 0)` }}
+        >
+          {slides.map((slide, index) => {
+            const isActive = index === currentSlide;
 
-        return (
-          <div
-            key={slide.id}
-            aria-hidden={!isActive}
-            className={`absolute inset-0 size-full transition-opacity duration-1000 ease-in-out ${
-              isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-            }`}
-          >
-            {/* High-Resolution Photography Layer */}
-            <div 
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-[7000ms] ease-out ${
-                isActive ? 'scale-110' : 'scale-100'
-              }`}
-              style={{ backgroundImage: `url('${slide.bgImage}')` }}
-            />
-
-            {/* Rich Royal Blue Dual-Tone Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#06142f]/95 via-[#0e3b9f]/50 to-[#0b2460]/20" />
-            
-            {/* Tech Mesh & Vignette Grid */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(5,12,30,0.85)_95%)]" />
-          </div>
-        );
-      })}
-
-      {/* Hero Foreground Content with Modern Kinetic Staggered Slide In */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16">
-        <div className="max-w-3xl space-y-6">
-          
-          {/* Top Kicker with Dash Line */}
-          <div 
-            key={`kicker-${currentSlide}`}
-            className="flex items-center gap-3 animate-fade-in"
-          >
-            <span className="w-10 sm:w-14 h-0.5 bg-sky-300 rounded-full" />
-            <span className="text-xs sm:text-sm font-mono font-black uppercase tracking-[0.2em] text-cyan-200">
-              {activeSlide.kicker}
-            </span>
-          </div>
-
-          {/* Main Hero Headline (Clean 4 Focus Areas) */}
-          <h1 
-            key={`headline-${currentSlide}`}
-            className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.08] text-white transition-all duration-700 animate-fade-in"
-            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
-          >
-            {activeSlide.headline}
-          </h1>
-
-          {/* Description Paragraph */}
-          <p 
-            key={`desc-${currentSlide}`}
-            className="text-sm sm:text-base lg:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl animate-fade-in"
-          >
-            {activeSlide.desc}
-          </p>
-
-          {/* Yellow Action CTA Button */}
-          <div className="pt-3 flex flex-wrap items-center gap-4">
-            {activeSlide.ctaLink === '#contact' ? (
-              <button
-                type="button"
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('open-enquiry-modal', { detail: { service: 'General Consultation / Free Site Assessment' } }));
-                  }
-                }}
-                className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-[#ffdd00] hover:bg-[#ffea00] hover:brightness-105 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 min-h-[50px] group cursor-pointer"
+            return (
+              <div
+                key={slide.id}
+                aria-hidden={!isActive}
+                className="w-full min-w-full h-full relative shrink-0 overflow-hidden flex items-center justify-center p-0"
               >
-                <span>{activeSlide.ctaText}</span>
-                <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            ) : (
-              <Link
-                href={activeSlide.ctaLink}
-                className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-[#ffdd00] hover:bg-[#ffea00] hover:brightness-105 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 min-h-[50px] group cursor-pointer"
-              >
-                <span>{activeSlide.ctaText}</span>
-                <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            )}
-
-            <a
-              href="tel:+914446030632"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-sm transition-all min-h-[50px]"
-            >
-              <PhoneCall className="size-4 text-amber-300" />
-              <span>044 46030632</span>
-            </a>
-          </div>
-
+                {/* Clickable Banner Slide Link with Depth Micro-Scale & Blur Mixing */}
+                <Link 
+                  href={slide.href}
+                  className={`group block relative w-full h-full cursor-pointer focus:outline-none transition-all duration-700 ease-out ${
+                    isActive 
+                      ? 'scale-100 opacity-100 blur-0' 
+                      : 'scale-[0.93] opacity-30 blur-[3px] pointer-events-none'
+                  }`}
+                  aria-label={`Go to ${slide.title} page`}
+                  tabIndex={isActive ? 0 : -1}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt}
+                    fill
+                    priority={index === 0}
+                    quality={90}
+                    sizes="100vw"
+                    className="object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.008]"
+                  />
+                </Link>
+              </div>
+            );
+          })}
         </div>
+
+        {/* Left Arrow Navigation Button */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            prevSlide();
+          }}
+          aria-label="Previous Slide"
+          className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-20 size-8 sm:size-10 md:size-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 hover:border-sky-400 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer shadow-xl backdrop-blur-md opacity-80 hover:opacity-100"
+        >
+          <ChevronLeft className="size-5 sm:size-6 transition-transform group-hover:-translate-x-0.5" />
+        </button>
+
+        {/* Right Arrow Navigation Button */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            nextSlide();
+          }}
+          aria-label="Next Slide"
+          className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-20 size-8 sm:size-10 md:size-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 hover:border-sky-400 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer shadow-xl backdrop-blur-md opacity-80 hover:opacity-100"
+        >
+          <ChevronRight className="size-5 sm:size-6 transition-transform group-hover:translate-x-0.5" />
+        </button>
+
+        {/* Modern Slide Indicators with Animated Progress Fill Bars */}
+        <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-2.5 bg-slate-950/50 backdrop-blur-md px-3 sm:px-4 py-1.5 rounded-full border border-white/15 shadow-2xl">
+          {slides.map((slide, idx) => {
+            const isActive = idx === currentSlide;
+
+            return (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  goToSlide(idx);
+                }}
+                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+                className={`relative overflow-hidden rounded-full transition-all duration-500 cursor-pointer ${
+                  isActive
+                    ? 'w-10 sm:w-14 h-2 bg-white/20 shadow-[0_0_12px_rgba(56,189,248,0.5)]'
+                    : 'w-2 sm:w-2.5 h-2 bg-white/40 hover:bg-white/70'
+                }`}
+              >
+                {/* Active Slide Timer Progress Fill */}
+                {isActive && (
+                  <span 
+                    key={`progress-${progressKey}-${idx}`}
+                    className="absolute inset-0 bg-gradient-to-r from-sky-400 to-cyan-200 rounded-full"
+                    style={{
+                      animation: `heroProgress ${SLIDE_DURATION}ms linear forwards`,
+                      animationPlayState: isPaused ? 'paused' : 'running',
+                    }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Floating "Scroll to Explore" Cue (Clickable) */}
+        <button
+          type="button"
+          onClick={scrollToNextSection}
+          className="hidden md:flex absolute bottom-4 right-6 z-20 items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/40 hover:bg-slate-900/70 border border-white/10 hover:border-sky-400/50 text-[11px] font-mono font-bold text-slate-300 hover:text-white uppercase tracking-wider backdrop-blur-md transition-all cursor-pointer group/scroll"
+          aria-label="Scroll to explore next section"
+        >
+          <span>Explore</span>
+          <ChevronDown className="size-3.5 text-sky-400 group-hover/scroll:translate-y-0.5 transition-transform animate-bounce" />
+        </button>
+
       </div>
 
-      {/* Slider Left / Right Navigation Chevron Buttons */}
-      <button
-        type="button"
-        onClick={prevSlide}
-        aria-label="Previous Slide"
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 size-10 sm:size-12 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 cursor-pointer shadow-xl backdrop-blur-sm"
-      >
-        <ChevronLeft className="size-6" />
-      </button>
-
-      <button
-        type="button"
-        onClick={nextSlide}
-        aria-label="Next Slide"
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 size-10 sm:size-12 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 cursor-pointer shadow-xl backdrop-blur-sm"
-      >
-        <ChevronRight className="size-6" />
-      </button>
-
-      {/* Bottom Center Slide Pagination Dots / Indicators (Futuristic Glowing Pill Indicator) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => changeSlide(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-            className={`transition-all duration-500 rounded-full cursor-pointer ${
-              idx === currentSlide 
-                ? 'w-10 h-2 bg-gradient-to-r from-sky-400 to-white shadow-[0_0_12px_rgba(56,189,248,0.9)]' 
-                : 'w-2.5 h-2 bg-white/40 hover:bg-white/70'
-            }`}
-          />
-        ))}
-      </div>
+      {/* Inline Keyframe Animation for Progress Bar */}
+      <style jsx global>{`
+        @keyframes heroProgress {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      `}</style>
 
     </section>
   );

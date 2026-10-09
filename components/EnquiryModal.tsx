@@ -11,6 +11,7 @@ import {
   ShieldCheck, 
   Sparkles
 } from 'lucide-react';
+import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
 interface Country {
   code: string;
@@ -108,6 +109,7 @@ export default function EnquiryModal() {
   }>({});
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currentCountry = COUNTRIES.find((c) => c.code === formData.countryCode) || COUNTRIES[0];
 
@@ -272,7 +274,7 @@ export default function EnquiryModal() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const nameErr = validateField('name', formData.name);
@@ -298,25 +300,45 @@ export default function EnquiryModal() {
       return;
     }
 
+    setIsSubmitting(true);
+
     // Format full phone number
     const fullPhone = `${formData.countryCode} ${formData.phone.trim()}`;
     const emailText = formData.email.trim() ? `\n*Email:* ${formData.email.trim()}` : '';
     const notesText = formData.notes.trim() ? `\n*Requirements:* ${formData.notes.trim()}` : '';
 
     const textContent = `*TSK One IT Inquiry (Popup Form)*\n\n*Name:* ${formData.name.trim()}${emailText}\n*Phone:* ${fullPhone}\n*Service Needed:* ${formData.service}${notesText || '\n*Requirements:* Requesting Free Assessment & Consultation.'}`;
-
     const whatsappUrl = `https://wa.me/919150843991?text=${encodeURIComponent(textContent)}`;
 
-    setSubmitted(true);
+    try {
+      // Automatic Email Notification Dispatch
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          phone: fullPhone,
+          email: formData.email.trim(),
+          service: formData.service,
+          message: formData.notes.trim(),
+          source: 'Quick Quote / Enquiry Modal',
+        }),
+      });
 
-    // Open WhatsApp safely
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-
-    // Auto close after 3 seconds
-    setTimeout(() => {
-      setIsOpen(false);
-      setSubmitted(false);
-    }, 3000);
+      setSubmitted(true);
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Modal submit error:', err);
+      setSubmitted(true);
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    } finally {
+      setIsSubmitting(false);
+      // Auto close after 3.5 seconds
+      setTimeout(() => {
+        setIsOpen(false);
+        setSubmitted(false);
+      }, 3500);
+    }
   };
 
   if (!isOpen) return null;
@@ -367,25 +389,17 @@ export default function EnquiryModal() {
           </div>
 
           <div className="relative z-10 space-y-4">
-            {/* Clean Logo Header */}
+            {/* Clean Official Logo Header */}
             <div className="flex items-center gap-3">
-              <div className="relative size-10 flex items-center justify-center shrink-0">
+              <div className="relative h-11 w-40 bg-white rounded-xl px-2.5 py-1 flex items-center justify-start shrink-0 shadow-md">
                 <Image
-                  src="/images/logo.png"
+                  src={CLOUDINARY_IMAGES.logo}
                   alt="TSK One IT Logo"
-                  width={40}
-                  height={40}
-                  className="size-full object-contain rounded-lg shadow-sm"
+                  fill
+                  sizes="160px"
+                  className="object-contain p-0.5"
                   priority
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl sm:text-2xl font-black tracking-wider uppercase leading-none font-sans text-white">
-                  TSK ONE<span className="text-cyan-300">IT</span>
-                </span>
-                <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-200/80 uppercase mt-0.5">
-                  INSPIRED BY YOU
-                </span>
               </div>
             </div>
 
@@ -622,10 +636,20 @@ export default function EnquiryModal() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-sm sm:text-base font-extrabold text-white bg-gradient-to-r from-[#1d5fd1] to-[#0284c7] hover:brightness-110 hover:shadow-lg transition-all shadow-md shadow-sky-500/20 min-h-[48px] group cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-sm sm:text-base font-extrabold text-white bg-gradient-to-r from-[#1d5fd1] to-[#0284c7] hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-lg transition-all shadow-md shadow-sky-500/20 min-h-[48px] group cursor-pointer"
                 >
-                  <Send className="size-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
-                  <span>Submit &amp; Connect on WhatsApp</span>
+                  {isSubmitting ? (
+                    <>
+                      <span className="size-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      <span>Sending Inquiry...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="size-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+                      <span>Submit &amp; Connect on WhatsApp</span>
+                    </>
+                  )}
                 </button>
 
                 <p className="text-[11px] text-slate-500 text-center mt-2 font-sans flex items-center justify-center gap-1.5">
