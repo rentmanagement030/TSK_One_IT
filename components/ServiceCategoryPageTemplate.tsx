@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Calendar, ChevronDown } from 'lucide-react';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
+import { getServiceSlugByTitle } from '@/lib/servicesData';
 
 // Dynamic code splitting for below-the-fold heavy components
 const PartnerEcosystem = dynamic(() => import('@/components/PartnerEcosystem'), {
@@ -20,6 +21,7 @@ export interface ServiceCardItem {
   desc: string;
   image: string;
   badge?: string;
+  href?: string;
 }
 
 export interface ServiceCategoryPageProps {
@@ -43,8 +45,6 @@ export interface ServiceCategoryPageProps {
   whatsappMessage?: string;
 }
 
-const AUTO_SCROLL_DELAY = 10000; // 10 seconds
-
 export default function ServiceCategoryPageTemplate({
   categoryKicker,
   heroBannerImage,
@@ -65,9 +65,6 @@ export default function ServiceCategoryPageTemplate({
   ctaButtonText = 'Get Free Visit',
   whatsappMessage = 'Hi TSK One IT, I would like to enquire about your services.',
 }: ServiceCategoryPageProps) {
-  const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const userHasScrolled = useRef(false);
-
   const openEnquiry = (serviceName?: string) => {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
@@ -89,32 +86,6 @@ export default function ServiceCategoryPageTemplate({
       });
     }
   }, []);
-
-  // 10-Second Inactivity Auto-Scroll to Services Section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        userHasScrolled.current = true;
-        if (autoScrollTimerRef.current) {
-          clearTimeout(autoScrollTimerRef.current);
-          autoScrollTimerRef.current = null;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    autoScrollTimerRef.current = setTimeout(() => {
-      if (!userHasScrolled.current && window.scrollY < 80) {
-        scrollToServices();
-      }
-    }, AUTO_SCROLL_DELAY);
-
-    return () => {
-      if (autoScrollTimerRef.current) clearTimeout(autoScrollTimerRef.current);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrollToServices]);
 
   return (
     <div className="bg-[#ffffff] text-slate-900">
@@ -204,56 +175,79 @@ export default function ServiceCategoryPageTemplate({
 
         {/* Services Cards Grid (Horizontal Layout inside each card) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {cards.map((item) => (
-            <div
-              key={item.title}
-              className="group bg-white rounded-2xl border border-slate-200/90 hover:border-sky-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between"
-            >
-              <div className="flex flex-row gap-4 items-start">
-                
-                {/* Left: Card Thumbnail Image */}
-                <div className="relative size-24 sm:size-28 md:size-32 shrink-0 rounded-xl overflow-hidden bg-slate-100 border border-slate-200/70">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 640px) 96px, 128px"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {item.badge && (
-                    <span className="absolute top-1.5 left-1.5 text-[9px] font-mono font-bold bg-slate-900/80 text-white px-1.5 py-0.5 rounded backdrop-blur-sm">
-                      {item.badge}
-                    </span>
-                  )}
-                </div>
+          {cards.map((item) => {
+            const serviceSlug = getServiceSlugByTitle(item.title);
+            const targetHref = item.href || (serviceSlug ? `/service/${serviceSlug}` : '#top');
 
-                {/* Right: Card Content */}
-                <div className="flex-1 min-w-0 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-[#0284c7] transition-colors leading-snug mb-1.5 line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed line-clamp-3 mb-3">
-                      {item.desc}
-                    </p>
+            return (
+              <div
+                key={item.title}
+                className="group relative bg-white rounded-2xl border border-slate-200/90 hover:border-sky-400 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between overflow-hidden"
+              >
+                {/* Full Card Clickable Overlay Link */}
+                <Link
+                  href={targetHref}
+                  className="absolute inset-0 z-0"
+                  aria-label={`View ${item.title} details`}
+                />
+
+                <div className="flex flex-row gap-4 items-start relative z-10 pointer-events-none">
+                  
+                  {/* Left: Card Thumbnail Image */}
+                  <div className="relative size-24 sm:size-28 md:size-32 shrink-0 rounded-xl overflow-hidden bg-slate-100 border border-slate-200/70">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 640px) 96px, 128px"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {item.badge && (
+                      <span className="absolute top-1.5 left-1.5 text-[9px] font-mono font-bold bg-slate-900/80 text-white px-1.5 py-0.5 rounded backdrop-blur-sm">
+                        {item.badge}
+                      </span>
+                    )}
                   </div>
 
-                  {/* Enquiry Pill Button */}
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => openEnquiry(item.title)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-sky-50 hover:bg-[#0284c7] text-[#0284c7] hover:text-white text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer group/btn"
-                    >
-                      <span>Enquiry</span>
-                      <ArrowRight className="size-3 group-hover/btn:translate-x-0.5 transition-transform" />
-                    </button>
-                  </div>
-                </div>
+                  {/* Right: Card Content */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-[#0284c7] transition-colors leading-snug mb-1.5 line-clamp-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 font-medium leading-relaxed line-clamp-3 mb-3">
+                        {item.desc}
+                      </p>
+                    </div>
 
+                    {/* Action Buttons: Explore Link + Enquiry Modal Trigger */}
+                    <div className="flex items-center gap-2 pt-1 pointer-events-auto">
+                      <Link
+                        href={targetHref}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-[#0284c7] text-[#0284c7] hover:text-white text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer group/link"
+                      >
+                        <span>Explore</span>
+                        <ArrowRight className="size-3 group-hover/link:translate-x-0.5 transition-transform" />
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          openEnquiry(item.title);
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 text-[11px] font-bold transition-all duration-200 cursor-pointer"
+                      >
+                        <span>Enquiry</span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </section>

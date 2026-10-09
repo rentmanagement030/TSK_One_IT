@@ -9,8 +9,7 @@ import {
   X, 
   ChevronDown, 
   ChevronRight, 
-  ArrowRight, 
-  ArrowUpRight 
+  ArrowRight 
 } from 'lucide-react';
 import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
@@ -19,8 +18,8 @@ export interface ServiceItem {
   href: string;
 }
 
-export interface ServiceColumn {
-  heading: string;
+export interface ServiceSubCategory {
+  title: string;
   href: string;
   items: ServiceItem[];
 }
@@ -32,7 +31,7 @@ export interface ServiceDivision {
   href: string;
   footerText: string;
   footerCta: string;
-  columns: ServiceColumn[];
+  subCategories: ServiceSubCategory[];
 }
 
 export const serviceHierarchy: ServiceDivision[] = [
@@ -40,50 +39,30 @@ export const serviceHierarchy: ServiceDivision[] = [
     id: 'device-care',
     number: '01',
     title: 'IT Device Care',
-    href: '/device-care',
-    footerText: 'Free doorstep diagnosis, certified BGA chip technicians & genuine OEM parts in Chennai',
-    footerCta: 'Explore All Device Care Services',
-    columns: [
+    href: '/device-repair-and-maintenance',
+    footerText: 'Free doorstep pickup, diagnosis & genuine parts in Chennai',
+    footerCta: 'Book Device Repair →',
+    subCategories: [
       {
-        heading: 'Device Repair & Diagnostics',
+        title: 'Device Repair & Maintenance',
         href: '/device-repair-and-maintenance',
         items: [
-          { name: 'Laptop & Desktop Hardware Repair', href: '/device-repair-and-maintenance' },
-          { name: 'Apple MacBook & iMac Specialist', href: '/device-repair-and-maintenance' },
-          { name: 'Chip-Level & Motherboard BGA Repair', href: '/device-repair-and-maintenance' },
-          { name: 'Screen, Display & Hinge Replacement', href: '/device-repair-and-maintenance' },
-          { name: 'Liquid Spill Remediation & Deep Cleaning', href: '/device-repair-and-maintenance' },
-          { name: 'Battery, Keyboard & Trackpad Replacement', href: '/device-repair-and-maintenance' },
-          { name: 'Custom PC Assembly & Gaming Rig Builds', href: '/device-repair-and-maintenance' },
-          { name: 'OS Installation & System Optimization', href: '/device-repair-and-maintenance' },
+          { name: 'Laptop & Desktop Repair', href: '/service/laptop-and-desktop-repair' },
+          { name: 'Apple MacBook Repair', href: '/service/apple-macbook-repair' },
+          { name: 'Chip-Level Motherboard Repair', href: '/service/chip-level-motherboard-repair' },
+          { name: 'Data Recovery', href: '/service/data-recovery' },
+          { name: 'SSD & RAM Upgrades', href: '/service/ssd-and-ram-upgrades' },
+          { name: 'Genuine Spare Parts', href: '/service/genuine-spare-parts' },
         ],
       },
       {
-        heading: 'Data Recovery & Upgrades',
-        href: '/device-repair-and-maintenance',
-        items: [
-          { name: 'Hard Drive (HDD) & SSD Data Recovery', href: '/device-repair-and-maintenance' },
-          { name: 'High-Speed NVMe & SSD Upgrades', href: '/device-repair-and-maintenance' },
-          { name: 'RAM Memory Capacity Expansion', href: '/device-repair-and-maintenance' },
-          { name: 'Certified OEM Spare Parts & Accessories', href: '/device-repair-and-maintenance' },
-          { name: 'Malware, Virus & Ransomware Removal', href: '/device-repair-and-maintenance' },
-          { name: 'Thermal Paste Servicing & Fan Tuning', href: '/device-repair-and-maintenance' },
-          { name: 'Corrupted BIOS & OS Crash Remediation', href: '/device-repair-and-maintenance' },
-          { name: 'Automated Cloud Backup Configuration', href: '/device-repair-and-maintenance' },
-        ],
-      },
-      {
-        heading: 'Managed IT Support & AMC',
+        title: 'IT Support Services',
         href: '/it-support-services',
         items: [
-          { name: 'Annual Maintenance Contracts (AMC)', href: '/it-support-services' },
-          { name: 'Doorstep Pickup & Delivery in Chennai', href: '/it-support-services' },
-          { name: '24/7 Remote IT Helpdesk & Diagnostics', href: '/it-support-services' },
-          { name: 'Onsite Technical Engineer Dispatch', href: '/it-support-services' },
-          { name: 'Managed Device Fleet & Asset Care', href: '/it-support-services' },
-          { name: 'SLA-Backed Hardware Warranty', href: '/it-support-services' },
-          { name: 'IT Equipment Lifecycle & Buyback Advisory', href: '/it-support-services' },
-          { name: 'Preventive Periodic Maintenance Audits', href: '/it-support-services' },
+          { name: 'AMC / Annual Maintenance Contracts', href: '/service/amc-annual-maintenance-contracts' },
+          { name: 'Doorstep Pickup & Delivery', href: '/service/doorstep-pickup-and-delivery' },
+          { name: 'IT Troubleshooting', href: '/service/it-troubleshooting' },
+          { name: 'Managed Device Support', href: '/service/managed-device-support' },
         ],
       },
     ],
@@ -92,50 +71,29 @@ export const serviceHierarchy: ServiceDivision[] = [
     id: 'home-automation',
     number: '02',
     title: 'Home Automation',
-    href: '/home-automation',
-    footerText: 'Smart villa & apartment automation design, architectural lighting & biometric access control',
-    footerCta: 'Explore All Home Automation',
-    columns: [
+    href: '/smart-home',
+    footerText: 'Smart villa & apartment automation design and installation',
+    footerCta: 'Book Free Site Visit →',
+    subCategories: [
       {
-        heading: 'Smart Living & Lighting',
+        title: 'Smart Home',
         href: '/smart-home',
         items: [
-          { name: 'Smart Ambient & Architectural Lighting', href: '/smart-home' },
-          { name: 'Voice Assistants (Alexa / Google Home)', href: '/smart-home' },
-          { name: 'Smart Touch Switches & Scene Controllers', href: '/smart-home' },
-          { name: 'Motorized Curtains & Blinds Automation', href: '/smart-home' },
-          { name: 'Smart Climate, HVAC & Fan Automation', href: '/smart-home' },
-          { name: 'Multi-Room Audio & Home Theater Systems', href: '/smart-home' },
-          { name: 'Energy Monitoring & Smart Power Plugs', href: '/smart-home' },
-          { name: 'Smart Villa Master Automation Control', href: '/smart-home' },
+          { name: 'Smart Lighting', href: '/service/smart-lighting' },
+          { name: 'Voice Assistants', href: '/service/voice-assistants' },
+          { name: 'Home Wi-Fi & Mesh', href: '/service/home-wi-fi-and-mesh' },
+          { name: 'Smart Home Automation', href: '/service/smart-home-automation' },
         ],
       },
       {
-        heading: 'Security & Surveillance',
+        title: 'Home Security',
         href: '/home-security',
         items: [
-          { name: 'High-Definition CCTV & IP Camera Setup', href: '/home-security' },
-          { name: 'Smart Biometric & Digital Door Locks', href: '/home-security' },
-          { name: 'Video Door Phones & Wireless Intercoms', href: '/home-security' },
-          { name: 'Motion Sensors & Intrusion Detection', href: '/home-security' },
-          { name: 'Perimeter Laser & Glass Break Sensors', href: '/home-security' },
-          { name: 'Smart Safety Alarms & Gas Leak Detectors', href: '/home-security' },
-          { name: '24/7 Mobile Cloud Monitoring & Remote Alerts', href: '/home-security' },
-          { name: 'Boom Barriers & Automated Access Gates', href: '/home-security' },
-        ],
-      },
-      {
-        heading: 'Networking & Smart Infrastructure',
-        href: '/smart-home',
-        items: [
-          { name: 'Whole-Home High-Speed Wi-Fi 6 Mesh', href: '/smart-home' },
-          { name: 'Structured Cat6/Fiber LAN Cabling', href: '/smart-home' },
-          { name: 'Smart Gateway & Central IoT Hubs', href: '/smart-home' },
-          { name: 'Home Router Firewall & Cyber Defense', href: '/smart-home' },
-          { name: 'Parental Controls & Guest Wi-Fi Setup', href: '/smart-home' },
-          { name: 'Smart Garden & Outdoor Automation', href: '/smart-home' },
-          { name: 'Uninterrupted Smart Power & UPS Sync', href: '/smart-home' },
-          { name: 'Smart Water Tank & Pump Controllers', href: '/smart-home' },
+          { name: 'CCTV Surveillance', href: '/service/cctv-surveillance' },
+          { name: 'Smart Door Locks', href: '/service/smart-door-locks' },
+          { name: 'Video Door Phones', href: '/service/video-door-phones' },
+          { name: 'Access Control', href: '/service/access-control' },
+          { name: 'Home Cyber Security', href: '/service/home-cyber-security' },
         ],
       },
     ],
@@ -144,75 +102,29 @@ export const serviceHierarchy: ServiceDivision[] = [
     id: 'business-solutions',
     number: '03',
     title: 'Business Solutions',
-    href: '/business-solutions',
-    footerText: 'Enterprise IT infrastructure, SOC cybersecurity, multi-cloud architecture & custom software engineering',
-    footerCta: 'Explore All Business Solutions',
-    columns: [
+    href: '/it-infrastructure-and-cloud',
+    footerText: 'Enterprise AMC, Cloud architecture & Custom ERP consultation',
+    footerCta: 'Get Enterprise Proposal →',
+    subCategories: [
       {
-        heading: 'Cyber Security',
+        title: 'IT Infrastructure & Cloud',
         href: '/it-infrastructure-and-cloud',
         items: [
-          { name: 'Cybersecurity Consulting & Security Advisory', href: '/it-infrastructure-and-cloud' },
-          { name: 'Next-Generation Firewall (NGFW) Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'Managed Security Services (MSSP)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Security Operations Center (SOC) as a Service', href: '/it-infrastructure-and-cloud' },
-          { name: 'Managed Detection & Response (MDR / XDR / EDR)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Vulnerability Assessment & Penetration Testing (VAPT)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Network Penetration Testing', href: '/it-infrastructure-and-cloud' },
-          { name: 'API Security Testing & API Protection', href: '/it-infrastructure-and-cloud' },
-          { name: 'Governance, Risk & Compliance (GRC) & DPDP', href: '/it-infrastructure-and-cloud' },
-          { name: 'Web Application Firewall (WAF) Deployment', href: '/it-infrastructure-and-cloud' },
-          { name: 'Cloud Security Services (AWS / Azure / GCP)', href: '/it-infrastructure-and-cloud' },
+          { name: 'IT Infrastructure', href: '/service/it-infrastructure' },
+          { name: 'Cloud Solutions (Azure, AWS, GCP)', href: '/service/cloud-solutions' },
+          { name: 'Managed IT Services', href: '/service/managed-it-services' },
+          { name: 'NOC / SOC / TAC', href: '/service/noc-soc-tac' },
+          { name: 'Cybersecurity', href: '/service/cybersecurity' },
         ],
       },
       {
-        heading: 'Managed IT',
-        href: '/it-infrastructure-and-cloud',
-        items: [
-          { name: 'IT Infrastructure Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'Managed Network Services & Monitoring', href: '/it-infrastructure-and-cloud' },
-          { name: 'Server Management & Administration', href: '/it-infrastructure-and-cloud' },
-          { name: '24/7 Network Operations Center (NOC) Services', href: '/it-infrastructure-and-cloud' },
-          { name: 'Endpoint & Device Management (MDM)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Backup & Disaster Recovery (DRaaS)', href: '/it-infrastructure-and-cloud' },
-          { name: 'IT Helpdesk & TAC Tier 1-3 Support', href: '/it-infrastructure-and-cloud' },
-          { name: 'Virtualization Management (VMware / Hyper-V)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Data Center Infrastructure Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'Enterprise Storage & Backup Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'IT Asset & Lifecycle Management', href: '/it-infrastructure-and-cloud' },
-        ],
-      },
-      {
-        heading: 'Cloud & DevOps Services',
-        href: '/it-infrastructure-and-cloud',
-        items: [
-          { name: 'Cloud Consulting & Architecture Design', href: '/it-infrastructure-and-cloud' },
-          { name: 'Cloud Migration & Modernization Services', href: '/it-infrastructure-and-cloud' },
-          { name: 'AWS / Azure / Google Cloud Deployment & Ops', href: '/it-infrastructure-and-cloud' },
-          { name: 'Cloud Infrastructure Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'Hybrid & Multi-Cloud Solutions', href: '/it-infrastructure-and-cloud' },
-          { name: 'DevOps Consulting & Implementation', href: '/it-infrastructure-and-cloud' },
-          { name: 'CI/CD Pipeline Automation', href: '/it-infrastructure-and-cloud' },
-          { name: 'Infrastructure as Code (Terraform / Ansible)', href: '/it-infrastructure-and-cloud' },
-          { name: 'Containerization & Kubernetes Management', href: '/it-infrastructure-and-cloud' },
-          { name: 'Cloud Monitoring, Logging & Observability', href: '/it-infrastructure-and-cloud' },
-          { name: 'Cloud Cost Optimization (FinOps)', href: '/it-infrastructure-and-cloud' },
-        ],
-      },
-      {
-        heading: 'Digital Engineering',
+        title: 'Software & AI',
         href: '/software-and-ai',
         items: [
-          { name: 'Enterprise Application Development', href: '/software-and-ai' },
-          { name: 'Custom Software Development', href: '/software-and-ai' },
-          { name: 'ERP Implementation & Integration', href: '/software-and-ai' },
-          { name: 'CRM Implementation & Integration', href: '/software-and-ai' },
-          { name: 'Official Meta WhatsApp Business Cloud API', href: '/software-and-ai' },
-          { name: 'Generative AI & Automation Chatbots', href: '/software-and-ai' },
-          { name: 'SaaS Platform & Portal Development', href: '/software-and-ai' },
-          { name: 'Cloud-Native Application Development', href: '/software-and-ai' },
-          { name: 'API Development & System Integration', href: '/software-and-ai' },
-          { name: 'Application Modernization & Lifecycle Management', href: '/software-and-ai' },
+          { name: 'AI & Business Applications', href: '/service/ai-and-business-applications' },
+          { name: 'CRM / ERP', href: '/service/crm-erp' },
+          { name: 'WhatsApp Automation', href: '/service/whatsapp-automation' },
+          { name: 'Custom Software Development', href: '/service/custom-software-development' },
         ],
       },
     ],
@@ -359,73 +271,51 @@ export default function Navbar() {
                       <ChevronDown className={`size-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#0284c7]' : 'text-slate-500'}`} />
                     </Link>
 
-                    {/* Multi-Column Mega-Menu Dropdown matching Reference Screenshot */}
+                    {/* Exact Screenshot UI: Clean Multi-Column Mega Menu Panel */}
                     <div 
-                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-0 bg-white rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.14)] border border-slate-200/90 overflow-hidden transition-all duration-200 z-50 ${
-                        div.columns.length === 4 
-                          ? 'w-[96vw] max-w-[1240px]' 
-                          : 'w-[92vw] max-w-[1040px]'
-                      } ${
+                      className={`fixed left-0 right-0 top-full mt-0 w-full bg-white shadow-2xl border-b border-slate-200 transition-all duration-200 z-50 ${
                         isOpen 
                           ? 'opacity-100 translate-y-0 pointer-events-auto' 
                           : 'opacity-0 -translate-y-2 pointer-events-none'
                       }`}
                     >
-                      {/* Top Accent Strip */}
-                      <div className="h-1 w-full bg-gradient-to-r from-[#0284c7] via-sky-400 to-[#1e40af]" />
+                      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-8 sm:py-10">
+                        <div className={`grid gap-8 lg:gap-12 ${
+                          div.subCategories.length >= 4 
+                            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
+                            : div.subCategories.length === 3 
+                              ? 'grid-cols-1 md:grid-cols-3' 
+                              : 'grid-cols-1 sm:grid-cols-2 max-w-3xl'
+                        }`}>
+                          {div.subCategories.map((subCat) => (
+                            <div key={subCat.title} className="flex flex-col">
+                              {/* Bold Category Header */}
+                              <Link
+                                href={subCat.href}
+                                onClick={() => setActiveDropdown(null)}
+                                className="text-[16px] sm:text-[17px] font-bold text-slate-900 hover:text-[#0284c7] transition-colors mb-4 tracking-tight block"
+                              >
+                                {subCat.title}
+                              </Link>
 
-                      {/* Columns Grid matching exact design */}
-                      <div className={`p-6 sm:p-8 lg:p-9 grid gap-7 lg:gap-8 ${
-                        div.columns.length === 4 
-                          ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
-                          : 'grid-cols-1 md:grid-cols-3'
-                      }`}>
-                        {div.columns.map((col) => (
-                          <div key={col.heading} className="flex flex-col">
-                            {/* Column Heading */}
-                            <Link
-                              href={col.href}
-                              onClick={() => setActiveDropdown(null)}
-                              className="group/col-hdr inline-flex items-center justify-between gap-1.5 text-[15px] xl:text-[16px] font-extrabold tracking-tight text-slate-900 hover:text-[#0284c7] transition-colors mb-3 pb-2 border-b border-slate-100"
-                            >
-                              <span>{col.heading}</span>
-                              <ArrowUpRight className="size-3.5 text-slate-400 group-hover/col-hdr:text-[#0284c7] group-hover/col-hdr:translate-x-0.5 group-hover/col-hdr:-translate-y-0.5 transition-transform shrink-0" />
-                            </Link>
-
-                            {/* Links Stack */}
-                            <ul className="space-y-1.5 flex-1">
-                              {col.items.map((item) => (
-                                <li key={item.name}>
-                                  <Link
-                                    href={item.href}
-                                    onClick={() => handleServiceClick(item.name)}
-                                    className="text-[12.5px] xl:text-[13px] text-slate-600 hover:text-[#0284c7] font-medium leading-snug block py-1 transition-all duration-150 hover:translate-x-1"
-                                  >
-                                    {item.name}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Mega-Menu Footer Strip */}
-                      <div className="bg-slate-50/90 px-6 sm:px-8 lg:px-9 py-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
-                        <div className="flex items-center gap-2 text-slate-600 font-medium">
-                          <span className="inline-block size-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                          <span className="line-clamp-1">{div.footerText}</span>
+                              {/* Clean Text Links List */}
+                              <ul className="space-y-1.5 flex-1">
+                                {subCat.items.map((item) => (
+                                  <li key={item.name}>
+                                    <Link
+                                      href={item.href}
+                                      onClick={() => handleServiceClick(item.name)}
+                                      className="text-[13px] sm:text-[13.5px] text-slate-500 hover:text-[#0284c7] transition-colors font-normal leading-[2] block"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
                         </div>
-                        <Link
-                          href={div.href}
-                          onClick={() => setActiveDropdown(null)}
-                          className="font-bold text-[#0284c7] hover:text-[#0369a1] hover:underline inline-flex items-center gap-1 shrink-0 ml-auto"
-                        >
-                          <span>{div.footerCta}</span>
-                          <ArrowRight className="size-3.5" />
-                        </Link>
                       </div>
-
                     </div>
                   </div>
                 );
@@ -543,19 +433,19 @@ export default function Navbar() {
                               <ArrowRight className="size-3" />
                             </Link>
 
-                            {div.columns.map((col) => (
-                              <div key={col.heading} className="space-y-1.5 pt-1">
+                            {div.subCategories.map((subCat) => (
+                              <div key={subCat.title} className="space-y-1.5 pt-1">
                                 <Link
-                                  href={col.href}
+                                  href={subCat.href}
                                   onClick={() => setIsDrawerOpen(false)}
                                   className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-800 hover:text-[#0284c7] flex items-center justify-between py-0.5"
                                 >
-                                  <span>{col.heading}</span>
+                                  <span>{subCat.title}</span>
                                   <ChevronRight className="size-3 text-slate-400" />
                                 </Link>
 
                                 <div className="grid grid-cols-1 gap-1 pl-2.5 border-l-2 border-slate-100">
-                                  {col.items.map((item) => (
+                                  {subCat.items.map((item) => (
                                     <Link
                                       key={item.name}
                                       href={item.href}

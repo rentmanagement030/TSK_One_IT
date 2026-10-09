@@ -26,6 +26,7 @@ import {
   CheckCircle2,
   Activity
 } from 'lucide-react';
+import { getServiceSlugByTitle } from '@/lib/servicesData';
 
 interface SubItem {
   name: string;
@@ -350,10 +351,14 @@ export default function SmartAutomation() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {currentVariant.subItems.map((item) => {
                     const Icon = item.icon;
+                    const slug = getServiceSlugByTitle(item.name);
+                    const targetHref = slug ? `/service/${slug}` : '/smart-home';
+
                     return (
-                      <div
+                      <Link
                         key={item.name}
-                        className="p-4 rounded-2xl bg-sky-50/40 border border-sky-100 hover:border-sky-300 hover:bg-white hover:shadow-md transition-all group duration-300 flex items-start gap-3.5"
+                        href={targetHref}
+                        className="p-4 rounded-2xl bg-sky-50/40 border border-sky-100 hover:border-sky-300 hover:bg-white hover:shadow-md transition-all group duration-300 flex items-start gap-3.5 cursor-pointer block"
                       >
                         <div className="p-2.5 rounded-xl bg-white text-[#0a2a66] border border-sky-200 shadow-xs group-hover:bg-[#0a2a66] group-hover:text-white group-hover:scale-105 transition-all shrink-0">
                           <Icon className="w-4 h-4" />
@@ -369,7 +374,7 @@ export default function SmartAutomation() {
                             {item.desc}
                           </p>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>

@@ -94,7 +94,7 @@ export default function Footer() {
           {/* Column 1: DEVICE CARE */}
           <div>
             <Link 
-              href="/device-care"
+              href="/device-repair-and-maintenance"
               className="text-xs font-black uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors mb-4 inline-flex items-center gap-1.5"
             >
               <span>01. DEVICE CARE</span>
@@ -116,7 +116,7 @@ export default function Footer() {
           {/* Column 2: HOME AUTOMATION */}
           <div>
             <Link 
-              href="/home-automation"
+              href="/smart-home"
               className="text-xs font-black uppercase tracking-wider text-amber-400 hover:text-amber-300 transition-colors mb-4 inline-flex items-center gap-1.5"
             >
               <span>02. HOME AUTOMATION</span>
@@ -138,7 +138,7 @@ export default function Footer() {
           {/* Column 3: BUSINESS SOLUTIONS */}
           <div>
             <Link 
-              href="/business-solutions"
+              href="/it-infrastructure-and-cloud"
               className="text-xs font-black uppercase tracking-wider text-indigo-400 hover:text-indigo-300 transition-colors mb-4 inline-flex items-center gap-1.5"
             >
               <span>03. BUSINESS SOLUTIONS</span>

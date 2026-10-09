@@ -113,18 +113,6 @@ export default function EnquiryModal() {
 
   const currentCountry = COUNTRIES.find((c) => c.code === formData.countryCode) || COUNTRIES[0];
 
-  // Automatic popup after 15 seconds of browsing
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const alreadyOpened = sessionStorage.getItem('tsk_modal_seen');
-      if (!alreadyOpened) {
-        setIsOpen(true);
-        sessionStorage.setItem('tsk_modal_seen', 'true');
-      }
-    }, 15000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   // Listen for custom trigger events across the app
   useEffect(() => {

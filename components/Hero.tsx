@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, Pause, Play } from 'lucide-react';
 import { CLOUDINARY_IMAGES } from '@/lib/cloudinary';
 
 interface SlideData {
@@ -19,27 +19,26 @@ const slides: SlideData[] = [
     id: 0,
     title: 'IT Products & Device Care',
     image: CLOUDINARY_IMAGES.heroDeviceCare,
-    href: '/device-care',
+    href: '/device-repair-and-maintenance',
     alt: 'TSK One IT - IT Products & Device Care: Buy, Setup, Repair, Support',
   },
   {
     id: 1,
     title: 'Smart Home Solutions',
     image: CLOUDINARY_IMAGES.heroSmartHome,
-    href: '/home-automation',
+    href: '/smart-home',
     alt: 'TSK One IT - Smart Home Solutions: Smarter Spaces, Safer People, Greater Comfort',
   },
   {
     id: 2,
     title: 'Business IT Solutions',
     image: CLOUDINARY_IMAGES.heroBusinessSolutions,
-    href: '/business-solutions',
+    href: '/it-infrastructure-and-cloud',
     alt: 'TSK One IT - Business IT Solutions: Secure, Scalable, Always On',
   },
 ];
 
 const SLIDE_DURATION = 5000; // 5 seconds per slide
-const AUTO_SCROLL_DELAY = 10000; // 10 seconds before auto-scroll down to next section
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -48,8 +47,6 @@ export default function Hero() {
   
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
-  const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const userHasScrolled = useRef(false);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -66,7 +63,15 @@ export default function Hero() {
     setProgressKey((prev) => prev + 1);
   };
 
-  // Smooth scroll to the next section
+  const togglePause = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    setIsPaused((prev) => !prev);
+  };
+
+  // Smooth scroll to the next section when user clicks the explore/scroll down indicator
   const scrollToNextSection = useCallback(() => {
     const nextSection = document.getElementById('explore-content');
     if (nextSection) {
@@ -84,39 +89,12 @@ export default function Hero() {
     }
   }, []);
 
-  // 1. Auto slide advance every 5 seconds
+  // Auto slide advance every 5 seconds (continuous auto-scroll unless paused by click)
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(nextSlide, SLIDE_DURATION);
     return () => clearInterval(interval);
   }, [isPaused, nextSlide, progressKey]);
-
-  // 2. 10-Second Inactivity Auto-Scroll to Next Section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        userHasScrolled.current = true;
-        if (autoScrollTimerRef.current) {
-          clearTimeout(autoScrollTimerRef.current);
-          autoScrollTimerRef.current = null;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Set 10-second timer
-    autoScrollTimerRef.current = setTimeout(() => {
-      if (!userHasScrolled.current && window.scrollY < 80) {
-        scrollToNextSection();
-      }
-    }, AUTO_SCROLL_DELAY);
-
-    return () => {
-      if (autoScrollTimerRef.current) clearTimeout(autoScrollTimerRef.current);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrollToNextSection]);
 
   // Touch handlers for mobile swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -146,15 +124,13 @@ export default function Hero() {
     <section 
       id="top"
       aria-label="TSK One IT Hero Showcase"
-      className="relative w-full bg-[#030a1a] overflow-hidden pt-15 sm:pt-16 select-none group/hero"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      className="relative w-full bg-white overflow-hidden pt-15 sm:pt-16 select-none group/hero"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 16:9 Responsive Banner Viewport */}
-      <div className="relative w-full aspect-[16/9] max-w-[1920px] mx-auto overflow-hidden">
+      {/* Exact Banner Aspect Ratio Viewport (1024 / 434) with zero letterboxing */}
+      <div className="relative w-full aspect-[1024/434] max-w-[1920px] mx-auto overflow-hidden bg-slate-50">
         
         {/* Kinetic Depth Track: Smooth sliding with depth scaling & parallax mixing */}
         <div 
@@ -170,13 +146,13 @@ export default function Hero() {
                 aria-hidden={!isActive}
                 className="w-full min-w-full h-full relative shrink-0 overflow-hidden flex items-center justify-center p-0"
               >
-                {/* Clickable Banner Slide Link with Depth Micro-Scale & Blur Mixing */}
+                {/* Clickable Banner Slide Link */}
                 <Link 
                   href={slide.href}
-                  className={`group block relative w-full h-full cursor-pointer focus:outline-none transition-all duration-700 ease-out ${
+                  className={`group block relative w-full h-full cursor-pointer focus:outline-none transition-opacity duration-500 ease-out ${
                     isActive 
-                      ? 'scale-100 opacity-100 blur-0' 
-                      : 'scale-[0.93] opacity-30 blur-[3px] pointer-events-none'
+                      ? 'opacity-100' 
+                      : 'opacity-0 pointer-events-none'
                   }`}
                   aria-label={`Go to ${slide.title} page`}
                   tabIndex={isActive ? 0 : -1}
@@ -185,10 +161,15 @@ export default function Hero() {
                     src={slide.image}
                     alt={slide.alt}
                     fill
-                    priority={index === 0}
-                    quality={90}
+                    priority
+                    unoptimized
                     sizes="100vw"
-                    className="object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.008]"
+                    className="object-cover object-center select-none"
+                    style={{
+                      imageRendering: '-webkit-optimize-contrast',
+                      WebkitBackfaceVisibility: 'hidden',
+                      transform: 'translate3d(0, 0, 0)',
+                    }}
                   />
                 </Link>
               </div>
@@ -224,41 +205,59 @@ export default function Hero() {
           <ChevronRight className="size-5 sm:size-6 transition-transform group-hover:translate-x-0.5" />
         </button>
 
-        {/* Modern Slide Indicators with Animated Progress Fill Bars */}
-        <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-2.5 bg-slate-950/50 backdrop-blur-md px-3 sm:px-4 py-1.5 rounded-full border border-white/15 shadow-2xl">
-          {slides.map((slide, idx) => {
-            const isActive = idx === currentSlide;
+        {/* Modern Slide Indicators with Pause/Play Button & Animated Progress Fill Bars */}
+        <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-3 bg-slate-950/60 backdrop-blur-md px-3.5 sm:px-4 py-1.5 rounded-full border border-white/20 shadow-2xl">
+          
+          {/* Click to Pause / Play Toggle */}
+          <button
+            type="button"
+            onClick={togglePause}
+            aria-label={isPaused ? "Resume auto-scroll" : "Pause auto-scroll"}
+            title={isPaused ? "Resume auto-scroll" : "Pause auto-scroll (Click to stop)"}
+            className="p-1 rounded-full text-white/80 hover:text-white hover:bg-white/20 transition-colors cursor-pointer"
+          >
+            {isPaused ? (
+              <Play className="size-3 sm:size-3.5 fill-current text-amber-400" />
+            ) : (
+              <Pause className="size-3 sm:size-3.5 fill-current text-sky-400" />
+            )}
+          </button>
 
-            return (
-              <button
-                key={slide.id}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  goToSlide(idx);
-                }}
-                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
-                className={`relative overflow-hidden rounded-full transition-all duration-500 cursor-pointer ${
-                  isActive
-                    ? 'w-10 sm:w-14 h-2 bg-white/20 shadow-[0_0_12px_rgba(56,189,248,0.5)]'
-                    : 'w-2 sm:w-2.5 h-2 bg-white/40 hover:bg-white/70'
-                }`}
-              >
-                {/* Active Slide Timer Progress Fill */}
-                {isActive && (
-                  <span 
-                    key={`progress-${progressKey}-${idx}`}
-                    className="absolute inset-0 bg-gradient-to-r from-sky-400 to-cyan-200 rounded-full"
-                    style={{
-                      animation: `heroProgress ${SLIDE_DURATION}ms linear forwards`,
-                      animationPlayState: isPaused ? 'paused' : 'running',
-                    }}
-                  />
-                )}
-              </button>
-            );
-          })}
+          <div className="flex items-center gap-2">
+            {slides.map((slide, idx) => {
+              const isActive = idx === currentSlide;
+
+              return (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    goToSlide(idx);
+                  }}
+                  aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+                  className={`relative overflow-hidden rounded-full transition-all duration-500 cursor-pointer ${
+                    isActive
+                      ? 'w-10 sm:w-14 h-2 bg-white/20 shadow-[0_0_12px_rgba(56,189,248,0.5)]'
+                      : 'w-2 sm:w-2.5 h-2 bg-white/40 hover:bg-white/70'
+                  }`}
+                >
+                  {/* Active Slide Timer Progress Fill */}
+                  {isActive && (
+                    <span 
+                      key={`progress-${progressKey}-${idx}`}
+                      className="absolute inset-0 bg-gradient-to-r from-sky-400 to-cyan-200 rounded-full"
+                      style={{
+                        animation: `heroProgress ${SLIDE_DURATION}ms linear forwards`,
+                        animationPlayState: isPaused ? 'paused' : 'running',
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Floating "Scroll to Explore" Cue (Clickable) */}

@@ -98,14 +98,14 @@ export const CLOUDINARY_IMAGES = {
 
   // Hero Section Division Slides
   heroDeviceCare: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-it-products-device-care.webp`
-    : '/images/hero-it-products-device-care.webp',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-it-products-device-care.png`
+    : '/images/hero-it-products-device-care.png',
   heroSmartHome: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-smart-home-solutions.webp`
-    : '/images/hero-smart-home-solutions.webp',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-smart-home-solutions.png`
+    : '/images/hero-smart-home-solutions.png',
   heroBusinessSolutions: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-business-it-solutions.webp`
-    : '/images/hero-business-it-solutions.webp',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1/tskoneit/hero-business-it-solutions.png`
+    : '/images/hero-business-it-solutions.png',
 
   // Category High-Resolution Banners
   bannerDeviceRepair: CLOUD_NAME
@@ -129,12 +129,12 @@ export const CLOUDINARY_IMAGES = {
 
   // Division Hub Banners
   divisionDeviceCare: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/device-care-hero.jpg`
-    : '/images/device-care-hero.jpg',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/device-care-hero.png`
+    : '/images/device-care-hero.png',
   divisionHomeAutomation: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/home-automation-hero.jpg`
-    : '/images/home-automation-hero.jpg',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/home-automation-hero.png`
+    : '/images/home-automation-hero.png',
   divisionBusinessSolutions: CLOUD_NAME
-    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/business-solutions-hero.jpg`
-    : '/images/business-solutions-hero.jpg',
+    ? `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1600/v1/tskoneit/business-solutions-hero.png`
+    : '/images/business-solutions-hero.png',
 } as const;
