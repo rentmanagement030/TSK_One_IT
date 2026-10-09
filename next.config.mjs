@@ -21,6 +21,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/device-care',
+        destination: '/device-repair-and-maintenance',
+        permanent: true,
+      },
+      {
+        source: '/home-automation',
+        destination: '/smart-home',
+        permanent: true,
+      },
+      {
+        source: '/business-solutions',
+        destination: '/it-infrastructure-and-cloud',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

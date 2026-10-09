@@ -226,20 +226,20 @@ export default function Navbar() {
         onMouseEnter={() => setIsNearTop(true)}
       >
         <header className="w-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-b border-slate-200/90 relative">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between h-15 sm:h-16">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between h-18 sm:h-20">
             
-            {/* Left: Official Brand Logo */}
+            {/* Left: Official Brand Logo (Enhanced Prominence) */}
             <Link 
               href="/" 
               className="flex items-center group focus:outline-none shrink-0"
               aria-label="TSK One IT - Home"
             >
-              <div className="relative h-11 sm:h-12 w-36 sm:w-44 flex items-center justify-start shrink-0">
+              <div className="relative h-13 sm:h-14 lg:h-16 w-44 sm:w-52 lg:w-64 flex items-center justify-start shrink-0">
                 <Image
                   src={CLOUDINARY_IMAGES.logo}
                   alt="TSK One IT Logo"
                   fill
-                  sizes="(max-width: 640px) 144px, 176px"
+                  sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 256px"
                   className="object-contain object-left group-hover:scale-105 transition-transform duration-300"
                   priority
                 />
@@ -262,7 +262,7 @@ export default function Navbar() {
                     {/* Top Level Nav Button */}
                     <Link
                       href={div.href}
-                      className={`flex items-center gap-1.5 text-[13px] xl:text-[14px] font-extrabold uppercase tracking-wide transition-colors py-5 cursor-pointer ${
+                      className={`flex items-center gap-1.5 text-[13.5px] xl:text-[14.5px] font-extrabold uppercase tracking-wide transition-colors py-6 sm:py-7 cursor-pointer ${
                         isOpen ? 'text-[#0284c7]' : 'text-slate-800 hover:text-[#0284c7]'
                       }`}
                       aria-expanded={isOpen}
@@ -378,13 +378,13 @@ export default function Navbar() {
                 <Link
                   href="/"
                   onClick={() => setIsDrawerOpen(false)}
-                  className="relative h-10 w-36 flex items-center justify-start"
+                  className="relative h-12 w-48 flex items-center justify-start"
                 >
                   <Image
                     src={CLOUDINARY_IMAGES.logo}
                     alt="TSK One IT Logo"
                     fill
-                    sizes="144px"
+                    sizes="192px"
                     className="object-contain object-left"
                   />
                 </Link>

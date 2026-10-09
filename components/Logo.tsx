@@ -18,15 +18,15 @@ function Logo({
       className={`group/logo inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-lg p-1 transition-transform ${className}`}
       aria-label="TSK OneIT - Your Trusted Technology Partner"
     >
-      <div className="relative h-11 sm:h-12 w-36 sm:w-44 flex items-center justify-start shrink-0">
+      <div className="relative h-13 sm:h-14 lg:h-16 w-44 sm:w-52 lg:w-64 flex items-center justify-start shrink-0">
         <Image
           src={CLOUDINARY_IMAGES.logo}
           alt="TSK One IT Logo"
           fill
-          sizes="(max-width: 640px) 144px, 176px"
+          sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 256px"
           className="size-full object-contain object-left group-hover/logo:scale-105 transition-all duration-300"
           priority
-          quality={90}
+          quality={95}
         />
       </div>
     </Link>

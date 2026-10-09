@@ -96,7 +96,7 @@ export default function ServiceCategoryPageTemplate({
       <section 
         id="top"
         aria-label={`${overlayTitle || categoryKicker} Hero Showcase`}
-        className={`relative w-full ${bannerBg} overflow-hidden pt-15 sm:pt-16 select-none group/hero`}
+        className={`relative w-full ${bannerBg} overflow-hidden pt-18 sm:pt-20 select-none group/hero`}
       >
         {/* Responsive Banner Container */}
         <div className={`relative w-full ${bannerAspectRatio} max-w-[1920px] mx-auto overflow-hidden ${bannerBg}`}>

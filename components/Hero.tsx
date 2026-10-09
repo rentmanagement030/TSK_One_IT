@@ -124,7 +124,7 @@ export default function Hero() {
     <section 
       id="top"
       aria-label="TSK One IT Hero Showcase"
-      className="relative w-full bg-white overflow-hidden pt-15 sm:pt-16 select-none group/hero"
+      className="relative w-full bg-white overflow-hidden pt-18 sm:pt-20 select-none group/hero"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
