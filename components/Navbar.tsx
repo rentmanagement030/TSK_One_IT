@@ -487,7 +487,7 @@ export default function Navbar() {
                         {/* RIGHT COLUMN: 2-Column Grid of Service Cards with Matching Images */}
                         <div className="col-span-8 bg-white rounded-2xl border border-slate-200/80 p-3 sm:p-3.5 flex flex-col shadow-sm">
                           {/* Dynamically equally-divided Grid of Service Cards */}
-                          <div className={`grid grid-cols-2 gap-2.5 sm:gap-3.5 h-full flex-1 ${
+                          <div className={`grid grid-cols-2 gap-2.5 sm:gap-3 h-full flex-1 ${
                             activeSubCategory.items.length <= 4 ? 'grid-rows-2' : 'grid-rows-3'
                           }`}>
                             {activeSubCategory.items.map((item) => {
@@ -498,32 +498,34 @@ export default function Navbar() {
                                   key={item.name}
                                   href={item.href}
                                   onClick={() => handleServiceClick(item.name)}
-                                  className={`group/item flex items-center rounded-2xl bg-slate-100/80 hover:bg-sky-50 border border-transparent hover:border-sky-200 hover:shadow-sm transition-all duration-150 cursor-pointer h-full ${
-                                    isCompact ? 'gap-3 p-2.5 sm:p-3' : 'gap-4 p-3 sm:p-4'
+                                  className={`group/item flex items-center rounded-2xl bg-slate-100/80 hover:bg-sky-50 border border-slate-200/50 hover:border-sky-300 hover:shadow-sm transition-all duration-200 cursor-pointer h-full ${
+                                    isCompact ? 'gap-2.5 p-2 sm:p-2.5' : 'gap-3.5 p-2.5 sm:p-3'
                                   }`}
                                 >
-                                  {/* Left Thumbnail Image - Scaled to fill the card nicely */}
+                                  {/* Left Thumbnail Image - Proportional & Cleanly Framed */}
                                   <div className={`relative shrink-0 rounded-xl overflow-hidden bg-slate-200 border border-slate-300/70 shadow-inner ${
                                     isCompact 
-                                      ? 'w-16 sm:w-20 h-14 sm:h-16' 
-                                      : 'w-24 sm:w-28 h-20 sm:h-24'
+                                      ? 'w-13 h-13 sm:w-14 sm:h-14' 
+                                      : 'w-16 h-16 sm:w-18 sm:h-18'
                                   }`}>
                                     <Image
                                       src={item.image}
                                       alt={item.name}
                                       fill
-                                      sizes={isCompact ? "100px" : "150px"}
+                                      sizes={isCompact ? "80px" : "120px"}
                                       className="object-cover group-hover/item:scale-105 transition-transform duration-300"
                                     />
                                   </div>
-                                  {/* Right Title */}
-                                  <span className={`font-black text-slate-900 group-hover/item:text-[#0284c7] transition-colors leading-snug ${
-                                    isCompact 
-                                      ? 'text-xs sm:text-[13px] line-clamp-2' 
-                                      : 'text-sm sm:text-base'
-                                  }`}>
-                                    {item.name}
-                                  </span>
+                                  {/* Right Title Container - Vertically Centered & Well Spaced */}
+                                  <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                    <span className={`font-black text-slate-900 group-hover/item:text-[#0284c7] transition-colors leading-snug ${
+                                      isCompact 
+                                        ? 'text-xs sm:text-[13px] line-clamp-2' 
+                                        : 'text-[13px] sm:text-sm line-clamp-2'
+                                    }`}>
+                                      {item.name}
+                                    </span>
+                                  </div>
                                 </Link>
                               );
                             })}

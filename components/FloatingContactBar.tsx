@@ -83,14 +83,14 @@ export default function FloatingContactBar() {
         </a>
       </aside>
 
-      {/* Single Official WhatsApp Floating Button */}
+      {/* Single Official WhatsApp Floating Button (Desktop & Tablet only: hidden md:flex so mobile uses the bottom sticky action bar) */}
       <aside aria-label="Quick contact actions">
         <a
           href="https://wa.me/919150843991?text=Hi%20TSK%20OneIT%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp Chat - Connect with TSK OneIT support"
-          className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6 flex items-center justify-center size-14 sm:size-15 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white shadow-2xl shadow-green-500/40 hover:scale-110 active:scale-95 transition-all duration-300 border-2 border-white/60 focus:outline-none focus:ring-4 focus:ring-green-400 group cursor-pointer"
+          className="hidden md:flex fixed bottom-6 right-6 z-50 items-center justify-center size-15 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white shadow-2xl shadow-green-500/40 hover:scale-110 active:scale-95 transition-all duration-300 border-2 border-white/60 focus:outline-none focus:ring-4 focus:ring-green-400 group cursor-pointer"
         >
           {/* Subtle live radar ping ring */}
           <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 group-hover:animate-ping -z-10" />

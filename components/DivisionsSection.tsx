@@ -1,21 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
 import { 
   Laptop, 
   Home, 
   Building2, 
-  CheckCircle2, 
   ArrowRight, 
-  X, 
-  Sparkles,
-  ShieldCheck, 
+  Clock,
   Wrench, 
   Cpu, 
   Database, 
   HardDrive, 
+  ShieldCheck,
   Truck, 
   Tv, 
   Video, 
@@ -30,9 +28,7 @@ import {
   Code2,
   Lock,
   Mic,
-  Lightbulb,
-  ExternalLink,
-  Clock
+  Lightbulb
 } from 'lucide-react';
 
 export interface ServiceDetail {
@@ -280,20 +276,6 @@ export const divisionsData: DivisionItem[] = [
 ];
 
 export default function DivisionsSection() {
-  const [selectedDivision, setSelectedDivision] = useState<DivisionItem | null>(null);
-
-  // Lock background body scroll when modal is open to prevent mobile jump
-  React.useEffect(() => {
-    if (selectedDivision) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedDivision]);
-
   return (
     <section 
       id="divisions"
@@ -356,9 +338,9 @@ export default function DivisionsSection() {
             const Icon = division.icon;
             return (
               <ScrollReveal key={division.id} animation="fade-up" delay={idx * 150}>
-                <div 
-                  onClick={() => setSelectedDivision(division)}
-                  className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-sky-300 shadow-md hover:shadow-2xl transition-all duration-500 ease-out flex flex-col overflow-hidden cursor-pointer h-[460px] sm:h-[480px] transform hover:-translate-y-2"
+                <Link 
+                  href={division.slug}
+                  className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-sky-300 shadow-md hover:shadow-2xl transition-all duration-500 ease-out flex flex-col overflow-hidden cursor-pointer h-[460px] sm:h-[480px] transform hover:-translate-y-2 block"
                 >
                   {/* FULL-CARD IMAGE LAYER (Always 100% height, zooms on hover) */}
                   <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-slate-950">
@@ -410,153 +392,23 @@ export default function DivisionsSection() {
 
                     {/* Bottom Action Link + Services Count */}
                     <div className="pt-3.5 mt-3.5 border-t border-slate-100 group-hover:border-slate-300/80 flex items-center justify-between transition-colors">
-                      <Link 
-                        href={division.slug}
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-2 text-sm font-bold text-[#1e40af] hover:text-[#0284c7] transition-all py-1"
-                      >
+                      <div className="inline-flex items-center gap-2 text-sm font-bold text-[#1e40af] group-hover:text-[#0284c7] transition-all py-1">
                         <span>Explore {division.name}</span>
                         <ArrowRight className="size-4 group-hover:translate-x-1.5 transition-transform" />
-                      </Link>
+                      </div>
                       <span className="text-xs font-bold text-slate-400 group-hover:text-slate-700 transition-colors">
                         {division.services.length} Services
                       </span>
                     </div>
                   </div>
 
-                </div>
+                </Link>
               </ScrollReveal>
             );
           })}
         </div>
 
       </div>
-
-      {/* DETAILED DRILL-DOWN MODAL / DRAWER (Opened when user clicks a card) */}
-      {selectedDivision && (
-        <div 
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-division-title"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8 bg-slate-950/85 animate-fadeIn"
-          onClick={() => setSelectedDivision(null)}
-        >
-          <div 
-            className="relative w-full max-w-4xl max-h-[85vh] sm:max-h-[88vh] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="relative bg-[#0b1b3a] text-white p-5 sm:p-7 flex items-center justify-between overflow-hidden shrink-0 border-b border-white/10">
-              <div className="relative z-10 space-y-1 max-w-[65%] sm:max-w-none">
-                <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold text-sky-400 uppercase tracking-wider">
-                  <span>TSK OneIT &bull; Division Overview</span>
-                </div>
-                <h3 id="modal-division-title" className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
-                  {selectedDivision.name}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 font-medium line-clamp-1 sm:line-clamp-none">
-                  {selectedDivision.tagline}
-                </p>
-              </div>
-
-              {/* Top Action Buttons (Direct Page Link + Close) */}
-              <div className="relative z-10 flex items-center gap-2.5 sm:gap-3 shrink-0">
-                <Link
-                  href={selectedDivision.slug}
-                  onClick={() => setSelectedDivision(null)}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow transition-transform active:scale-95"
-                >
-                  <span className="hidden sm:inline">Go to Dedicated Page</span>
-                  <span className="sm:hidden">Full Page</span>
-                  <ArrowRight className="size-3.5" />
-                </Link>
-
-                <button 
-                  onClick={() => setSelectedDivision(null)}
-                  aria-label="Close detailed view"
-                  className="size-9 sm:size-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 cursor-pointer"
-                >
-                  <X className="size-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Body: Complete Detailed Services List */}
-            <div className="p-4 sm:p-6 lg:p-8 overflow-y-auto overscroll-contain space-y-4 [scrollbar-width:thin]">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm sm:text-base font-bold text-slate-900">
-                  Comprehensive Services Breakdown ({selectedDivision.services.length} Specialized Capabilities)
-                </h4>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                {selectedDivision.services.map((srv) => {
-                  const SrvIcon = srv.icon;
-                  return (
-                    <div 
-                      key={srv.title}
-                      className="p-4 rounded-xl sm:rounded-2xl bg-[#f8fafc] border border-slate-200/80 hover:bg-white hover:border-sky-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <div className="size-8 sm:size-9 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
-                            <SrvIcon className="size-4 sm:size-4.5" />
-                          </div>
-                          <span className="text-[10px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">
-                            {srv.badge}
-                          </span>
-                        </div>
-
-                        <h5 className="text-sm font-bold text-slate-900 leading-snug mb-1">
-                          {srv.title}
-                        </h5>
-
-                        <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                          {srv.desc}
-                        </p>
-                      </div>
-
-                      <div className="mt-3 pt-2 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
-                        <CheckCircle2 className="size-3.5" />
-                        <span>Certified Support Available</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Modal Footer CTA */}
-            <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-              <div className="text-xs text-slate-600 text-center sm:text-left">
-                Need immediate assistance for <strong>{selectedDivision.name}</strong>?
-              </div>
-
-              <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                <Link
-                  href="#contact"
-                  onClick={() => setSelectedDivision(null)}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-sm shadow active:scale-95 transition-all text-center"
-                >
-                  <span>Book Free Consultation</span>
-                  <ArrowRight className="size-4" />
-                </Link>
-
-                <a
-                  href="https://wa.me/919150843991?text=Hi%20TSK%20OneIT,%20I%20would%20like%20to%20inquire%20about%20your%20services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow active:scale-95 transition-all text-center"
-                >
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
-
     </section>
   );
 }
